@@ -1,0 +1,17 @@
+.project
+.settings
+.classpath
+.factorypath
+.externalToolBuilders
+
+# [maven]
+target
+
+# [gradle]
+.gradle
+build
+bin
+
+# 
+.apt_generated
+.apt_generated_tests

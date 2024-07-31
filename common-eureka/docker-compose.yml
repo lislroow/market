@@ -1,0 +1,24 @@
+services:
+  prod.common-eureka:
+    image: common-eureka:latest
+    restart: no
+    environment:
+      APP_NAME: common-eureka
+      SPRING_PROFILE: prod
+    networks:
+      - prod-default
+
+  local.common-eureka:
+    image: common-eureka:latest
+    restart: no
+    environment:
+      APP_NAME: common-eureka
+      SPRING_PROFILE: local
+    networks:
+      - local-default
+
+networks:
+  prod-default:
+    external: true
+  local-default:
+    external: true

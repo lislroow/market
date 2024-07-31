@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 seconds">
+  <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <!-- <pattern>%d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(%C){cyan}:%L{cyan} ## %msg%n</pattern> -->
+      <pattern>%p %C:%L ## %msg%n</pattern>
+    </encoder>
+  </appender>
+  
+  <logger name="log4jdbc.log4j2" level="OFF"/>
+  <logger name="jdbc.sqlonly" level="OFF"/>
+  <logger name="jdbc.sqltiming" level="DEBUG"/>
+  <logger name="jdbc.audit" level="OFF"/>
+  <logger name="jdbc.resultset" level="OFF"/>
+  <logger name="jdbc.resultsettable" level="DEBUG"/>
+  <logger name="jdbc.connection" level="OFF"/>
+  
+  <logger name="com.zaxxer.hikari.pool.HikariPool" level="info">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.security.web" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <root level="info">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>

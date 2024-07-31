@@ -1,0 +1,28 @@
+# [eclipse]
+.settings
+.classpath
+.factorypath
+.externalToolBuilders
+
+*/.settings
+*/.classpath
+*/.factorypath
+*/.externalToolBuilders
+
+
+# [maven]
+target
+.mvn
+
+*/target
+*/.mvn
+
+
+# [gradle]
+.gradle
+build
+bin
+
+*/.gradle
+*/build
+*/bin

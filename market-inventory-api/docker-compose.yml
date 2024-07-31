@@ -1,0 +1,31 @@
+services:
+  prod.market-inventory-api:
+    image: market-inventory-api:latest
+    restart: always
+    environment:
+      APP_NAME: market-inventory-api
+      SPRING_PROFILE: prod
+    volumes:
+      - market_upload:/upload
+    networks:
+      - prod-default
+
+  local.market-inventory-api:
+    image: market-inventory-api:latest
+    restart: always
+    environment:
+      APP_NAME: market-inventory-api
+      SPRING_PROFILE: local
+    volumes:
+      - market_upload:/upload
+    networks:
+      - local-default
+
+volumes:
+  market_upload:
+
+networks:
+  prod-default:
+    external: true
+  local-default:
+    external: true

@@ -1,0 +1,57 @@
+spring:
+  
+  data:
+    redis:
+      host: prod.redis
+      port: 6379
+  
+  session:
+    timeout: 1800
+    redis:
+      flush-mode: immediate
+      save-mode: on-set-attribute
+      namespace: spring
+
+framework:
+  
+  webmvc:
+
+    tomcat:
+      enable: true
+      port: 8382
+      valve:
+        access-log:
+          directory: "/log"
+          prefix: "access"
+          suffix: ".log"
+          rotatable: false
+          pattern: "%{X-Forwarded-For}i %h %l %u %t \"%{Referer}i\" \"%r\" %s %b"
+  
+  database:
+    datasource:
+      driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
+      jdbc-url: jdbc:log4jdbc:mariadb://prod.mariadb-market-delivery:3402/market-delivery
+      username: mkuser
+      password: 1
+      maximum-pool-size: 3
+      minimum-idle: 2
+      connection-timeout: 250
+      initialization-fail-timeout: 0
+
+    mybatis:
+      config-file: classpath:mybatis.xml
+      mapper-location: classpath*:mybatis/**/*.xml
+    
+    jpa:
+      generate-ddl: false
+      show-sql: false
+      properties:
+        hibernate:
+          hbm2ddl.auto: update     # none update create create-drop
+          dialect: org.hibernate.dialect.MariaDBDialect
+          physical_naming_strategy: spring.framework.database.jpa.ImprovedNamingStrategy
+
+  kafka:
+    bootstrap-servers: prod.cp-kafka:9092
+    group-id: market-app
+    auto-offset-reset: earliest

@@ -1,0 +1,113 @@
+plugins {
+  id 'java-library'
+  id 'maven-publish'
+  id 'org.springframework.boot' version '3.2.5'
+  id 'io.spring.dependency-management'
+}
+
+ext {
+  dependencyRepos = {
+    maven { url = uri('https://repo.maven.apache.org/maven2/') }
+    maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
+    mavenLocal()
+  }
+  
+  publishingRepos = {
+    maven {
+      url = "https://nexus.mgkim.net/repository/maven-${rootProject.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+      credentials {
+        username = findProperty('nexusUsername') ?: System.getenv('NEXUS_USERNAME')
+        password = findProperty('nexusPassword') ?: System.getenv('NEXUS_PASSWORD')
+      }
+    }
+    maven {
+      url = uri('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
+    }
+  }
+  
+  publishingPom = {
+    name = project.name
+    description = 'mgkim.net common-auth'
+    url = 'http://lislroow.github.io'
+    licenses {
+      license {
+        name = 'The Apache License, Version 2.0'
+        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+      }
+    }
+    developers {
+      developer {
+        id = 'lislroow'
+        name = 'Myeonggu Kim'
+        email = 'hi@mgkim.net'
+      }
+    }
+    scm {
+      connection = 'git@github.com:lislroow/common-auth.git'
+      developerConnection = 'git@github.com:lislroow/common-auth.git'
+      url = 'https://github.com/lislroow/common-auth'
+    }
+  }
+}
+
+group = 'spring.application'
+version = '0.1-SNAPSHOT'
+
+repositories dependencyRepos
+
+java {
+  sourceCompatibility = JavaVersion.VERSION_17
+  targetCompatibility = JavaVersion.VERSION_17
+}
+
+dependencyManagement {
+  imports {
+    mavenBom 'spring.framework.modules:modules-bom:0.1-SNAPSHOT'
+  }
+}
+
+dependencies {
+  api 'org.springframework.boot:spring-boot-starter-security'
+  api 'org.springframework.boot:spring-boot-starter-oauth2-client'
+  api 'org.springframework.security:spring-security-oauth2-jose'
+  api 'jakarta.servlet:jakarta.servlet-api'
+  api 'org.apache.tomcat.embed:tomcat-embed-jasper'
+  api 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+  api 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+  api 'spring.framework.modules:common'
+  api 'spring.framework.modules:database'
+  api 'spring.framework.modules:webmvc'
+  api 'spring.framework.modules:kafka'
+  api 'spring.framework.modules:encrypt:0.1-SNAPSHOT'
+  api 'org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1'
+  annotationProcessor 'org.projectlombok:lombok'
+}
+
+springBoot {
+  mainClass = 'spring.MainApplication'
+}
+
+task sourceJar(type: Jar) {
+  from sourceSets.main.allJava
+  archiveClassifier = "sources"
+}
+
+publishing {
+  repositories publishingRepos
+  publications {
+    maven(MavenPublication) {
+      from(components.java)
+      artifact bootJar
+      artifact sourceJar
+      pom publishingPom
+    }
+  }
+}
+
+tasks.withType(JavaCompile) {
+  options.encoding = 'utf-8'
+}
+
+tasks.withType(Javadoc) {
+  options.encoding = 'utf-8'
+}

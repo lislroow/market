@@ -1,0 +1,63 @@
+#spring:
+
+common:
+  gateway:
+    common-auth:
+      path: 
+        /auth/**,
+        /oauth2/authorization/*,
+        /login/oauth2/code/*,
+        /api/auth/**
+      uri: http://prod.common-auth:8180
+    admin-sample-api:
+      path: 
+        /api/admin/sample/**
+      uri: http://prod.admin-sample-api:8280
+    admin-sample-jsp:
+      path: 
+        /jsp/admin/sample/**
+      uri: http://prod.admin-sample-jsp:8380
+    admin-sample-ws:
+      path: 
+        /ws/admin/sample
+      uri: ws://prod.admin-sample-ws:8480
+    admin-user-api:
+      path: 
+        /api/admin/user/**
+      uri: http://prod.admin-user-api:8281
+    # [ market ]
+    market-customer-api:
+      path: 
+        /api/market/customer/**
+      uri: http://prod.market-customer-api:8381
+    market-delivery-api:
+      path: 
+        /api/market/delivery/**
+      uri: http://prod.market-delivery-api:8382
+    market-inventory-api:
+      path: 
+        /api/market/inventory/**
+      uri: http://prod.market-inventory-api:8383
+    market-order-api:
+      path: 
+        /api/market/order/**
+      uri: http://prod.market-order-api:8384
+    market-product-api:
+      path: 
+        /api/market/product/**
+      uri: http://prod.market-product-api:8385
+    ## -- [ market ]
+
+
+framework:
+  
+  tomcat:
+    enable: true
+    port: 8080
+    valve:
+      access-log:
+        directory: "/logs/gateway"
+        prefix: "gateway-access"
+        suffix: ".log"
+        rotatable: false
+        pattern: "%{X-Forwarded-For}i %h %l %u %t \"%{Referer}i\" \"%r\" %s %b"
