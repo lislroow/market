@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="1 seconds">
+  <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder>
+      <!-- <pattern>%d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(%C){cyan}:%L{cyan} ## %msg%n</pattern> -->
+      <pattern>%p %C:%L ## %msg%n</pattern>
+    </encoder>
+  </appender>
+  <root level="info">
+    <appender-ref ref="STDOUT"/>
+  </root>
+</configuration>
