@@ -74,7 +74,7 @@ public class CustomOAuth2UserServiceTest {
     ClientRegistration googleRegistration = builder.build();
     
     // change it: 'tokenValue'
-    String tokenValue = "ya29.a0AXooCgsI6MHdEIzkstbMou_NBglmseoIoSCFrzPqxcNRutuz8y4CVDgv9eorTfELLjb_wNk64hrCQ2Uxj6rm7_nNGWkMaHpsZ3dDP0BC_dpsOCBw5ftds4rdaFjkrAQec3DpN3FeurIFDLGWopmVAwyhA_wzaKImTYcaCgYKAWASARISFQHGX2MijmH3uKb0mzJpVAl9v1Gu2w0170"; // change it
+    String tokenValue = ""; // change it
     Instant issuedAt = Instant.now();
     Instant expiresAt = issuedAt.plus(24l, ChronoUnit.HOURS);
     Set<String> scopes = Set.of("https://www.googleapis.com/auth/userinfo.profile", "https://www.googleapis.com/auth/userinfo.email", "openid");
@@ -87,7 +87,7 @@ public class CustomOAuth2UserServiceTest {
         scopes);
     
     // change it: id_token
-    Map<String, Object> additionalParameters = Map.of("id_token", "eyJhbGciOiJSUzI1NiIsImtpZCI6IjY3MTk2NzgzNTFhNWZhZWRjMmU3MDI3NGJiZWE2MmRhMmE4YzRhMTIiLCJ0eXAiOiJKV1QifQ.eyJpc3MiOiJodHRwczovL2FjY291bnRzLmdvb2dsZS5jb20iLCJhenAiOiIxMjU2NjA1Mjk4OTktNzcwdWJqdWR0bGJnMGZncTQ3cTc2OGt1NW4wM3VrdXAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJhdWQiOiIxMjU2NjA1Mjk4OTktNzcwdWJqdWR0bGJnMGZncTQ3cTc2OGt1NW4wM3VrdXAuYXBwcy5nb29nbGV1c2VyY29udGVudC5jb20iLCJzdWIiOiIxMDg1NjgxNTMzODY5MDM0MDg3NDkiLCJlbWFpbCI6Im1na2ltLm5ldEBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwiYXRfaGFzaCI6IjNxTkpPcklRYnlUMXFpZXJscG1Ib2ciLCJuYW1lIjoi66y066qF7JmVIiwicGljdHVyZSI6Imh0dHBzOi8vbGgzLmdvb2dsZXVzZXJjb250ZW50LmNvbS9hL0FDZzhvY0xJY3paNDM4NEFfakpVS0Z5MnUzeWc3Si1FR3d3d1JqZGtnZnJIb1E3VF9IMkVsU1U9czk2LWMiLCJnaXZlbl9uYW1lIjoi66y066qF7JmVIiwiaWF0IjoxNzE3MDQ4OTE4LCJleHAiOjE3MTcwNTI1MTh9.Mh1WHL3wFJJg0tVvdljhVnf6l8EqhKUx1yOOdAJsIg61T6K4cuDyCVCtZUniAiKozyaFn6awXcQcom2BAM5saXEGrhyeAuQ1WEGeacmXYYJ1K4dGtC6eCtYEBIIGIblMMGJ6cKFLVlXquvL_V5aZtSl7XoFNotjjBX5rpMRtzzvXwPrdkeZyltX9Wty1BIoAi8cBa-SLNYMnOPfmvL1vJD7eLfqSO3u5qNWspOaqP5_njuSkGbScXNcU1RqI_-nwsRetFuoQaVitG1hKVoNnpP5X-XOS2rEqfbghDp2cdlItquB3ip9NJt1Rs-vW-8HVkVODXALb9UEXs89D2p4OAw");  // change it
+    Map<String, Object> additionalParameters = Map.of("id_token", "");  // change it
     OAuth2User oauth2User = this.userService.loadUser(new OAuth2UserRequest(
         googleRegistration, accessToken, additionalParameters));
     
