@@ -1,0 +1,24 @@
+services:
+  prod.market-com-gateway:
+    image: market-com-gateway:latest
+    restart: always
+    environment:
+      APP_NAME: market-com-gateway
+      SPRING_PROFILE: prod
+    networks:
+      - prod-default
+
+  local.market-com-gateway:
+    image: market-com-gateway:latest
+    restart: always
+    environment:
+      APP_NAME: market-com-gateway
+      SPRING_PROFILE: local
+    networks:
+      - local-default
+
+networks:
+  prod-default:
+    external: true
+  local-default:
+    external: true
