@@ -55,6 +55,8 @@ public class SecurityConfig {
           .requestMatchers("/auth/login", "/WEB-INF/jsp/auth/login.jsp").permitAll()
           .requestMatchers("/auth/login/process").permitAll()
           .requestMatchers("/api/auth/user").permitAll()
+          .requestMatchers("/actuator/**").permitAll()
+          .requestMatchers("/error").permitAll()
           .anyRequest().authenticated();
         }
       )

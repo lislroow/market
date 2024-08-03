@@ -29,6 +29,11 @@
   
   <dependencies>
     <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-actuator</artifactId>
+    </dependency>
+    
+    <dependency>
       <groupId>spring.application</groupId>
       <artifactId>market-dto</artifactId>
       <version>0.1-SNAPSHOT</version>
