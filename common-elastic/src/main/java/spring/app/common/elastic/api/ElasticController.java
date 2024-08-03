@@ -38,4 +38,5 @@ public class ElasticController {
     SearchResponse response = client.search(request, RequestOptions.DEFAULT);
     return response.toString();
   }
+  
 }
