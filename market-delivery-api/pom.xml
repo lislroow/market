@@ -12,15 +12,15 @@
     <java.version>17</java.version>
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.source>17</maven.compiler.source>
-    <modules-bom.version>0.1-SNAPSHOT</modules-bom.version>
+    <springboot-3.x-bom.version>0.1-SNAPSHOT</springboot-3.x-bom.version>
   </properties>
   
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>spring.framework.modules</groupId>
-        <artifactId>modules-bom</artifactId>
-        <version>${modules-bom.version}</version>
+        <groupId>spring.framework</groupId>
+        <artifactId>springboot-3.x-bom</artifactId>
+        <version>${springboot-3.x-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -34,19 +34,19 @@
       <version>0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>spring.framework.modules</groupId>
+      <groupId>spring.framework</groupId>
       <artifactId>common</artifactId>
     </dependency>
     <dependency>
-      <groupId>spring.framework.modules</groupId>
+      <groupId>spring.framework</groupId>
       <artifactId>database</artifactId>
     </dependency>
     <dependency>
-      <groupId>spring.framework.modules</groupId>
+      <groupId>spring.framework</groupId>
       <artifactId>webmvc</artifactId>
     </dependency>
     <dependency>
-      <groupId>spring.framework.modules</groupId>
+      <groupId>spring.framework</groupId>
       <artifactId>kafka</artifactId>
     </dependency>
     <dependency>

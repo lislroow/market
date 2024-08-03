@@ -62,7 +62,7 @@ java {
 
 dependencyManagement {
   imports {
-    mavenBom 'spring.framework.modules:modules-bom:0.1-SNAPSHOT'
+    mavenBom 'spring.framework.modules:springboot-3.x-bom:0.1-SNAPSHOT'
   }
 }
 

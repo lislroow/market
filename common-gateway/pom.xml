@@ -12,7 +12,7 @@
     <java.version>17</java.version>
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.source>17</maven.compiler.source>
-    <modules-bom.version>0.1-SNAPSHOT</modules-bom.version>
+    <springboot-3.x-bom.version>0.1-SNAPSHOT</springboot-3.x-bom.version>
   </properties>
   
   <dependencyManagement>
@@ -32,9 +32,9 @@
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>spring.framework.modules</groupId>
-        <artifactId>modules-bom</artifactId>
-        <version>${modules-bom.version}</version>
+        <groupId>spring.framework</groupId>
+        <artifactId>springboot-3.x-bom</artifactId>
+        <version>${springboot-3.x-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -55,7 +55,7 @@
       <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
     </dependency>
     <!--<dependency>
-      <groupId>spring.framework.modules</groupId>
+      <groupId>spring.framework</groupId>
       <artifactId>common</artifactId>
     </dependency>-->
   </dependencies>

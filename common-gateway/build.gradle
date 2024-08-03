@@ -64,7 +64,7 @@ dependencyManagement {
   imports {
     mavenBom 'org.springframework.cloud:spring-cloud-dependencies:2023.0.0'
     mavenBom 'org.springframework.boot:spring-boot-dependencies:3.2.5'
-    mavenBom 'spring.framework.modules:modules-bom:0.1-SNAPSHOT'
+    mavenBom 'spring.framework.modules:springboot-3.x-bom:0.1-SNAPSHOT'
   }
 }
 
