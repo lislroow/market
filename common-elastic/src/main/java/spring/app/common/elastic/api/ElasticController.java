@@ -7,16 +7,26 @@ import org.elasticsearch.client.RestHighLevelClient;
 import org.elasticsearch.index.query.QueryBuilders;
 import org.elasticsearch.search.builder.SearchSourceBuilder;
 import org.elasticsearch.search.sort.SortOrder;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @RestController
-@AllArgsConstructor
+@RequiredArgsConstructor
 public class ElasticController {
   
+  @NonNull
+  private ElasticService elasticService;
+  @NonNull
   private RestHighLevelClient client;
+  
+  @GetMapping("/api/es/fibonacci/{days}")
+  public Long hello(@PathVariable("days") Integer days) {
+    return elasticService.findByDays(days);
+  }
   
   @GetMapping("/hello")
   public String hello() throws Exception {
@@ -38,5 +48,4 @@ public class ElasticController {
     SearchResponse response = client.search(request, RequestOptions.DEFAULT);
     return response.toString();
   }
-  
 }
