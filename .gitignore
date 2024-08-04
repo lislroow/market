@@ -1,9 +1,11 @@
 # [eclipse]
+.project
 .settings
 .classpath
 .factorypath
 .externalToolBuilders
 
+*/.project
 */.settings
 */.classpath
 */.factorypath
