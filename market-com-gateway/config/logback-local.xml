@@ -8,8 +8,9 @@
   <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <!-- <pattern>%d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(%C){cyan}:%L{cyan} ## %msg%n</pattern> -->
+    <!-- <pattern>%d{HH:mm:ss.SSS} %p %C:%L ## %msg%n</pattern> -->
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %p %C:%L ## %msg%n</pattern>
+      <pattern>%d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%C]){cyan}:%L{cyan} ## %msg%n</pattern>
     </encoder>
   </appender>
   
@@ -27,6 +28,11 @@
   
   <logger name="ESC_JSON" level="debug" additivity="false">
     <appender-ref ref="ECS_JSON_FILE_APPENDER"/>
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  
+  
+  <logger name="com.netflix.discovery.DiscoveryClient" level="warn" additivity="false">
     <appender-ref ref="STDOUT"/>
   </logger>
   

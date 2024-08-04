@@ -7,7 +7,7 @@
   
   <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
     <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %-5level %C:%L ## %msg%n</pattern>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%C]){cyan}:%L{cyan} ## %msg%n</pattern>
     </encoder>
   </appender>
   
@@ -25,6 +25,11 @@
   
   <logger name="ESC_JSON" level="debug" additivity="false">
     <appender-ref ref="ECS_JSON_FILE_APPENDER"/>
+  </logger>
+  
+  
+  <logger name="com.netflix.discovery.DiscoveryClient" level="warn" additivity="false">
+    <appender-ref ref="STDOUT"/>
   </logger>
   
   <root level="info">
