@@ -13,11 +13,11 @@
 127.0.0.1     local.admin-sample-svc
 127.0.0.1     local.admin-sample-ws
 127.0.0.1     local.admin-user-api
-127.0.0.1     local.market-customer-api
-127.0.0.1     local.market-delivery-api
-127.0.0.1     local.market-inventory-api
-127.0.0.1     local.market-order-api
-127.0.0.1     local.market-product-api
+127.0.0.1     local.market-api-customer
+127.0.0.1     local.market-api-delivery
+127.0.0.1     local.market-api-inventory
+127.0.0.1     local.market-api-order
+127.0.0.1     local.market-api-product
 127.0.0.1     local.cp-kafka
 127.0.0.1     local.cp-kafka-connect
 127.0.0.1     local.mariadb-market-customer

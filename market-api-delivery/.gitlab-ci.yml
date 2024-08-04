@@ -1,0 +1,59 @@
+stages:
+  - build
+  - deploy
+
+cache:
+  paths:
+    - ${CI_PROJECT_DIR}/envs
+
+variables:
+  APP_NAME: market-api-delivery
+  CACHE_ENV_PATH: ${CI_PROJECT_DIR}/envs
+  MAVEN_SETTINGS: ./.mvn/wrapper/settings.xml
+  MAVEN_OPTS: "-Dmaven.repo.local=${CACHE_ENV_PATH}/${CI_COMMIT_REF_NAME}/.m2/repository"
+  DOCKER_DRIVER: overlay2
+  DOCKER_TLS_CERTDIR: ""
+  REGISTRY_HOST: docker.io
+
+build-maven:
+  stage: build
+  image: amazoncorretto:17-alpine-jdk
+  before_script:
+    - export JAVA_HOME=/usr/lib/jvm/java-17-amazon-corretto
+  script:
+    - ls -al "${JAVA_HOME}/bin/java"
+    - chmod u+x ./mvnw
+    - ./mvnw ${MAVEN_OPTS} -U clean package -s ${MAVEN_SETTINGS}
+  artifacts:
+    paths:
+      - target/*.jar
+    expire_in: 7 days
+  only:
+    #- dev
+    - prod
+
+deploy-docker:
+  image: docker:latest
+  stage: deploy
+  services:
+    - docker:dind
+  variables:
+    DOCKER_HOST: unix:///var/run/docker.sock
+  before_script:
+    - echo "${DOCKER_REGISTRY_PASSWORD}" | docker login ${REGISTRY_HOST} -u $DOCKER_REGISTRY_USER --password-stdin
+  script:
+    - cat Dockerfile
+    - docker build -t ${APP_NAME}:latest .
+    - docker image tag ${APP_NAME}:latest ${DOCKER_REGISTRY_USER}/${APP_NAME}:latest
+    - docker push ${REGISTRY_HOST}/${DOCKER_REGISTRY_USER}/${APP_NAME}:latest
+    - docker rmi -f $(docker images -f "dangling=true" -q) || true
+    - docker ps | grep ${CI_COMMIT_REF_NAME}.${APP_NAME} && docker-compose -p ${CI_COMMIT_REF_NAME} down ${CI_COMMIT_REF_NAME}.${APP_NAME}
+    - docker-compose -p ${CI_COMMIT_REF_NAME} up ${CI_COMMIT_REF_NAME}.${APP_NAME} -d
+  after_script:
+    - docker logout
+  only:
+    #- dev
+    - prod
+  needs:
+    - job: build-maven
+      artifacts: true

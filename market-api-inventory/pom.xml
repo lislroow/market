@@ -2,7 +2,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>spring.application</groupId>
-  <artifactId>market-com-gateway</artifactId>
+  <artifactId>market-api-inventory</artifactId>
   <version>0.1-SNAPSHOT</version>
   
   <properties>
@@ -17,20 +17,6 @@
   
   <dependencyManagement>
     <dependencies>
-      <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>2023.0.2</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-dependencies</artifactId>
-        <version>3.2.5</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
       <dependency>
         <groupId>spring.framework</groupId>
         <artifactId>springboot-3.x-bom</artifactId>
@@ -48,27 +34,29 @@
     </dependency>
     
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-gateway</artifactId>
+      <groupId>spring.application</groupId>
+      <artifactId>market-dto</artifactId>
+      <version>0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>
+      <groupId>spring.framework</groupId>
+      <artifactId>common</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
-    </dependency>
-    
-    <!-- logging for elastic -->
-    <dependency>
-      <groupId>co.elastic.logging</groupId>
-      <artifactId>logback-ecs-encoder</artifactId>
-      <version>1.6.0</version>
+      <groupId>spring.framework</groupId>
+      <artifactId>database</artifactId>
     </dependency>
     <dependency>
-      <groupId>org.projectlombok</groupId>
-      <artifactId>lombok</artifactId>
+      <groupId>spring.framework</groupId>
+      <artifactId>webmvc</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>spring.framework</groupId>
+      <artifactId>kafka</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.bgee.log4jdbc-log4j2</groupId>
+      <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
     </dependency>
   </dependencies>
   
@@ -97,7 +85,7 @@
     </plugins>
   </build>
   
-  <!--<repositories>
+  <repositories>
     <repository>
       <id>maven-public</id>
       <url>https://nexus.mgkim.net/repository/maven-public/</url>
@@ -109,5 +97,5 @@
         <enabled>true</enabled>
       </releases>
     </repository>
-  </repositories>-->
+  </repositories>
 </project>
