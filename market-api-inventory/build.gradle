@@ -67,6 +67,7 @@ dependencyManagement {
 }
 
 dependencies {
+  api 'spring.application:market-api:0.1-SNAPSHOT'
   api 'spring.application:market-dto:0.1-SNAPSHOT'
   api 'spring.framework.modules:common'
   api 'spring.framework.modules:database'
