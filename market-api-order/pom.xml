@@ -44,22 +44,6 @@
       <version>0.1-SNAPSHOT</version>
     </dependency>
     <dependency>
-      <groupId>spring.framework</groupId>
-      <artifactId>common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>spring.framework</groupId>
-      <artifactId>database</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>spring.framework</groupId>
-      <artifactId>webmvc</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>spring.framework</groupId>
-      <artifactId>kafka</artifactId>
-    </dependency>
-    <dependency>
       <groupId>org.bgee.log4jdbc-log4j2</groupId>
       <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
     </dependency>
