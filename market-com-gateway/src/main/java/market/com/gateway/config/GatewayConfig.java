@@ -1,5 +1,9 @@
 package market.com.gateway.config;
 
+//import java.net.URLDecoder;
+//import java.nio.charset.Charset;
+
+import org.slf4j.MDC;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,9 +22,12 @@ public class GatewayConfig {
   @Order(Ordered.LOWEST_PRECEDENCE)
   GlobalFilter customGlobalFilter() {
     return (exchange, chain) -> {
-      log.info("Global Filter: Pre-processing, {}", exchange.getRequest().getURI());
+      //String url = URLDecoder.decode(exchange.getRequest().getURI().toString(), Charset.forName("utf-8"));
+      MDC.put("requestUrl", exchange.getRequest().getURI().toString());
+      MDC.put("clientIp", exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
+      log.info("");
       return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-        log.info("Global Filter: Post-processing, {}", exchange.getRequest().getURI());
+        //log.info("Global Filter: Post-processing, {}", exchange.getRequest().getURI());
       }));
     };
   }
