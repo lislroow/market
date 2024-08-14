@@ -88,6 +88,13 @@
       <artifactId>log4jdbc-log4j2-jdbc4.1</artifactId>
     </dependency>
     
+    <!-- logging for elastic -->
+    <dependency>
+      <groupId>co.elastic.logging</groupId>
+      <artifactId>logback-ecs-encoder</artifactId>
+      <version>1.6.0</version>
+    </dependency>
+    
     <!-- for test -->
     <dependency>
       <groupId>org.springframework.boot</groupId>

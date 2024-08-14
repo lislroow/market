@@ -26,7 +26,7 @@
     </rollingPolicy>
   </appender>
   
-  <logger name="ESC_JSON" level="debug" additivity="false">
+  <logger name="ECS_JSON" level="debug" additivity="false">
     <appender-ref ref="ECS_JSON_FILE_APPENDER"/>
     <appender-ref ref="STDOUT"/>
   </logger>

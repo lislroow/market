@@ -14,7 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
 
-@Slf4j(topic = "ESC_JSON")
+@Slf4j(topic = "ECS_JSON")
 @Configuration
 public class GatewayConfig {
 

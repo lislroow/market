@@ -25,3 +25,4 @@
 127.0.0.1     local.mariadb-market-inventory
 127.0.0.1     local.mariadb-market-order
 127.0.0.1     local.mariadb-market-product
+127.0.0.1     local.zipkin
