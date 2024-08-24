@@ -17,7 +17,7 @@ import spring.app.market.api.order.repository.OrderRepository;
 import spring.app.market.dto.order.OrderDTO;
 import spring.framework.common.user.SessionUser;
 import spring.framework.common.user.User;
-import spring.framework.webmvc.SessionContext;
+import spring.framework.config.webmvc.SessionContext;
 
 @Service
 @Transactional(readOnly = true)

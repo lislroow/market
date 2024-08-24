@@ -15,7 +15,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import spring.app.market.api.customer.dto.CustomerDeliveryREQ;
-import spring.framework.common.app.YN;
+import spring.framework.enumcode.YN;
 
 @Entity
 @Data

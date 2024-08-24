@@ -3,7 +3,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="spring.app.common.auth.session.UserMapper">
 
-  <insert id="saveSnsUser" parameterType="SnsUser">
+  <insert id="saveSnsUser">
     INSERT INTO user_sns (
       site,
       sns_id,
@@ -22,7 +22,7 @@
       mdate = now()
   </insert>
   
-  <select id="selectUserBySnsUser" parameterType="SnsUser" resultType="User">
+  <select id="selectUserBySnsUser">
     SELECT b.*
     FROM   user_sns_rel a
            INNER JOIN user b ON a.uid = b.uid
@@ -30,7 +30,7 @@
        AND a.sns_id = #{snsId}
   </select>
   
-  <insert id="insertUserWithSnsUser" parameterType="SnsUser">
+  <insert id="insertUserWithSnsUser">
     INSERT INTO user (
       uid,
       password,
@@ -52,7 +52,7 @@
     )
   </insert>
   
-  <insert id="insertUserSnsRel" parameterType="SnsUser">
+  <insert id="insertUserSnsRel">
     INSERT INTO user_sns_rel (
       uid,
       site,
@@ -68,7 +68,7 @@
     )
   </insert>
   
-  <select id="selectUserByEmail" parameterType="java.lang.String" resultType="User">
+  <select id="selectUserByEmail">
     SELECT b.*
     FROM   user b
     WHERE  b.email = #{email}

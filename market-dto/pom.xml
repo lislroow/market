@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>spring.application</groupId>
   <artifactId>market-dto</artifactId>
-  <version>0.1-SNAPSHOT</version>
+  <parent>
+    <groupId>spring.app</groupId>
+    <artifactId>market-bom</artifactId>
+    <version>0.1-SNAPSHOT</version>
+  </parent>
   
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
@@ -15,22 +18,10 @@
     <springboot-3.x-bom.version>0.1-SNAPSHOT</springboot-3.x-bom.version>
   </properties>
   
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>spring.framework</groupId>
-        <artifactId>springboot-3.x-bom</artifactId>
-        <version>${springboot-3.x-bom.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
-  
   <dependencies>
     <dependency>
-      <groupId>spring.framework</groupId>
-      <artifactId>common</artifactId>
+      <groupId>spring.app</groupId>
+      <artifactId>market-common</artifactId>
     </dependency>
   </dependencies>
   
@@ -38,34 +29,6 @@
     <defaultGoal>compile</defaultGoal>
     <directory>${basedir}/target</directory>
     <finalName>${project.artifactId}-${project.version}</finalName>
-    <pluginManagement>
-      <plugins>
-      </plugins>
-    </pluginManagement>
   </build>
   
-  <repositories>
-    <repository>
-      <id>maven-public</id>
-      <url>https://nexus.mgkim.net/repository/maven-public/</url>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-  </repositories>
-  
-  <distributionManagement>
-    <snapshotRepository>
-      <id>maven-snapshots</id>
-      <url>https://nexus.mgkim.net/repository/maven-snapshots/</url>
-    </snapshotRepository>
-    <repository>
-      <id>maven-releases</id>
-      <url>https://nexus.mgkim.net/repository/maven-releases/</url>
-    </repository>
-  </distributionManagement>
 </project>

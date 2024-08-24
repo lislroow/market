@@ -27,7 +27,7 @@ ext {
   
   publishingPom = {
     name = project.name
-    description = 'mgkim.net market-api'
+    description = 'mgkim.net market-common'
     url = 'http://lislroow.github.io'
     licenses {
       license {
@@ -43,9 +43,9 @@ ext {
       }
     }
     scm {
-      connection = 'git@github.com:lislroow/market-api.git'
-      developerConnection = 'git@github.com:lislroow/market-api.git'
-      url = 'https://github.com/lislroow/market-api'
+      connection = 'git@github.com:lislroow/market-common.git'
+      developerConnection = 'git@github.com:lislroow/market-common.git'
+      url = 'https://github.com/lislroow/market-common'
     }
   }
 }

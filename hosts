@@ -1,28 +1,21 @@
-127.0.0.1     wildfly-cluster
-
-172.28.200.10 devops
 127.0.0.1     local.redis
-127.0.0.1     local.mariadb-develop
-127.0.0.1     local.gitlab
 127.0.0.1     local.nexus
 127.0.0.1     local.scouter-server
-127.0.0.1     local.common-auth
-127.0.0.1     local.common-gateway
-127.0.0.1     local.admin-sample-api
-127.0.0.1     local.admin-sample-jsp
-127.0.0.1     local.admin-sample-svc
-127.0.0.1     local.admin-sample-ws
-127.0.0.1     local.admin-user-api
-127.0.0.1     local.market-api-customer
-127.0.0.1     local.market-api-delivery
-127.0.0.1     local.market-api-inventory
-127.0.0.1     local.market-api-order
-127.0.0.1     local.market-api-product
 127.0.0.1     local.cp-kafka
 127.0.0.1     local.cp-kafka-connect
+127.0.0.1     local.mariadb-develop
 127.0.0.1     local.mariadb-market-customer
 127.0.0.1     local.mariadb-market-delivery
 127.0.0.1     local.mariadb-market-inventory
 127.0.0.1     local.mariadb-market-order
 127.0.0.1     local.mariadb-market-product
 127.0.0.1     local.zipkin
+
+192.168.1.127 N305
+
+# Added by Docker Desktop
+192.168.1.217 host.docker.internal
+192.168.1.217 gateway.docker.internal
+# To allow the same kube context to work on the host and the container:
+127.0.0.1 kubernetes.docker.internal
+# End of section

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>spring.application</groupId>
+  <groupId>spring.app</groupId>
   <artifactId>market-com-gateway</artifactId>
   <version>0.1-SNAPSHOT</version>
   
@@ -12,29 +12,24 @@
     <java.version>17</java.version>
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.source>17</maven.compiler.source>
-    <springboot-3.x-bom.version>0.1-SNAPSHOT</springboot-3.x-bom.version>
+    
+    <spring-boot.version>3.2.5</spring-boot.version>
+    <spring-cloud.version>2023.0.2</spring-cloud.version>
   </properties>
   
   <dependencyManagement>
     <dependencies>
       <dependency>
-        <groupId>org.springframework.cloud</groupId>
-        <artifactId>spring-cloud-dependencies</artifactId>
-        <version>2023.0.2</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-dependencies</artifactId>
-        <version>3.2.5</version>
+        <version>${spring-boot.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
       <dependency>
-        <groupId>spring.framework</groupId>
-        <artifactId>springboot-3.x-bom</artifactId>
-        <version>${springboot-3.x-bom.version}</version>
+        <groupId>org.springframework.cloud</groupId>
+        <artifactId>spring-cloud-dependencies</artifactId>
+        <version>${spring-cloud.version}</version>
         <type>pom</type>
         <scope>import</scope>
       </dependency>
@@ -60,7 +55,6 @@
       <artifactId>spring-cloud-starter-circuitbreaker-reactor-resilience4j</artifactId>
     </dependency>
     
-    
     <dependency>
       <groupId>io.micrometer</groupId>
       <artifactId>micrometer-tracing-bridge-brave</artifactId>
@@ -69,6 +63,7 @@
       <groupId>io.zipkin.reporter2</groupId>
       <artifactId>zipkin-reporter-brave</artifactId>
     </dependency>
+    
     <!-- additional -->
     <dependency>
       <groupId>io.zipkin.brave</groupId>
@@ -97,8 +92,7 @@
       <groupId>org.springframework.cloud</groupId>
       <artifactId>spring-cloud-starter-sleuth</artifactId>
     </dependency>-->
-
-
+    
     <!-- logging for elastic -->
     <dependency>
       <groupId>co.elastic.logging</groupId>
@@ -115,14 +109,11 @@
     <defaultGoal>compile</defaultGoal>
     <directory>${basedir}/target</directory>
     <finalName>${project.artifactId}-${project.version}</finalName>
-    <pluginManagement>
-      <plugins>
-      </plugins>
-    </pluginManagement>
     <plugins>
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
+        <version>${spring-boot.version}</version>
         <executions>
           <execution>
             <id>default-package</id>
@@ -135,18 +126,4 @@
       </plugin>
     </plugins>
   </build>
-
-  <!--<repositories>
-    <repository>
-      <id>maven-public</id>
-      <url>https://nexus.mgkim.net/repository/maven-public/</url>
-      <snapshots>
-        <enabled>true</enabled>
-        <updatePolicy>always</updatePolicy>
-      </snapshots>
-      <releases>
-        <enabled>true</enabled>
-      </releases>
-    </repository>
-  </repositories>-->
 </project>

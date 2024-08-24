@@ -1,0 +1,2 @@
+org.springframework.boot.BootstrapRegistryInitializer=\
+spring.framework.initial.BootstrapRegistryInitializer

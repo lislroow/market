@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import spring.framework.common.app.YN;
+import spring.framework.enumcode.YN;
 
 @Data
 @Builder

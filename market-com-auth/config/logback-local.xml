@@ -12,6 +12,7 @@
     </encoder>
   </appender>
   
+  <!-- 
   <appender name="ECS_JSON_FILE_APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <encoder class="co.elastic.logging.logback.EcsEncoder">
       <serviceName>${SERVICE_NAME}</serviceName>
@@ -23,12 +24,14 @@
       <maxHistory>${MAX_HISTORY}</maxHistory>
     </rollingPolicy>
   </appender>
+  -->
   
+  <!-- 
   <logger name="ECS_JSON" level="debug" additivity="false">
     <appender-ref ref="ECS_JSON_FILE_APPENDER"/>
     <appender-ref ref="STDOUT"/>
   </logger>
-  
+  -->
   
   <logger name="com.netflix.discovery.DiscoveryClient" level="warn" additivity="false">
     <appender-ref ref="STDOUT"/>

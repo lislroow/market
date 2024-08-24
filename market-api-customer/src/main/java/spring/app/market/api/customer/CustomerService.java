@@ -18,9 +18,9 @@ import spring.app.market.api.customer.entity.Customer;
 import spring.app.market.api.customer.entity.CustomerDelivery;
 import spring.app.market.api.customer.repository.CustomerDeliveryRepository;
 import spring.app.market.api.customer.repository.CustomerRepository;
-import spring.framework.common.app.YN;
-import spring.framework.common.util.Uuid;
-import spring.framework.webmvc.SessionContext;
+import spring.framework.config.webmvc.SessionContext;
+import spring.framework.enumcode.YN;
+import spring.framework.util.Uuid;
 
 @Service
 @Transactional(readOnly = true)

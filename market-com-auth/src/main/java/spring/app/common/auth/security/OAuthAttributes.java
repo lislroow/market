@@ -6,9 +6,9 @@ import java.util.Map;
 import lombok.Builder;
 import lombok.Getter;
 import spring.app.common.auth.user.entity.UserEntity;
-import spring.framework.common.app.YN;
 import spring.framework.common.user.Role;
-import spring.framework.common.util.Uuid;
+import spring.framework.enumcode.YN;
+import spring.framework.util.Uuid;
 
 @Getter
 public class OAuthAttributes {
