@@ -1,8 +1,8 @@
-package spring.app.market.api.inventory.repository;
+package spring.app.market.repository;
 
 import org.springframework.data.repository.Repository;
 
-import spring.app.market.api.inventory.entity.ProductInventory;
+import spring.app.market.entity.ProductInventory;
 
 public interface InventoryRepository extends Repository<ProductInventory, Integer>{
   

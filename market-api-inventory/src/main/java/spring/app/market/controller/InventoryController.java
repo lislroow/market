@@ -1,4 +1,4 @@
-package spring.app.market.api.inventory;
+package spring.app.market.controller;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import spring.app.market.api.inventory.dto.ProductInventoryREQ;
+import spring.app.market.dto.ProductInventoryREQ;
+import spring.app.market.service.InventoryService;
 
 @RestController
 public class InventoryController {

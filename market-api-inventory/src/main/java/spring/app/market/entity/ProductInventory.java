@@ -1,4 +1,4 @@
-package spring.app.market.api.inventory.entity;
+package spring.app.market.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import spring.app.market.api.inventory.dto.ProductInventoryREQ;
+import spring.app.market.dto.ProductInventoryREQ;
 
 @Entity
 @Data

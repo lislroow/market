@@ -1,4 +1,4 @@
-package spring.app.market.api.inventory;
+package spring.app.market.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import spring.app.market.api.inventory.dto.ProductInventoryREQ;
-import spring.app.market.api.inventory.entity.ProductInventory;
-import spring.app.market.api.inventory.repository.InventoryRepository;
-import spring.app.market.api.inventory.repository.ProductRepository;
+import spring.app.market.dto.ProductInventoryREQ;
+import spring.app.market.entity.ProductInventory;
+import spring.app.market.repository.InventoryRepository;
+import spring.app.market.repository.ProductRepository;
 
 @Service
 @Transactional(readOnly = true)
