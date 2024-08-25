@@ -14,8 +14,15 @@
     <maven.compiler.target>17</maven.compiler.target>
     <maven.compiler.source>17</maven.compiler.source>
     
+    <!--
     <spring-boot.version>3.2.5</spring-boot.version>
     <spring-cloud.version>2023.0.2</spring-cloud.version>
+    
+    <spring-boot.version>3.1.12</spring-boot.version>
+    <spring-cloud.version>2022.0.5</spring-cloud.version>
+    -->
+    <spring-boot.version>3.3.3</spring-boot.version>
+    <spring-cloud.version>2023.0.3</spring-cloud.version>
     <market-dto.version>0.1-SNAPSHOT</market-dto.version>
     <market-common.version>0.1-SNAPSHOT</market-common.version>
   </properties>
