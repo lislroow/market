@@ -10,9 +10,9 @@ import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.kafka.KafkaProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;
 import org.springframework.kafka.core.ConsumerFactory;
@@ -31,7 +31,6 @@ import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import spring.framework.common.Constant;
 
 @Configuration
-@Conditional(KafkaProperties.class)
 @EnableConfigurationProperties({KafkaProperties.class})
 public class KafkaConfig {
 
@@ -67,8 +66,8 @@ public class KafkaConfig {
   ConsumerFactory<String, Object> consumerFactory() {
     Map<String, Object> config = new HashMap<>();
     config.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, properties.getBootstrapServers());
-    config.put(ConsumerConfig.GROUP_ID_CONFIG, properties.getGroupId());
-    config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, properties.getAutoOffsetReset());
+    config.put(ConsumerConfig.GROUP_ID_CONFIG, "market-app");
+    config.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, "earliest");
     config.put(JsonDeserializer.TRUSTED_PACKAGES, "*"); // [issue] the class '...' is not in the trusted packages
     
     ObjectMapper objectMapper = null;
