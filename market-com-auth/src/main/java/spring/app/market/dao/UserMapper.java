@@ -1,4 +1,4 @@
-package spring.app.market.api.auth.dao;
+package spring.app.market.dao;
 
 import org.apache.ibatis.annotations.Mapper;
 
