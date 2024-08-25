@@ -23,8 +23,9 @@
     -->
     <spring-boot.version>3.3.3</spring-boot.version>
     <spring-cloud.version>2023.0.3</spring-cloud.version>
-    <market-dto.version>0.1-SNAPSHOT</market-dto.version>
-    <market-common.version>0.1-SNAPSHOT</market-common.version>
+    <market-lib-dto.version>0.1-SNAPSHOT</market-lib-dto.version>
+    <market-lib-api.version>0.1-SNAPSHOT</market-lib-api.version>
+    <market-lib-const.version>0.1-SNAPSHOT</market-lib-const.version>
   </properties>
   
   <dependencyManagement>
@@ -84,13 +85,18 @@
       
       <dependency>
         <groupId>spring.app</groupId>
-        <artifactId>market-common</artifactId>
-        <version>${market-common.version}</version>
+        <artifactId>market-lib-api</artifactId>
+        <version>${market-lib-api.version}</version>
       </dependency>
       <dependency>
         <groupId>spring.app</groupId>
-        <artifactId>market-dto</artifactId>
-        <version>${market-dto.version}</version>
+        <artifactId>market-lib-dto</artifactId>
+        <version>${market-lib-dto.version}</version>
+      </dependency>
+      <dependency>
+        <groupId>spring.app</groupId>
+        <artifactId>market-lib-const</artifactId>
+        <version>${market-lib-const.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

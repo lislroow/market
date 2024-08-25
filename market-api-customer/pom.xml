@@ -20,11 +20,7 @@
   <dependencies>
     <dependency>
       <groupId>spring.app</groupId>
-      <artifactId>market-common</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>spring.app</groupId>
-      <artifactId>market-dto</artifactId>
+      <artifactId>market-lib-api</artifactId>
     </dependency>
     
     <dependency>

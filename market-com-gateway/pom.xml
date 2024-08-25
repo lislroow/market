@@ -84,6 +84,11 @@
       <groupId>org.projectlombok</groupId>
       <artifactId>lombok</artifactId>
     </dependency>
+    
+    <dependency>
+      <groupId>spring.app</groupId>
+      <artifactId>market-lib-const</artifactId>
+    </dependency>
   </dependencies>
   
   <build>
@@ -94,16 +99,6 @@
       <plugin>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-maven-plugin</artifactId>
-        <version>${spring-boot.version}</version>
-        <executions>
-          <execution>
-            <id>default-package</id>
-            <phase>package</phase>
-            <goals>
-              <goal>repackage</goal>
-            </goals>
-          </execution>
-        </executions>
       </plugin>
     </plugins>
   </build>

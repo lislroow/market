@@ -23,6 +23,11 @@
       <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
       <!--<artifactId>spring-cloud-starter-netflix-eureka-client</artifactId>-->
     </dependency>
+    
+    <dependency>
+      <groupId>spring.app</groupId>
+      <artifactId>market-lib-const</artifactId>
+    </dependency>
   </dependencies>
   
   <build>
