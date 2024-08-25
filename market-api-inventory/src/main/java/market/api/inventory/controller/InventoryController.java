@@ -18,7 +18,7 @@ public class InventoryController {
     this.service = service;
   }
   
-  @PutMapping("/api/market/inventory/update-qty")
+  @PutMapping("/inventory/v1/update-qty")
   public void updateQty(@RequestBody List<ProductInventoryREQ> req) {
     service.updateQty(req);
   }

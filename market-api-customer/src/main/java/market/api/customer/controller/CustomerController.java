@@ -2,7 +2,6 @@ package market.api.customer.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,50 +20,46 @@ public class CustomerController {
   
   private CustomerService service;
   
-//  @Value("${test.name:-hello}")
-  private String name;
-  
   public CustomerController(CustomerService service) {
     this.service = service;
   }
   
-  @GetMapping("/api/market/customer/my-info")
+  @GetMapping("/customer/v1/my-info")
   public CustomerRES myInfo() {
     CustomerRES res = service.myInfo();
-    System.out.println("name:"+name);
     return res;
   }
   
-  @PutMapping("/api/market/customer/save-basic-info")
+  @PutMapping("/customer/v1/save-basic-info")
   public CustomerRES saveBasicInfo(@RequestBody CustomerREQ req) {
     CustomerRES res = service.saveBasicInfo(req);
     return res;
   }
   
-  @GetMapping("/api/market/customer/my-delivery-address")
+  @GetMapping("/customer/v1/my-delivery-address")
   public List<CustomerDeliveryRES> myDeliveryAddress() {
     List<CustomerDeliveryRES> res = service.myDeliveryAddress();
     return res;
   }
   
-  @PutMapping("/api/market/customer/save-delivery-address")
+  @PutMapping("/customer/v1/save-delivery-address")
   public List<CustomerDeliveryRES> saveDeliveryAddress(@RequestBody List<CustomerDeliveryREQ> req) {
     List<CustomerDeliveryRES> resList = service.saveDeliveryAddress(req);
     return resList;
   }
   
-  @DeleteMapping("/api/market/customer/delete-delivery-address")
+  @DeleteMapping("/customer/v1/delete-delivery-address")
   public List<CustomerDeliveryRES> deleteDeliveryAddress(@RequestBody List<CustomerDeliveryREQ> req) {
     List<CustomerDeliveryRES> resList = service.deleteDeliveryAddress(req);
     return resList;
   }
   
-  @PostMapping("/api/market/customer/init")
+  @PostMapping("/customer/v1/init")
   public void init() {
     service.init();
   }
   
-  @PostMapping("/api/market/customer/add")
+  @PostMapping("/customer/v1/add")
   public void add() {
     service.add();
   }

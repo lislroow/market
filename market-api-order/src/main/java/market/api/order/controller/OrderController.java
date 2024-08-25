@@ -20,12 +20,12 @@ public class OrderController {
     this.service = service;
   }
   
-  @PostMapping("/api/market/order/process")
+  @PostMapping("/order/v1/process")
   public void orderProducts(@RequestBody OrderREQ req) {
     service.process(req);
   }
   
-  @GetMapping("/api/market/order/my-orders")
+  @GetMapping("/order/v1/my-orders")
   public List<OrderRES> myOrder() {
     List<OrderRES> res = service.myOrders();
     return res;

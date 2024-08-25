@@ -29,13 +29,13 @@ public class ProductController {
     this.service = service;
   }
   
-  @GetMapping("/api/market/product/list")
+  @GetMapping("/product/v1/list")
   public List<ProductRES> list() {
     List<ProductRES> res = service.list();
     return res;
   }
   
-  @GetMapping("/api/market/product/{productId}")
+  @GetMapping("/product/v1/{productId}")
   public ProductDetailRES detail(
       @PathVariable(name = "productId", required = true) Integer productId) {
     ProductDetailRES res = null;
@@ -43,13 +43,13 @@ public class ProductController {
     return res;
   }
   
-  @PutMapping("/api/market/product/save-product-list")
+  @PutMapping("/product/v1/save-product-list")
   public List<ProductRES> saveProductList(@RequestBody List<ProductREQ> req) {
     List<ProductRES> resList = service.saveProductList(req);
     return resList;
   }
   
-  @PutMapping(value = "/api/market/product/save-product",
+  @PutMapping(value = "/product/v1/save-product",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ProductRES saveProduct(@RequestPart(name = "req") ProductREQ req,
       @RequestPart(name = "imgThumb", required = false) MultipartFile imgThumb) throws Exception {
@@ -57,19 +57,19 @@ public class ProductController {
     return res;
   }
   
-  @DeleteMapping(value = "/api/market/product/delete-product",
+  @DeleteMapping(value = "/product/v1/delete-product",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   public ProductRES deleteProduct(@RequestBody ProductREQ req) throws Exception {
     ProductRES res = service.deleteProduct(req);
     return res;
   }
   
-  @PostMapping("/api/market/product/init")
+  @PostMapping("/product/v1/init")
   public void init() {
     service.init();
   }
   
-  @PostMapping("/api/market/product/add")
+  @PostMapping("/product/v1/add")
   public void add() {
     service.add();
   }

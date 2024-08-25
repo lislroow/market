@@ -18,7 +18,7 @@ public class DeliveryController {
     this.service = service;
   }
   
-  @GetMapping("/api/market/delivery/status/{orderId}")
+  @GetMapping("/delivery/v1/status/{orderId}")
   public List<DeliveryRES> statusOrder(
       @PathVariable(name = "orderId", required = true) Integer orderId) {
     List<DeliveryRES> resList = service.statusOrder(orderId);
