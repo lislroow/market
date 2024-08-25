@@ -1,4 +1,4 @@
-package spring.app.market.api.customer;
+package spring.app.market.controller;
 
 import java.util.List;
 
@@ -10,10 +10,11 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import spring.app.market.api.customer.dto.CustomerDeliveryREQ;
-import spring.app.market.api.customer.dto.CustomerDeliveryRES;
-import spring.app.market.api.customer.dto.CustomerREQ;
-import spring.app.market.api.customer.dto.CustomerRES;
+import spring.app.market.dto.CustomerDeliveryREQ;
+import spring.app.market.dto.CustomerDeliveryRES;
+import spring.app.market.dto.CustomerREQ;
+import spring.app.market.dto.CustomerRES;
+import spring.app.market.service.CustomerService;
 
 @RestController
 public class CustomerController {

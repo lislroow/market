@@ -1,4 +1,4 @@
-package spring.app.market.api.customer;
+package spring.app.market.service;
 
 import java.time.LocalDateTime;
 import java.util.Arrays;
@@ -10,16 +10,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import spring.app.market.api.customer.dto.CustomerDeliveryREQ;
-import spring.app.market.api.customer.dto.CustomerDeliveryRES;
-import spring.app.market.api.customer.dto.CustomerREQ;
-import spring.app.market.api.customer.dto.CustomerRES;
-import spring.app.market.api.customer.entity.Customer;
-import spring.app.market.api.customer.entity.CustomerDelivery;
-import spring.app.market.api.customer.repository.CustomerDeliveryRepository;
-import spring.app.market.api.customer.repository.CustomerRepository;
 import spring.app.market.config.webmvc.SessionContext;
+import spring.app.market.dto.CustomerDeliveryREQ;
+import spring.app.market.dto.CustomerDeliveryRES;
+import spring.app.market.dto.CustomerREQ;
+import spring.app.market.dto.CustomerRES;
+import spring.app.market.entity.Customer;
+import spring.app.market.entity.CustomerDelivery;
 import spring.app.market.enumcode.YN;
+import spring.app.market.repository.CustomerDeliveryRepository;
+import spring.app.market.repository.CustomerRepository;
 import spring.app.market.util.Uuid;
 
 @Service

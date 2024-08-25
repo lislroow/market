@@ -1,4 +1,4 @@
-package spring.app.market.api.customer.dto;
+package spring.app.market.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

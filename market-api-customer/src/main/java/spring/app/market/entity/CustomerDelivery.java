@@ -1,4 +1,4 @@
-package spring.app.market.api.customer.entity;
+package spring.app.market.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import spring.app.market.api.customer.dto.CustomerDeliveryREQ;
+import spring.app.market.dto.CustomerDeliveryREQ;
 import spring.app.market.enumcode.YN;
 
 @Entity

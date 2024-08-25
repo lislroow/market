@@ -1,11 +1,11 @@
-package spring.app.market.api.customer.repository;
+package spring.app.market.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.Repository;
 
-import spring.app.market.api.customer.entity.CustomerDelivery;
+import spring.app.market.entity.CustomerDelivery;
 
 public interface CustomerDeliveryRepository extends Repository<CustomerDelivery, Integer> {
 

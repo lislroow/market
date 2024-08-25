@@ -1,4 +1,4 @@
-package spring.app.market.api.customer.entity;
+package spring.app.market.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -18,8 +18,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import spring.app.market.api.customer.dto.CustomerDeliveryREQ;
-import spring.app.market.api.customer.dto.CustomerREQ;
+import spring.app.market.dto.CustomerDeliveryREQ;
+import spring.app.market.dto.CustomerREQ;
 
 @Entity
 @DynamicInsert

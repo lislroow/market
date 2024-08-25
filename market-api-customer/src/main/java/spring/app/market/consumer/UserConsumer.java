@@ -1,4 +1,4 @@
-package spring.app.market.api.customer;
+package spring.app.market.consumer;
 
 import java.time.LocalDateTime;
 
@@ -7,9 +7,9 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.extern.slf4j.Slf4j;
-import spring.app.market.api.customer.entity.Customer;
-import spring.app.market.api.customer.repository.CustomerRepository;
 import spring.app.market.common.user.User;
+import spring.app.market.entity.Customer;
+import spring.app.market.repository.CustomerRepository;
 
 @Slf4j
 @Component
