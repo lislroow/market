@@ -9,8 +9,8 @@ import market.lib.vo.SessionUser;
 @RestController
 public class UserController {
   
-  @GetMapping("/api/auth/user")
-  public SessionUser user() throws Exception {
+  @GetMapping("/auth/v1/session")
+  public SessionUser session() throws Exception {
     SessionUser user = SessionContext.getUser().get();
     System.out.println(user);
     return user;

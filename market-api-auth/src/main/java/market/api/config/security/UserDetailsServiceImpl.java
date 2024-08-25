@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import market.api.auth.sql.UserSql;
 import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
@@ -24,6 +25,9 @@ public class UserDetailsServiceImpl implements UserDetailsService {
   UserRepository userRepository;
   
   @Autowired
+  UserSql userSql;
+  
+  @Autowired
   ModelMapper model;
   
   @Override
@@ -31,8 +35,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     String email = username;
     MDC.put("userId", email);
     ecslog.info("");
-    UserEntity entity = userRepository.findByEmail(email).orElseThrow();
-    User user = model.map(entity, User.class);
+    // jpa
+    //UserEntity entity = userRepository.findByEmail(email).orElseThrow();
+    //User user = model.map(entity, User.class);
+    // mybatis
+    User user = userSql.selectUserByEmail(email);
     SessionUser sessionUser = new SessionUser(user);
     return sessionUser;
   }

@@ -3,6 +3,7 @@ package market.lib.config.database;
 import javax.sql.DataSource;
 
 import org.apache.ibatis.session.ExecutorType;
+import org.apache.ibatis.type.JdbcType;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
@@ -62,7 +63,17 @@ public class MybatisConfig {
       sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);
     }
     // mybatis.xml 은 application.properties 의 mybatis 설정으로 대체
-    sqlSessionFactoryBean.setConfigurationProperties(mybatisProperties.getConfigurationProperties());
+    //sqlSessionFactoryBean.setConfigurationProperties(mybatisProperties.getConfigurationProperties());
+    // TODO 적용 안됨
+    //mybatisProperties.getConfiguration().applyTo((sqlSessionFactoryBean.getObject()).getConfiguration());
+    
+    // ---
+    org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
+    configuration.setJdbcTypeForNull(JdbcType.NULL);
+    configuration.setMapUnderscoreToCamelCase(true);
+    sqlSessionFactoryBean.setConfiguration(configuration);
+    // ---
+    
     // 페이징 처리를 위한 mybatis-plugin 추가
     sqlSessionFactoryBean.setPlugins(new market.lib.config.database.mybatis.PagingInterceptor());
     return sqlSessionFactoryBean;

@@ -1,4 +1,4 @@
-package market.api.auth.dao;
+package market.api.auth.sql;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -6,7 +6,7 @@ import market.lib.vo.SnsUser;
 import market.lib.vo.User;
 
 @Mapper
-public interface UserMapper {
+public interface UserSql {
   
   public int saveSnsUser(SnsUser param);
   public User selectUserBySnsUser(SnsUser param);
