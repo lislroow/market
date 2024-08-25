@@ -1,4 +1,4 @@
-package market.api.config.security;
+package market.api.security;
 
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
+import market.api.auth.repository.UserRepository;
 import market.api.auth.sql.UserSql;
 import market.lib.vo.SessionUser;
 import market.lib.vo.User;

@@ -25,12 +25,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 import lombok.RequiredArgsConstructor;
-import market.api.config.security.CustomAuthenticationFailureHandler;
-import market.api.config.security.CustomAuthenticationSuccessHandler;
-import market.api.config.security.CustomLogoutHandler;
-import market.api.config.security.CustomLogoutSuccessHandler;
-import market.api.config.security.CustomOAuth2LoginSuccessHandler;
-import market.api.config.security.UserDetailsServiceImpl;
+import market.api.security.CustomAuthenticationFailureHandler;
+import market.api.security.CustomAuthenticationSuccessHandler;
+import market.api.security.CustomLogoutHandler;
+import market.api.security.CustomLogoutSuccessHandler;
+import market.api.security.CustomOAuth2LoginSuccessHandler;
+import market.api.security.UserDetailsServiceImpl;
 
 @Configuration
 @EnableWebSecurity
@@ -45,16 +45,15 @@ public class SecurityConfig {
       .httpBasic((httpBasic) -> httpBasic.disable())
       .formLogin((formLogin) -> {
         formLogin
-          .loginProcessingUrl("/auth/login/process")
+          .loginProcessingUrl("/auth/v1/login/process")
           .failureHandler(authenticationFailureHandler())
           .successHandler(authenticationSuccessHandler());
       })
       .authenticationProvider(daoAuthenticationProvider())
       .authorizeHttpRequests((authorizeRequests) -> {
         authorizeRequests
-          .requestMatchers("/auth/login", "/WEB-INF/jsp/auth/login.jsp").permitAll()
-          .requestMatchers("/auth/login/process").permitAll()
-          .requestMatchers("/api/auth/user").permitAll()
+          .requestMatchers("/auth/v1/login/process").permitAll()
+          .requestMatchers("/auth/v1/session").permitAll()
           .requestMatchers("/actuator/**").permitAll()
           .requestMatchers("/error").permitAll()
           .anyRequest().authenticated();
@@ -80,7 +79,7 @@ public class SecurityConfig {
           //.sessionCreationPolicy(SessionCreationPolicy.NEVER);
       })
       .logout(logout -> { logout
-        .logoutUrl("/auth/logout")
+        .logoutUrl("/auth/v1/logout")
         .logoutSuccessUrl("/")
         .addLogoutHandler(customLogoutHandler())
         .logoutSuccessHandler(customLogoutSuccessHandler())

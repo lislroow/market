@@ -1,4 +1,4 @@
-package market.api.config.security;
+package market.api.security;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +13,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import lombok.extern.slf4j.Slf4j;
+import market.api.auth.entity.UserEntity;
+import market.api.auth.producer.UserProducer;
+import market.api.auth.repository.UserRepository;
 import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 

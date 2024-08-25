@@ -1,4 +1,4 @@
-package market.api.config.security;
+package market.api.security;
 
 import java.io.IOException;
 

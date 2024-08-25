@@ -1,4 +1,4 @@
-package market.api.config.security;
+package market.api.security;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.logout.LogoutHandler;

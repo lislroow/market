@@ -1,6 +1,7 @@
 package market.api.auth.sql;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import market.lib.vo.SnsUser;
 import market.lib.vo.User;
@@ -13,6 +14,6 @@ public interface UserSql {
   public int insertUserWithSnsUser(SnsUser param);
   public int insertUserSnsRel(SnsUser param);
   
-  public User selectUserByEmail(String email);
+  public User selectUserByEmail(@Param("email") String email);
   
 }

@@ -1,4 +1,4 @@
-package market.api.config.security;
+package market.api.auth.entity;
 
 import java.time.LocalDateTime;
 

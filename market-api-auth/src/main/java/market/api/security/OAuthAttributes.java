@@ -1,10 +1,11 @@
-package market.api.config.security;
+package market.api.security;
 
 import java.time.LocalDateTime;
 import java.util.Map;
 
 import lombok.Builder;
 import lombok.Getter;
+import market.api.auth.entity.UserEntity;
 import market.lib.enumcode.Role;
 import market.lib.enumcode.YN;
 import market.lib.util.Uuid;

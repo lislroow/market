@@ -1,4 +1,4 @@
-package market.api.config.security;
+package market.api.auth.producer;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
