@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.extern.slf4j.Slf4j;
 import spring.app.market.api.customer.entity.Customer;
 import spring.app.market.api.customer.repository.CustomerRepository;
-import spring.framework.common.user.User;
+import spring.app.market.common.user.User;
 
 @Slf4j
 @Component

@@ -13,7 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.RequiredArgsConstructor;
-import spring.framework.config.webmvc.security.CustomHttp403ForbiddenEntryPoint;
+import spring.app.market.config.webmvc.security.CustomHttp403ForbiddenEntryPoint;
 
 @Configuration
 @EnableWebSecurity

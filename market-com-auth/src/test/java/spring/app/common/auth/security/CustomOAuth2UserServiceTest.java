@@ -26,7 +26,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.util.StringUtils;
 
-import spring.MainApplication;
+import spring.app.market.MainApplication;
 
 @SpringBootTest
 @RunWith(SpringRunner.class)

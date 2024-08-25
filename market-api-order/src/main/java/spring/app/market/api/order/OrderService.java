@@ -14,10 +14,10 @@ import spring.app.market.api.order.entity.Customer;
 import spring.app.market.api.order.entity.Order;
 import spring.app.market.api.order.repository.CustomerRepository;
 import spring.app.market.api.order.repository.OrderRepository;
+import spring.app.market.common.user.SessionUser;
+import spring.app.market.common.user.User;
+import spring.app.market.config.webmvc.SessionContext;
 import spring.app.market.dto.order.OrderDTO;
-import spring.framework.common.user.SessionUser;
-import spring.framework.common.user.User;
-import spring.framework.config.webmvc.SessionContext;
 
 @Service
 @Transactional(readOnly = true)

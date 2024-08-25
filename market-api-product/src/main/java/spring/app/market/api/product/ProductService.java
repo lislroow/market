@@ -19,8 +19,8 @@ import spring.app.market.api.product.dto.ProductREQ;
 import spring.app.market.api.product.dto.ProductRES;
 import spring.app.market.api.product.entity.Product;
 import spring.app.market.api.product.repository.ProductRepository;
-import spring.framework.common.Constant;
-import spring.framework.util.Uuid;
+import spring.app.market.common.Constant;
+import spring.app.market.util.Uuid;
 
 @Service
 @Transactional(readOnly = true)
