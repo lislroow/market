@@ -1,4 +1,4 @@
-package spring.app.market.api.order.dto;
+package spring.app.market.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,8 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductREQ {
+public class OrderItemREQ {
   
-  private Integer id;
+  private Integer orderQty;
+  
+  private ProductREQ product;
   
 }

@@ -1,6 +1,4 @@
-package spring.app.market.api.order.dto;
-
-import java.util.List;
+package spring.app.market.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -14,12 +12,14 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerRES {
+public class OrderItemRES {
   
   private Integer id;
-  private String name;
+  private Integer orderQty;
   
-  @JsonIgnoreProperties({"customer"})
+  @JsonIgnoreProperties({"orderItems"})
   @ToString.Exclude
-  private List<OrderRES> orders;
+  private OrderRES order;
+  
+  private ProductRES product;
 }

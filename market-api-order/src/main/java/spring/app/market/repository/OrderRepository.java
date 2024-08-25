@@ -1,11 +1,11 @@
-package spring.app.market.api.order.repository;
+package spring.app.market.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.Repository;
 
-import spring.app.market.api.order.entity.Order;
+import spring.app.market.entity.Order;
 
 public interface OrderRepository extends Repository<Order, Integer>{
   

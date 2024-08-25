@@ -1,4 +1,4 @@
-package spring.app.market.api.order.dto;
+package spring.app.market.dto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package spring.app.market.api.order;
+package spring.app.market.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,16 +8,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import spring.app.market.api.order.dto.OrderREQ;
-import spring.app.market.api.order.dto.OrderRES;
-import spring.app.market.api.order.entity.Customer;
-import spring.app.market.api.order.entity.Order;
-import spring.app.market.api.order.repository.CustomerRepository;
-import spring.app.market.api.order.repository.OrderRepository;
 import spring.app.market.common.user.SessionUser;
 import spring.app.market.common.user.User;
 import spring.app.market.config.webmvc.SessionContext;
+import spring.app.market.dto.OrderREQ;
+import spring.app.market.dto.OrderRES;
 import spring.app.market.dto.order.OrderDTO;
+import spring.app.market.entity.Customer;
+import spring.app.market.entity.Order;
+import spring.app.market.producer.OrderProducer;
+import spring.app.market.repository.CustomerRepository;
+import spring.app.market.repository.OrderRepository;
 
 @Service
 @Transactional(readOnly = true)

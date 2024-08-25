@@ -1,4 +1,4 @@
-package spring.app.market.api.order;
+package spring.app.market.producer;
 
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
