@@ -1,4 +1,4 @@
-package spring.app.market.api.product.entity;
+package spring.app.market.entity;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;

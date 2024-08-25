@@ -1,4 +1,4 @@
-package spring.app.market.api.product;
+package spring.app.market.controller;
 
 import java.util.List;
 
@@ -14,9 +14,10 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.extern.slf4j.Slf4j;
-import spring.app.market.api.product.dto.ProductDetailRES;
-import spring.app.market.api.product.dto.ProductREQ;
-import spring.app.market.api.product.dto.ProductRES;
+import spring.app.market.dto.ProductDetailRES;
+import spring.app.market.dto.ProductREQ;
+import spring.app.market.dto.ProductRES;
+import spring.app.market.service.ProductService;
 
 @Slf4j
 @RestController

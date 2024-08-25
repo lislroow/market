@@ -1,4 +1,4 @@
-package spring.app.market.api.product.dto;
+package spring.app.market.dto;
 
 import java.util.ArrayList;
 import java.util.List;

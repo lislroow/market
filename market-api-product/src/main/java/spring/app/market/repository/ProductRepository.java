@@ -1,4 +1,4 @@
-package spring.app.market.api.product.repository;
+package spring.app.market.repository;
 
 import java.util.List;
 import java.util.Optional;
@@ -6,7 +6,7 @@ import java.util.Optional;
 //import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.Repository;
 
-import spring.app.market.api.product.entity.Product;
+import spring.app.market.entity.Product;
 
 public interface ProductRepository extends Repository<Product, Integer> {
   

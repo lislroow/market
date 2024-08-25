@@ -1,4 +1,4 @@
-package spring.app.market.api.product;
+package spring.app.market.service;
 
 import java.io.File;
 import java.nio.ByteBuffer;
@@ -14,12 +14,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import spring.app.market.api.product.dto.ProductDetailRES;
-import spring.app.market.api.product.dto.ProductREQ;
-import spring.app.market.api.product.dto.ProductRES;
-import spring.app.market.api.product.entity.Product;
-import spring.app.market.api.product.repository.ProductRepository;
 import spring.app.market.common.Constant;
+import spring.app.market.dto.ProductDetailRES;
+import spring.app.market.dto.ProductREQ;
+import spring.app.market.dto.ProductRES;
+import spring.app.market.entity.Product;
+import spring.app.market.repository.ProductRepository;
 import spring.app.market.util.Uuid;
 
 @Service

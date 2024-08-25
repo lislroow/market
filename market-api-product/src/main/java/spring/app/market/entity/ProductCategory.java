@@ -1,13 +1,10 @@
-package spring.app.market.api.product.entity;
+package spring.app.market.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,20 +15,13 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ProductInventory {
+public class ProductCategory {
   
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(columnDefinition = "int(7)")
   private Integer id;
   
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_id")
-  private Product product;
-  
-  @Column(columnDefinition = "int(5)")
-  private Integer totalQty;
-  
-  @Column(columnDefinition = "int(5)")
-  private Integer soldQty;
-  
+  @Column(columnDefinition = "varchar(50)")
+  private String name;
 }
