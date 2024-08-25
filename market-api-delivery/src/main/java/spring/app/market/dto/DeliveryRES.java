@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery.dto;
+package spring.app.market.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -7,7 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import spring.app.market.api.delivery.entity.Delivery;
+import spring.app.market.entity.Delivery;
 
 @Data
 @Builder

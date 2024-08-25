@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery.entity.id;
+package spring.app.market.entity.id;
 
 import java.io.Serializable;
 import java.util.Objects;

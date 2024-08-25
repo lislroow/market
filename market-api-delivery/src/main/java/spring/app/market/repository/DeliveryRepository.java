@@ -1,12 +1,12 @@
-package spring.app.market.api.delivery.repository;
+package spring.app.market.repository;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.repository.Repository;
 
-import spring.app.market.api.delivery.entity.Delivery;
-import spring.app.market.api.delivery.entity.id.DeliveryId;
+import spring.app.market.entity.Delivery;
+import spring.app.market.entity.id.DeliveryId;
 
 public interface DeliveryRepository extends Repository<Delivery, DeliveryId> {
   

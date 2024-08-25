@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery;
+package spring.app.market.controller;
 
 import java.util.List;
 
@@ -6,7 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import spring.app.market.api.delivery.dto.DeliveryRES;
+import spring.app.market.dto.DeliveryRES;
+import spring.app.market.service.DeliveryService;
 
 @RestController
 public class DeliveryController {

@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery;
+package spring.app.market.service;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -8,10 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import spring.app.market.api.delivery.dto.DeliveryRES;
-import spring.app.market.api.delivery.dto.OrderItemRES;
-import spring.app.market.api.delivery.entity.Delivery;
-import spring.app.market.api.delivery.repository.DeliveryRepository;
+import spring.app.market.dto.DeliveryRES;
+import spring.app.market.dto.OrderItemRES;
+import spring.app.market.entity.Delivery;
+import spring.app.market.repository.DeliveryRepository;
 
 @Service
 @Transactional(readOnly = true)

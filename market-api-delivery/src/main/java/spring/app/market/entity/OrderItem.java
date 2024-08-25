@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery.entity;
+package spring.app.market.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 

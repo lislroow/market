@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery.entity;
+package spring.app.market.entity;
 
 import java.time.LocalDateTime;
 
@@ -17,16 +17,17 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Product {
+public class Customer {
   
   @Id
-  private Integer id;
+  @Column(columnDefinition = "varchar(14)")
+  private String id;
   
-  @Column(columnDefinition = "varchar(500)")
+  @Column(columnDefinition = "varchar(50)")
   private String name;
   
-  @Column(columnDefinition = "varchar(2000)")
-  private String imgThumbUrl;
+  @Column(columnDefinition = "varchar(255)")
+  private String email;
   
   @Column(columnDefinition = "datetime(6)")
   @ColumnDefault(value = "current_timestamp(6)")

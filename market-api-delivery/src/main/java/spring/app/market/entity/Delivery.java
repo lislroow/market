@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery.entity;
+package spring.app.market.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -13,7 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import spring.app.market.api.delivery.entity.id.DeliveryId;
+import spring.app.market.entity.id.DeliveryId;
 
 @Entity
 @Data

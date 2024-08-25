@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery;
+package spring.app.market.consumer;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -12,12 +12,12 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import spring.app.market.api.delivery.entity.Delivery;
-import spring.app.market.api.delivery.entity.Order;
-import spring.app.market.api.delivery.entity.id.DeliveryId;
-import spring.app.market.api.delivery.repository.DeliveryRepository;
-import spring.app.market.api.delivery.repository.OrderRepository;
 import spring.app.market.dto.order.OrderDTO;
+import spring.app.market.entity.Delivery;
+import spring.app.market.entity.Order;
+import spring.app.market.entity.id.DeliveryId;
+import spring.app.market.repository.DeliveryRepository;
+import spring.app.market.repository.OrderRepository;
 
 @Slf4j
 @Component

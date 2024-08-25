@@ -1,4 +1,4 @@
-package spring.app.market.api.delivery.entity;
+package spring.app.market.entity;
 
 import java.util.ArrayList;
 import java.util.List;
