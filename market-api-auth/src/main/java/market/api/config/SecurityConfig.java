@@ -33,10 +33,10 @@ import market.api.security.CustomOAuth2LoginSuccessHandler;
 import market.api.security.UserDetailsServiceImpl;
 
 @Configuration
-@EnableWebSecurity
-@EnableConfigurationProperties(OAuth2ClientProperties.class)
 @RequiredArgsConstructor
 public class SecurityConfig {
+  
+  private final UserDetailsServiceImpl userDetailsServiceImpl;
   
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -88,9 +88,6 @@ public class SecurityConfig {
     ;
     return http.build();
   }
-  
-  @Autowired
-  private UserDetailsServiceImpl userDetailsServiceImpl;
   
   @Bean
   DaoAuthenticationProvider daoAuthenticationProvider() {
