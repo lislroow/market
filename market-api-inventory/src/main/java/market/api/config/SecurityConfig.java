@@ -8,17 +8,13 @@ import org.springframework.http.HttpMethod;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchy;
 import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 
-import lombok.RequiredArgsConstructor;
 import market.lib.config.webmvc.security.CustomHttp403ForbiddenEntryPoint;
 
 @Configuration
-@EnableWebSecurity
 @EnableConfigurationProperties(OAuth2ClientProperties.class)
-@RequiredArgsConstructor
 public class SecurityConfig {
   
   @Bean
