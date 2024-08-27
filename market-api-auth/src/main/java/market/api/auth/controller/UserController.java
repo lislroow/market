@@ -12,7 +12,6 @@ public class UserController {
   @GetMapping("/auth/v1/session")
   public SessionUser session() throws Exception {
     SessionUser user = SessionContext.getUser().get();
-    System.out.println(user);
     return user;
   }
 }
