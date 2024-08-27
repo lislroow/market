@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import market.api.customer.dto.CustomerDto;
+import market.api.customer.feign.UserControllerFeign;
 import market.api.customer.service.CustomerService;
 
 @RestController
@@ -18,10 +19,13 @@ import market.api.customer.service.CustomerService;
 public class CustomerController {
   
   private final CustomerService service;
+  private final UserControllerFeign userControllerFeign;
   
   @GetMapping("/customer/v1/my/info")
-  public CustomerDto.InfoRes getMyInfo() {
+  public CustomerDto.InfoRes getMyInfo() throws Exception {
     CustomerDto.InfoRes res = service.myInfo();
+    List<String> result = userControllerFeign.test();
+    System.out.println(result);
     return res;
   }
   

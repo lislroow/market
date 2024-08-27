@@ -39,6 +39,12 @@
   <logger name="org.apache.kafka.clients.NetworkClient" level="debug" additivity="false">
     <appender-ref ref="STDOUT"/>
   </logger>
+  <logger name="org.apache.hc" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.security" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
   
   <root level="info">
     <appender-ref ref="STDOUT"/>
