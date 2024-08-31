@@ -23,6 +23,7 @@
     -->
     <spring-boot.version>3.3.3</spring-boot.version>
     <spring-cloud.version>2023.0.3</spring-cloud.version>
+    <mybatis-spring-boot.version>3.0.3</mybatis-spring-boot.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <lombok.version>1.18.32</lombok.version>
     
@@ -50,7 +51,7 @@
       <dependency>
         <groupId>org.mybatis.spring.boot</groupId>
         <artifactId>mybatis-spring-boot</artifactId>
-        <version>3.0.3</version>
+        <version>${mybatis-spring-boot.version}</version>
         <scope>import</scope>
         <type>pom</type>
       </dependency>
