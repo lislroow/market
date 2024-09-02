@@ -13,6 +13,7 @@ import lombok.RequiredArgsConstructor;
 import market.api.customer.dto.CustomerDto;
 import market.api.customer.feign.UserControllerFeign;
 import market.api.customer.service.CustomerService;
+import market.lib.dto.ResponseDto;
 
 @RestController
 @RequiredArgsConstructor
@@ -22,17 +23,13 @@ public class CustomerController {
   private final UserControllerFeign userControllerFeign;
   
   @GetMapping("/customer/v1/my/info")
-  public CustomerDto.InfoRes getMyInfo() throws Exception {
-    CustomerDto.InfoRes res = service.myInfo();
-    List<String> result = userControllerFeign.test();
-    System.out.println(result);
-    return res;
+  public ResponseDto<CustomerDto.InfoRes> getMyInfo() throws Exception {
+    return ResponseDto.body(service.myInfo());
   }
   
   @PutMapping("/customer/v1/my/info")
-  public CustomerDto.InfoRes saveMyInfo(@RequestBody CustomerDto.InfoReq req) {
-    CustomerDto.InfoRes res = service.saveBasicInfo(req);
-    return res;
+  public ResponseDto<CustomerDto.InfoRes> saveMyInfo(@RequestBody CustomerDto.InfoReq req) {
+    return ResponseDto.body(service.saveBasicInfo(req));
   }
   
   @GetMapping("/customer/v1/my/delivery-address")
