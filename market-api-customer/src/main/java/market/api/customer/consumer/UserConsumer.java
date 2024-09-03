@@ -6,6 +6,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.api.customer.entity.Customer;
 import market.api.customer.repository.CustomerRepository;
@@ -13,13 +14,10 @@ import market.lib.vo.User;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class UserConsumer {
   
-  private CustomerRepository repository;
-  
-  public UserConsumer(CustomerRepository repository) {
-    this.repository = repository;
-  }
+  private final CustomerRepository repository;
   
   @KafkaListener(topics = "CustomOAuth2UserService.loadUser", containerFactory = "kafkaListener")
   @Transactional

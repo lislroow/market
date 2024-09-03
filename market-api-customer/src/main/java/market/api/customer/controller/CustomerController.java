@@ -10,7 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
-import market.api.customer.dto.CustomerDto;
+import market.api.customer.dto.CustomerReqDto;
+import market.api.customer.dto.CustomerResDto;
 import market.api.customer.feign.UserControllerFeign;
 import market.api.customer.service.CustomerService;
 import market.lib.dto.ResponseDto;
@@ -19,44 +20,49 @@ import market.lib.dto.ResponseDto;
 @RequiredArgsConstructor
 public class CustomerController {
   
-  private final CustomerService service;
+  private final CustomerService customerService;
   private final UserControllerFeign userControllerFeign;
   
   @GetMapping("/customer/v1/my/info")
-  public ResponseDto<CustomerDto.InfoRes> getMyInfo() throws Exception {
-    return ResponseDto.body(service.myInfo());
+  public ResponseDto<CustomerResDto.InfoRes> getMyInfo() throws Exception {
+    return ResponseDto.body(customerService.myInfo());
   }
   
   @PutMapping("/customer/v1/my/info")
-  public ResponseDto<CustomerDto.InfoRes> saveMyInfo(@RequestBody CustomerDto.InfoReq req) {
-    return ResponseDto.body(service.saveBasicInfo(req));
+  public ResponseDto<CustomerResDto.InfoRes> saveMyInfo(
+      @RequestBody CustomerReqDto.InfoReq request) {
+    return ResponseDto.body(customerService.saveBasicInfo(request));
   }
   
   @GetMapping("/customer/v1/my/delivery-address")
-  public List<CustomerDto.DeliveryRes> myDeliveryAddress() {
-    List<CustomerDto.DeliveryRes> res = service.myDeliveryAddress();
-    return res;
+  public ResponseDto<List<CustomerResDto.DeliveryRes>> myDeliveryAddress() {
+    List<CustomerResDto.DeliveryRes> res = customerService.myDeliveryAddress();
+    return ResponseDto.body(res);
   }
   
   @PutMapping("/customer/v1/my/delivery-address")
-  public List<CustomerDto.DeliveryRes> saveDeliveryAddress(@RequestBody List<CustomerDto.DeliveryReq> req) {
-    List<CustomerDto.DeliveryRes> resList = service.saveDeliveryAddress(req);
-    return resList;
+  public ResponseDto<List<CustomerResDto.DeliveryRes>> saveDeliveryAddress(
+      @RequestBody List<CustomerReqDto.DeliveryReq> request) {
+    List<CustomerResDto.DeliveryRes> resList = customerService.saveDeliveryAddress(request);
+    return ResponseDto.body(resList);
   }
   
   @DeleteMapping("/customer/v1/my/delivery-address")
-  public List<CustomerDto.DeliveryRes> deleteDeliveryAddress(@RequestBody List<CustomerDto.DeliveryReq> req) {
-    List<CustomerDto.DeliveryRes> resList = service.deleteDeliveryAddress(req);
-    return resList;
+  public ResponseDto<List<CustomerResDto.DeliveryRes>> deleteDeliveryAddress(
+      @RequestBody List<CustomerReqDto.DeliveryReq> request) {
+    List<CustomerResDto.DeliveryRes> resList = customerService.deleteDeliveryAddress(request);
+    return ResponseDto.body(resList);
   }
   
   @PostMapping("/customer/v1/init")
-  public void init() {
-    service.init();
+  public ResponseDto<?> init() {
+    customerService.init();
+    return ResponseDto.body();
   }
   
   @PostMapping("/customer/v1/add")
-  public void add() {
-    service.add();
+  public ResponseDto<?> add() {
+    customerService.add();
+    return ResponseDto.body();
   }
 }

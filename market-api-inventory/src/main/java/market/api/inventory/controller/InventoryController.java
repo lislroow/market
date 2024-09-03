@@ -6,21 +6,21 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import market.api.inventory.dto.ProductInventoryREQ;
+import lombok.RequiredArgsConstructor;
+import market.api.inventory.dto.InventoryReqDto;
 import market.api.inventory.service.InventoryService;
+import market.lib.dto.ResponseDto;
 
 @RestController
+@RequiredArgsConstructor
 public class InventoryController {
   
-  private InventoryService service;
+  private final InventoryService inventoryService;
   
-  public InventoryController(InventoryService service) {
-    this.service = service;
-  }
-  
-  @PutMapping("/inventory/v1/update-qty")
-  public void updateQty(@RequestBody List<ProductInventoryREQ> req) {
-    service.updateQty(req);
+  @PutMapping("/inventory/v1/qty")
+  public ResponseDto<?> qty(@RequestBody List<InventoryReqDto.UpdateQty> request) {
+    inventoryService.updateQty(request);
+    return ResponseDto.body();
   }
   
 }

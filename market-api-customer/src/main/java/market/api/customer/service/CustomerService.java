@@ -10,7 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import market.api.customer.dto.CustomerDto;
+import market.api.customer.dto.CustomerReqDto;
+import market.api.customer.dto.CustomerResDto;
 import market.api.customer.entity.Customer;
 import market.api.customer.entity.CustomerDelivery;
 import market.api.customer.repository.CustomerDeliveryRepository;
@@ -35,37 +36,37 @@ public class CustomerService {
     this.customerDeliveryRepository = customerDeliveryRepository;
   }
   
-  public CustomerDto.InfoRes myInfo() {
+  public CustomerResDto.InfoRes myInfo() {
     Customer entity = repository.findById(SessionContext.getUser().orElseThrow().getId()).get();
-    CustomerDto.InfoRes res = model.map(entity, CustomerDto.InfoRes.class);
+    CustomerResDto.InfoRes res = model.map(entity, CustomerResDto.InfoRes.class);
     return res;
   }
   
   @Transactional
-  public CustomerDto.InfoRes saveBasicInfo(CustomerDto.InfoReq req) {
+  public CustomerResDto.InfoRes saveBasicInfo(CustomerReqDto.InfoReq request) {
     Customer entity = repository.findById(SessionContext.getUser().orElseThrow().getId()).get();
-    entity.saveBasicInfo(req);
+    entity.saveBasicInfo(request);
     
     entity = repository.save(entity).orElseThrow();
     
-    CustomerDto.InfoRes res = model.map(entity, CustomerDto.InfoRes.class);
+    CustomerResDto.InfoRes res = model.map(entity, CustomerResDto.InfoRes.class);
     return res;
   }
   
-  public List<CustomerDto.DeliveryRes> myDeliveryAddress() {
+  public List<CustomerResDto.DeliveryRes> myDeliveryAddress() {
     String customerId = SessionContext.getUser().orElseThrow().getId();
     List<CustomerDelivery> entityList = customerDeliveryRepository.findByCustomerId(customerId);
-    List<CustomerDto.DeliveryRes> res = entityList
-        .stream().map(item -> model.map(item, CustomerDto.DeliveryRes.class))
+    List<CustomerResDto.DeliveryRes> res = entityList.stream()
+        .map(item -> model.map(item, CustomerResDto.DeliveryRes.class))
         .collect(Collectors.toList());
     return res;
   }
   
   @Transactional
-  public List<CustomerDto.DeliveryRes> saveDeliveryAddress(List<CustomerDto.DeliveryReq> req) {
+  public List<CustomerResDto.DeliveryRes> saveDeliveryAddress(List<CustomerReqDto.DeliveryReq> request) {
     String customerId = SessionContext.getUser().orElseThrow().getId();
     Customer customer = repository.findById(customerId).orElseThrow();
-    List<CustomerDelivery> entityList = req.stream()
+    List<CustomerDelivery> entityList = request.stream()
         .map(item -> {
           CustomerDelivery entity = model.map(item, CustomerDelivery.class);
           entity.setCustomer(customer);
@@ -73,20 +74,20 @@ public class CustomerService {
         })
         .collect(Collectors.toList());
     entityList = customerDeliveryRepository.saveAll(entityList);
-    List<CustomerDto.DeliveryRes> res = entityList
-        .stream().map(item -> model.map(item, CustomerDto.DeliveryRes.class))
+    List<CustomerResDto.DeliveryRes> res = entityList.stream()
+        .map(item -> model.map(item, CustomerResDto.DeliveryRes.class))
         .collect(Collectors.toList());
     return res;
   }
   
   @Transactional
-  public List<CustomerDto.DeliveryRes> deleteDeliveryAddress(List<CustomerDto.DeliveryReq> req) {
-    List<CustomerDelivery> entityList = req.stream().map(item -> {
-      return this.customerDeliveryRepository.findById(item.getId()).get();
-    }).collect(Collectors.toList());
+  public List<CustomerResDto.DeliveryRes> deleteDeliveryAddress(List<CustomerReqDto.DeliveryReq> request) {
+    List<CustomerDelivery> entityList = request.stream()
+        .map(item -> this.customerDeliveryRepository.findById(item.getId()).get())
+        .collect(Collectors.toList());
     entityList = customerDeliveryRepository.deleteAll(entityList);
-    List<CustomerDto.DeliveryRes> res = entityList
-        .stream().map(item -> model.map(item, CustomerDto.DeliveryRes.class))
+    List<CustomerResDto.DeliveryRes> res = entityList.stream()
+        .map(item -> model.map(item, CustomerResDto.DeliveryRes.class))
         .collect(Collectors.toList());
     return res;
   }

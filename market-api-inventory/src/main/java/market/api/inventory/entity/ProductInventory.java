@@ -12,7 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import market.api.inventory.dto.ProductInventoryREQ;
+import market.api.inventory.dto.InventoryReqDto;
 
 @Entity
 @Data
@@ -35,8 +35,8 @@ public class ProductInventory {
   //@Column(columnDefinition = "int(5)")
   //private Integer soldQty;
   
-  public ProductInventory updateQty(ProductInventoryREQ req) {
-    this.totalQty = req.getTotalQty();
+  public ProductInventory updateQty(InventoryReqDto.UpdateQty request) {
+    this.totalQty = request.getTotalQty();
     //this.soldQty = req.getSoldQty();
     return this;
   }

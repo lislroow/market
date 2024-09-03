@@ -13,64 +13,69 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import market.api.product.dto.ProductDetailRES;
-import market.api.product.dto.ProductREQ;
-import market.api.product.dto.ProductRES;
+import market.api.product.dto.ProductReqDto;
+import market.api.product.dto.ProductResDto;
 import market.api.product.service.ProductService;
+import market.lib.dto.ResponseDto;
 
 @Slf4j
 @RestController
+@RequiredArgsConstructor
 public class ProductController {
   
-  private ProductService service;
-  
-  public ProductController(ProductService service) {
-    this.service = service;
-  }
+  private final ProductService productService;
   
   @GetMapping("/product/v1/list")
-  public List<ProductRES> list() {
-    List<ProductRES> res = service.list();
-    return res;
+  public ResponseDto<ProductResDto.ItemListRes> list() {
+    ProductResDto.ItemListRes resDto = new ProductResDto.ItemListRes();
+    resDto.setList(productService.list());
+    return ResponseDto.body(resDto);
   }
   
   @GetMapping("/product/v1/{productId}")
-  public ProductDetailRES detail(
-      @PathVariable(name = "productId", required = true) Integer productId) {
-    ProductDetailRES res = null;
-    res = service.detail(productId);
-    return res;
+  public ResponseDto<ProductResDto.ItemRes> detail(
+      @PathVariable Integer productId) {
+    ProductResDto.ItemRes resDto = productService.detail(productId);
+    return ResponseDto.body(resDto);
   }
   
-  @PutMapping("/product/v1/save-product-list")
-  public List<ProductRES> saveProductList(@RequestBody List<ProductREQ> req) {
-    List<ProductRES> resList = service.saveProductList(req);
-    return resList;
+  @PutMapping("/product/v1/products")
+  public ResponseDto<ProductResDto.ItemListRes> saveProducts(
+      @RequestBody ProductReqDto.ItemListReq request) {
+    ProductResDto.ItemListRes resDto = new ProductResDto.ItemListRes();
+    resDto.setList(productService.saveProductList(request));
+    return ResponseDto.body(resDto);
   }
   
-  @PutMapping(value = "/product/v1/save-product",
+  @PutMapping(value = "/product/v1/product",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-  public ProductRES saveProduct(@RequestPart(name = "req") ProductREQ req,
-      @RequestPart(name = "imgThumb", required = false) MultipartFile imgThumb) throws Exception {
-    ProductRES res = service.saveProduct(req, imgThumb);
-    return res;
+  public ResponseDto<ProductResDto.ItemRes> saveProduct(
+      @RequestPart(name = "req") ProductReqDto.ItemReq request,
+      @RequestPart(name = "imgThumb", required = false) MultipartFile imgThumb
+      ) throws Exception {
+    ProductResDto.ItemRes resDto = productService.saveProduct(request, imgThumb);
+    return ResponseDto.body(resDto);
   }
   
-  @DeleteMapping(value = "/product/v1/delete-product",
+  @DeleteMapping(value = "/product/v1/product",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
-  public ProductRES deleteProduct(@RequestBody ProductREQ req) throws Exception {
-    ProductRES res = service.deleteProduct(req);
-    return res;
+  public ResponseDto<ProductResDto.ItemRes> deleteProduct(
+      @RequestBody ProductReqDto.ItemReq request) throws Exception {
+    ProductResDto.ItemRes resDto = productService.deleteProduct(request);
+    return ResponseDto.body(resDto);
   }
   
   @PostMapping("/product/v1/init")
-  public void init() {
-    service.init();
+  public ResponseDto<?> init() {
+    productService.init();
+    return ResponseDto.body();
   }
   
   @PostMapping("/product/v1/add")
-  public void add() {
-    service.add();
+  public ResponseDto<?> add() {
+    productService.add();
+    return ResponseDto.body();
   }
 }

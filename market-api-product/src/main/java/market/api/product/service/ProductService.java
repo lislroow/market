@@ -9,61 +9,56 @@ import java.util.UUID;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import market.api.product.dto.ProductDetailRES;
-import market.api.product.dto.ProductREQ;
-import market.api.product.dto.ProductRES;
+import lombok.RequiredArgsConstructor;
+import market.api.product.dto.ProductReqDto;
+import market.api.product.dto.ProductResDto;
 import market.api.product.entity.Product;
 import market.api.product.repository.ProductRepository;
 import market.lib.constant.Constant;
 import market.lib.util.Uuid;
 
 @Service
-@Transactional(readOnly = true)
+@Transactional
+@RequiredArgsConstructor
 public class ProductService {
   
-  private ProductRepository repository;
+  private final ProductRepository productRepository;
+  private final ModelMapper modelMapper;
   
-  @Autowired
-  ModelMapper model;
-  
-  public ProductService(ProductRepository repository) {
-    this.repository = repository;
-  }
-  
-  public List<ProductRES> list() {
-    List<ProductRES> res = repository.findAll().get().stream()
-        .map(item -> model.map(item, ProductRES.class)).collect(Collectors.toList());
+  public List<ProductResDto.ItemRes> list() {
+    List<ProductResDto.ItemRes> res = productRepository.findAll().get().stream()
+        .map(item -> modelMapper.map(item, ProductResDto.ItemRes.class))
+        .collect(Collectors.toList());
     return res;
   }
   
-  public ProductDetailRES detail(Integer productId) {
-    ProductDetailRES res = model.map(repository.findById(productId).get(), ProductDetailRES.class);
+  public ProductResDto.ItemRes detail(Integer productId) {
+    ProductResDto.ItemRes res = modelMapper.map(productRepository.findById(productId).get(), ProductResDto.ItemRes.class);
     return res;
   }
   
   @Transactional
-  public List<ProductRES> saveProductList(List<ProductREQ> req) {
-    List<Product> entityList = req.stream()
+  public List<ProductResDto.ItemRes> saveProductList(ProductReqDto.ItemListReq request) {
+    List<Product> entityList = request.getList().stream()
         .map(item -> {
-          Product entity = model.map(item, Product.class);
+          Product entity = modelMapper.map(item, Product.class);
           entity.setModifyDate(LocalDateTime.now());
           return entity;
         })
         .collect(Collectors.toList());
-    entityList = repository.saveAll(entityList);
-    List<ProductRES> res = entityList
-        .stream().map(item -> model.map(item, ProductRES.class))
+    entityList = productRepository.saveAll(entityList);
+    List<ProductResDto.ItemRes> res = entityList.stream()
+        .map(item -> modelMapper.map(item, ProductResDto.ItemRes.class))
         .collect(Collectors.toList());
     return res;
   }
   
   @Transactional
-  public ProductRES saveProduct(ProductREQ req,
+  public ProductResDto.ItemRes saveProduct(ProductReqDto.ItemReq request,
       MultipartFile imgThumb) throws Exception {
     if (imgThumb != null) {
       String originName = imgThumb.getOriginalFilename();
@@ -78,46 +73,46 @@ public class ProductService {
         if (!dir.exists()) dir.mkdirs();
         imgThumb.transferTo(new File(imgThumbPath));
       }
-      req.setImgThumbUrl(imgThumbPath);
+      request.setImgThumbUrl(imgThumbPath);
     }
-    Product entity = model.map(req, Product.class);
+    Product entity = modelMapper.map(request, Product.class);
     entity.setModifyDate(LocalDateTime.now());
     entity.setCreateDate(LocalDateTime.now());
-    entity = repository.save(entity);
-    ProductRES res = model.map(entity, ProductRES.class);
+    entity = productRepository.save(entity);
+    ProductResDto.ItemRes res = modelMapper.map(entity, ProductResDto.ItemRes.class);
     return res;
   }
   
   @Transactional
-  public ProductRES deleteProduct(ProductREQ req) {
-    Product entity = model.map(req, Product.class);
-    entity = repository.delete(entity);
-    ProductRES res = model.map(entity, ProductRES.class);
+  public ProductResDto.ItemRes deleteProduct(ProductReqDto.ItemReq request) {
+    Product entity = modelMapper.map(request, Product.class);
+    entity = productRepository.delete(entity);
+    ProductResDto.ItemRes res = modelMapper.map(entity, ProductResDto.ItemRes.class);
     return res;
   }
   
   public void init() {
-    Product LG_17UD70P = repository.findByName("홍길동").orElse(Product.builder().id(-1).build());
+    Product LG_17UD70P = productRepository.findByName("홍길동").orElse(Product.builder().id(-1).build());
     LG_17UD70P.setName("LG 17UD70P");
     LG_17UD70P.setImgThumbUrl("https://fastly.picsum.photos/id/26/300/200.jpg?hmac=I1gNv7SHHWumF_lPObGuXN05PIgqI0NueUSdPFnFcq0");
     LG_17UD70P.setModifyDate(LocalDateTime.now());
     
-    Product APPLE_IPAD = repository.findByName("Apple iPad Air 5").orElse(Product.builder().id(-1).build());
+    Product APPLE_IPAD = productRepository.findByName("Apple iPad Air 5").orElse(Product.builder().id(-1).build());
     APPLE_IPAD.setName("Apple iPad Air 5");
     APPLE_IPAD.setImgThumbUrl("https://fastly.picsum.photos/id/365/300/200.jpg?hmac=_ZkyfESsHt2RteInYatkFqQ4-OAG2em4hYhUoIJYbD0");
     APPLE_IPAD.setModifyDate(LocalDateTime.now());
     
-    repository.saveAll(Arrays.asList(APPLE_IPAD, LG_17UD70P));
+    productRepository.saveAll(Arrays.asList(APPLE_IPAD, LG_17UD70P));
   }
   
   @Transactional
   public void add() {
     String uid = Long.toString(ByteBuffer.wrap(UUID.randomUUID().toString().getBytes()).getLong(), Character.MAX_RADIX);
-    Product dummy = repository.findByName(uid).orElse(Product.builder().id(-1).build());
+    Product dummy = productRepository.findByName(uid).orElse(Product.builder().id(-1).build());
     dummy.setName("product-"+uid);
     dummy.setImgThumbUrl("img-"+uid);
     dummy.setModifyDate(LocalDateTime.now());
-    repository.save(dummy);
+    productRepository.save(dummy);
   }
   
 }

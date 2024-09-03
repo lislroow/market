@@ -11,6 +11,7 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.api.delivery.entity.Delivery;
 import market.api.delivery.entity.Order;
@@ -21,19 +22,12 @@ import market.lib.dto.OrderDTO;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class OrderConsumer {
   
-  DeliveryRepository repository;
-  OrderRepository orderRepository;
-  
-  public OrderConsumer(DeliveryRepository repository,
-      OrderRepository orderRepository) {
-    this.repository = repository;
-    this.orderRepository = orderRepository;
-  }
-  
-  @Autowired
-  ModelMapper model;
+  private final DeliveryRepository repository;
+  private final OrderRepository orderRepository;
+  private final ModelMapper model;
   
   @KafkaListener(topics = "OrderService.process", containerFactory = "kafkaListener")
   public void orderProcess(OrderDTO orderDTO) {

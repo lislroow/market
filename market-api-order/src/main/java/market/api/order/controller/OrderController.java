@@ -7,28 +7,28 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import market.api.order.dto.OrderREQ;
-import market.api.order.dto.OrderRES;
+import lombok.RequiredArgsConstructor;
+import market.api.order.dto.OrderReqDto;
+import market.api.order.dto.OrderResDto;
 import market.api.order.service.OrderService;
+import market.lib.dto.ResponseDto;
 
 @RestController
+@RequiredArgsConstructor
 public class OrderController {
   
-  private OrderService service;
-  
-  public OrderController(OrderService service) {
-    this.service = service;
-  }
+  private final OrderService orderService;
   
   @PostMapping("/order/v1/process")
-  public void orderProducts(@RequestBody OrderREQ req) {
-    service.process(req);
+  public ResponseDto<?> orderProducts(@RequestBody OrderReqDto.ItemReq request) {
+    orderService.process(request);
+    return ResponseDto.body();
   }
   
-  @GetMapping("/order/v1/my-orders")
-  public List<OrderRES> myOrder() {
-    List<OrderRES> res = service.myOrders();
-    return res;
+  @GetMapping("/order/v1/my/orders")
+  public ResponseDto<OrderResDto.ItemListRes> myOrder() {
+    OrderResDto.ItemListRes resDto = new OrderResDto.ItemListRes();
+    resDto.setList(orderService.myOrders());
+    return ResponseDto.body(resDto);
   }
-  
 }
