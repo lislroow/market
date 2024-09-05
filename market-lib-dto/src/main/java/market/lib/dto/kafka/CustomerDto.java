@@ -1,4 +1,4 @@
-package market.lib.dto;
+package market.lib.dto.kafka;
 
 import java.util.List;
 
@@ -14,12 +14,12 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomerDTO {
+public class CustomerDto {
   
   private String id;
   private String name;
   
   @JsonIgnoreProperties({"customer"})
   @ToString.Exclude
-  private List<OrderDTO> orders;
+  private List<OrderDto> orders;
 }

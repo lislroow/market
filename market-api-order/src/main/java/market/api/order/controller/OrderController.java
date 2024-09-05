@@ -11,7 +11,7 @@ import lombok.RequiredArgsConstructor;
 import market.api.order.dto.OrderReqDto;
 import market.api.order.dto.OrderResDto;
 import market.api.order.service.OrderService;
-import market.lib.dto.ResponseDto;
+import market.lib.dto.kafka.ResponseDto;
 
 @RestController
 @RequiredArgsConstructor

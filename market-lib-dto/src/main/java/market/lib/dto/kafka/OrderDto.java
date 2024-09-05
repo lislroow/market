@@ -1,4 +1,4 @@
-package market.lib.dto;
+package market.lib.dto.kafka;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,19 +15,19 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDTO {
+public class OrderDto {
 
   private Integer id;
   
   @JsonIgnoreProperties({"orders"})
   @ToString.Exclude
-  private CustomerDTO customer;
+  private CustomerDto customer;
   
   private String receiverName;
   private String receiverAddress;
   
   @JsonIgnoreProperties({"order"})
   @ToString.Exclude
-  private List<OrderItemDTO> orderItems = new ArrayList<OrderItemDTO>();
+  private List<OrderItemDto> orderItems = new ArrayList<OrderItemDto>();
 
 }

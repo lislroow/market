@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 import market.api.product.dto.ProductReqDto;
 import market.api.product.dto.ProductResDto;
 import market.api.product.service.ProductService;
-import market.lib.dto.ResponseDto;
+import market.lib.dto.kafka.ResponseDto;
 
 @Slf4j
 @RestController

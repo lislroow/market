@@ -14,7 +14,7 @@ import market.api.customer.dto.CustomerReqDto;
 import market.api.customer.dto.CustomerResDto;
 import market.api.customer.feign.UserControllerFeign;
 import market.api.customer.service.CustomerService;
-import market.lib.dto.ResponseDto;
+import market.lib.dto.kafka.ResponseDto;
 
 @RestController
 @RequiredArgsConstructor

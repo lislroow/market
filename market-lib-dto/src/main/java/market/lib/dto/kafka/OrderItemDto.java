@@ -1,4 +1,4 @@
-package market.lib.dto;
+package market.lib.dto.kafka;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -12,14 +12,14 @@ import lombok.ToString;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemDTO {
+public class OrderItemDto {
   
   private Integer id;
   private Integer orderQty;
   
   @JsonIgnoreProperties({"orderItems"})
   @ToString.Exclude
-  private OrderDTO order;
+  private OrderDto order;
   
-  private ProductDTO product;
+  private ProductDto product;
 }

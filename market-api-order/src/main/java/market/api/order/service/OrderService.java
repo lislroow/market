@@ -16,7 +16,7 @@ import market.api.order.producer.OrderProducer;
 import market.api.order.repository.CustomerRepository;
 import market.api.order.repository.OrderRepository;
 import market.lib.config.webmvc.SessionContext;
-import market.lib.dto.OrderDTO;
+import market.lib.dto.kafka.OrderDto;
 import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
@@ -42,9 +42,9 @@ public class OrderService {
     
     // 저장
     order = repository.save(order);
-    OrderDTO orderDTO = model.map(order, OrderDTO.class);
+    OrderDto orderDto = model.map(order, OrderDto.class);
     
-    this.producer.send(orderDTO);
+    this.producer.send(orderDto);
     // order 정상 처리 이벤트 등록 (kafka)
     //  - delivery 에서 배송 데이터 생성 
     //  - inventory 에서 재고 데이터 반영

@@ -1,4 +1,4 @@
-package market.lib.dto;
+package market.lib.dto.kafka;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductDTO {
+public class ProductDto {
 
   private Integer id;
   private String name;

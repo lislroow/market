@@ -18,7 +18,7 @@ import market.api.delivery.entity.Order;
 import market.api.delivery.entity.id.DeliveryId;
 import market.api.delivery.repository.DeliveryRepository;
 import market.api.delivery.repository.OrderRepository;
-import market.lib.dto.OrderDTO;
+import market.lib.dto.kafka.OrderDto;
 
 @Slf4j
 @Component
@@ -30,25 +30,25 @@ public class OrderConsumer {
   private final ModelMapper model;
   
   @KafkaListener(topics = "OrderService.process", containerFactory = "kafkaListener")
-  public void orderProcess(OrderDTO orderDTO) {
+  public void orderProcess(OrderDto orderDto) {
     ObjectMapper mapper = new ObjectMapper();
     try {
-      String str = mapper.writeValueAsString(orderDTO);
+      String str = mapper.writeValueAsString(orderDto);
       log.info("str={}", str);
     } catch (JsonProcessingException e) {
       e.printStackTrace();
     }
-    Order orderEntity = model.map(orderDTO, Order.class);
+    Order orderEntity = model.map(orderDto, Order.class);
     orderEntity.getOrderItems().forEach(item -> item.setOrder(orderEntity));
     orderRepository.save(orderEntity);
     
-    List<Delivery> entityList = orderDTO.getOrderItems().stream()
+    List<Delivery> entityList = orderDto.getOrderItems().stream()
       .map(item -> {
         return Delivery.builder()
-            .receiverName(orderDTO.getReceiverName())
-            .receiverAddress(orderDTO.getReceiverAddress())
+            .receiverName(orderDto.getReceiverName())
+            .receiverAddress(orderDto.getReceiverAddress())
             .id(DeliveryId.builder()
-                .orderId(orderDTO.getId())
+                .orderId(orderDto.getId())
                 .orderItemId(item.getId())
                 .build())
             .build();

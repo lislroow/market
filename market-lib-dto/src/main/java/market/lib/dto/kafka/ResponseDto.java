@@ -1,4 +1,4 @@
-package market.lib.dto;
+package market.lib.dto.kafka;
 
 import java.io.Serializable;
 
