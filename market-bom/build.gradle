@@ -6,7 +6,7 @@ plugins {
 ext {
   dependencyRepos = {
     mavenCentral()
-    maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
+    //maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
     mavenLocal()
   }
   
@@ -24,9 +24,15 @@ ext {
   
   spring_boot_version = '3.3.3'
   spring_cloud_version = '2023.0.3'
+  mybatis_version = '3.0.3'
   
   lombok_version = '1.18.32'
+  lombok_mapstruct_binding_version = '0.2.0'
+  mapstruct_version = '1.5.5.Final'
+  modelmapper_version = '3.2.0'
   swagger_version = '1.6.14'
+  jasypt_spring_boot_version = '3.0.5'
+  log4jdbc_version = '1.16'
 }
 
 group = 'spring.app'
@@ -65,12 +71,49 @@ subprojects {
   repositories dependencyRepos
   
   dependencies {
-    implementation enforcedPlatform("org.springframework.boot:spring-boot-dependencies:${spring_boot_version}")
-    implementation enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}")
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${spring_boot_version}")
+    implementation platform("org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}")
     
+    // Lombok (Compile-time only dependency for code generation)
     compileOnly "org.projectlombok:lombok:${lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${lombok_version}"
     
     implementation "com.fasterxml.jackson.core:jackson-annotations"
+  }
+}
+
+
+project(':market-lib-api') {
+  dependencies {
+    // Spring Boot Actuator
+    implementation "org.springframework.boot:spring-boot-starter-actuator"
+    
+    // Log4jdbc with Log4j2
+    implementation "org.bgee.log4jdbc-log4j2:log4jdbc-log4j2-jdbc4.1:${log4jdbc_version}"
+    
+    // MapStruct
+    implementation "org.mapstruct:mapstruct:${mapstruct_version}"
+    annotationProcessor "org.mapstruct:mapstruct-processor:${mapstruct_version}"
+    
+    // ModelMapper
+    implementation "org.modelmapper:modelmapper:${modelmapper_version}"
+    
+    // Lombok with MapStruct binding
+    compileOnly "org.projectlombok:lombok-mapstruct-binding:${lombok_mapstruct_binding_version}"
+    
+    // SLF4J API
+    implementation "org.slf4j:slf4j-api"
+    
+    // Jackson Databind
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    
+    // Jakarta Validation API
+    implementation "jakarta.validation:jakarta.validation-api"
+    
+    // Spring Boot Configuration Processor (used for metadata generation)
+    annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}"
+    
+    // Spring Cloud Eureka Client
+    implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
   }
 }

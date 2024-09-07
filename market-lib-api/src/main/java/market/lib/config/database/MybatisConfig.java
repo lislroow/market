@@ -20,7 +20,7 @@ import org.springframework.util.ObjectUtils;
 import lombok.extern.slf4j.Slf4j;
 import market.lib.config.database.mybatis.DaoSupport;
 
-@Slf4j
+//@Slf4j
 @Configuration
 public class MybatisConfig {
   

@@ -1,101 +1,70 @@
 plugins {
   id 'java-library'
   id 'maven-publish'
-  //id 'org.springframework.boot' version '3.2.5'
-  id 'io.spring.dependency-management'
-}
-
-ext {
-  dependencyRepos = {
-    maven { url = uri('https://repo.maven.apache.org/maven2/') }
-    maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
-    mavenLocal()
-  }
-  
-  publishingRepos = {
-    maven {
-      url = "https://nexus.mgkim.net/repository/maven-${rootProject.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
-      credentials {
-        username = findProperty('nexusUsername') ?: System.getenv('NEXUS_USERNAME')
-        password = findProperty('nexusPassword') ?: System.getenv('NEXUS_PASSWORD')
-      }
-    }
-    maven {
-      url = uri('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
-    }
-  }
-  
-  publishingPom = {
-    name = project.name
-    description = 'mgkim.net market-lib-api'
-    url = 'http://lislroow.github.io'
-    licenses {
-      license {
-        name = 'The Apache License, Version 2.0'
-        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-      }
-    }
-    developers {
-      developer {
-        id = 'lislroow'
-        name = 'Myeonggu Kim'
-        email = 'hi@mgkim.net'
-      }
-    }
-    scm {
-      connection = 'git@github.com:lislroow/market-lib-api.git'
-      developerConnection = 'git@github.com:lislroow/market-lib-api.git'
-      url = 'https://github.com/lislroow/market-lib-api'
-    }
-  }
-}
-
-group = 'spring.application'
-version = '0.1-SNAPSHOT'
-
-repositories dependencyRepos
-
-java {
-  sourceCompatibility = JavaVersion.VERSION_17
-  targetCompatibility = JavaVersion.VERSION_17
-}
-
-dependencyManagement {
-  imports {
-    mavenBom 'spring.framework.modules:springboot-3.x-bom:0.1-SNAPSHOT'
-  }
 }
 
 dependencies {
-  api 'spring.framework.modules:common'
-  annotationProcessor 'org.projectlombok:lombok'
+  implementation enforcedPlatform(project(":"))
+  
+  implementation project(":market-lib-const")
+  implementation project(":market-lib-dto")
+  
+  // for Feign
+  implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
+  implementation "io.github.openfeign:feign-okhttp"
+  
+  // for Jasypt
+  implementation "com.github.ulisesbocchio:jasypt-spring-boot-starter:${jasypt_spring_boot_version}"
+  
+  // for Spring Boot Security
+  implementation "org.springframework.boot:spring-boot-starter-security"
+  
+  // Jakarta Servlet API
+  implementation "jakarta.servlet:jakarta.servlet-api"
+  
+  // for Spring Boot Web
+  implementation "org.springframework.boot:spring-boot-starter-web"
+  
+  // for Spring Boot Redis
+  implementation "org.springframework.boot:spring-boot-starter-data-redis"
+  implementation "org.springframework.session:spring-session-data-redis"
+  
+  // for Spring Kafka
+  implementation "org.springframework.kafka:spring-kafka"
+  
+  // for Spring Boot JPA
+  implementation "org.springframework.boot:spring-boot-starter-data-jpa"
+  
+  // for MyBatis
+  implementation "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatis_version}"
+  implementation "org.mybatis:mybatis:${mybatis_version}"
+  implementation "org.mybatis:mybatis-spring:${mybatis_version}"
+  
+  // for HikariCP
+  implementation "com.zaxxer:HikariCP"
+  
+  // for Spring JDBC
+  implementation "org.springframework:spring-jdbc"
+  
+  // for MariaDB
+  implementation "org.mariadb.jdbc:mariadb-java-client"
+  
+  // for Spring Security OAuth2
+  implementation "org.springframework.security:spring-security-oauth2-core"
+  implementation "org.springframework.security:spring-security-oauth2-client"
+  
+  // for Jackson
+  implementation "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
 }
 
-//springBoot {
-//  mainClass = 'spring.MainApplication'
-//}
-
-task sourceJar(type: Jar) {
-  from sourceSets.main.allJava
-  archiveClassifier = "sources"
-}
 
 publishing {
-  repositories publishingRepos
   publications {
-    maven(MavenPublication) {
-      from(components.java)
-      //artifact bootJar
-      artifact sourceJar
-      pom publishingPom
+    mavenJava(MavenPublication) {
+      from components.java
+      pom {
+        packaging = 'jar'
+      }
     }
   }
-}
-
-tasks.withType(JavaCompile) {
-  options.encoding = 'utf-8'
-}
-
-tasks.withType(Javadoc) {
-  options.encoding = 'utf-8'
 }
