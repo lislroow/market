@@ -1,13 +1,12 @@
 plugins {
   id 'java-platform'
   id 'maven-publish'
-  id 'io.spring.dependency-management'
 }
 
 ext {
   dependencyRepos = {
     maven { url = uri('https://repo.maven.apache.org/maven2/') }
-    //maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
+    maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
     mavenLocal()
   }
   
@@ -19,11 +18,6 @@ ext {
         password = findProperty('nexusPassword') ?: System.getenv('NEXUS_PASSWORD')
       }
     }
-    
-    // Passing invalid URIs to URI or File converting methods. This behavior has been deprecated
-    //maven {
-    //  url = uri('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
-    //}
   }
   
   publishingPom = {
@@ -49,6 +43,7 @@ ext {
       url = 'https://github.com/lislroow/market'
     }
   }
+  
   spring_boot_version = '3.3.3'
   spring_cloud_version = '2023.0.3'
 }
@@ -58,67 +53,23 @@ version = '0.1-SNAPSHOT'
 
 repositories dependencyRepos
 
-// BOM (Bill of Materials)으로 사용
+dependencies {
+  constraints {
+    platform "org.springframework.boot:spring-boot-dependencies:${spring_boot_version}"
+    platform "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}"
+  }
+}
+
 javaPlatform {
   allowDependencies()
 }
-
-// java-platform 의 DSL 을 사용하는 경우 dependencyManagement 예시
-//dependencyManagement {
-//  imports {
-//    mavenBom 'org.springframework.boot:spring-boot-dependencies:${spring_boot_version}'
-//    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}'
-//  }
-//}
 
 publishing {
   repositories publishingRepos
   publications {
     mavenBom(MavenPublication) {
-    //maven(MavenPublication) {
       from components.javaPlatform
-      //from(components.java)
-      //artifact bootJar
-      //artifact sourceJar
       pom publishingPom
     }
   }
 }
-
-dependencies {
-  constraints {
-    //api 'org.springframework.boot:spring-boot-starter-actuator'
-    //annotationProcessor 'org.projectlombok:lombok'
-    api "org.springframework.boot:spring-boot-dependencies:${spring_boot_version}"
-    api "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}"
-  }
-}
-
-//subprojects {
-//  apply plugin: 'java'
-//  
-//  java {
-//    sourceCompatibility = JavaVersion.VERSION_17
-//    targetCompatibility = JavaVersion.VERSION_17
-//  }
-//  
-//  repositories dependencyRepos
-//  
-//  dependencies {
-//    // root 프로젝트 BOM 의존성 사용
-//    //implementation platform(project(":"))
-//  }
-//}
-
-//task sourceJar(type: Jar) {
-//  from sourceSets.main.allJava
-//  archiveClassifier = "sources"
-//}
-
-//tasks.withType(JavaCompile) {
-//  options.encoding = 'utf-8'
-//}
-//
-//tasks.withType(Javadoc) {
-//  options.encoding = 'utf-8'
-//}

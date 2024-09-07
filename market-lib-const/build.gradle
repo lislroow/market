@@ -1,24 +1,11 @@
 plugins {
-  id 'java'
+  id 'java-library'
   id 'maven-publish'
-  id 'io.spring.dependency-management'
-}
-
-group = 'spring.app'
-version = '0.1-SNAPSHOT'
-
-repositories {
-  mavenCentral()
-}
-
-dependencyManagement {
-  // BOM을 사용하여 의존성 버전을 강제
-  imports {
-    mavenBom project(":") // 루트 프로젝트의 BOM을 가져옴
-  }
 }
 
 dependencies {
+  //implementation enforcedPlatform(project(":market-bom"))
+  implementation enforcedPlatform(project(":"))
 }
 
 publishing {
