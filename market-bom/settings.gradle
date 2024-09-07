@@ -1,4 +1,6 @@
 rootProject.name = 'market-bom'
 include 'market-lib-const'
+include 'market-lib-dto'
 
 project(':market-lib-const').projectDir = file('../market-lib-const')
+project(':market-lib-dto').projectDir = file('../market-lib-dto')

@@ -5,7 +5,7 @@ plugins {
 
 ext {
   dependencyRepos = {
-    maven { url = uri('https://repo.maven.apache.org/maven2/') }
+    mavenCentral()
     maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
     mavenLocal()
   }
@@ -20,34 +20,13 @@ ext {
     }
   }
   
-  publishingPom = {
-    name = project.name
-    description = 'market-bom'
-    url = 'http://lislroow.github.io'
-    licenses {
-      license {
-        name = 'The Apache License, Version 2.0'
-        url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-      }
-    }
-    developers {
-      developer {
-        id = 'lislroow'
-        name = 'KIM MYEONGGU'
-        email = 'lislroow@daum.net'
-      }
-    }
-    scm {
-      connection = 'git@github.com:lislroow/market.git'
-      developerConnection = 'git@github.com:lislroow/market.git'
-      url = 'https://github.com/lislroow/market'
-    }
-  }
-  
   java_version = 17
   
   spring_boot_version = '3.3.3'
   spring_cloud_version = '2023.0.3'
+  
+  lombok_version = '1.18.32'
+  swagger_version = '1.6.14'
 }
 
 group = 'spring.app'
@@ -71,7 +50,6 @@ publishing {
   publications {
     mavenBom(MavenPublication) {
       from components.javaPlatform
-      pom publishingPom
     }
   }
 }
@@ -79,25 +57,20 @@ publishing {
 subprojects {
   apply plugin: 'java'
   
-  // TODO toolchain 방식 확인
-  //java {
-  //  toolchain {
-  //    languageVersion = JavaLanguageVersion.of(java_version)
-  //  }
-  //}
   java {
     sourceCompatibility = java_version.toString()
     targetCompatibility = java_version.toString()
   }
   
   repositories dependencyRepos
+  
+  dependencies {
+    implementation enforcedPlatform("org.springframework.boot:spring-boot-dependencies:${spring_boot_version}")
+    implementation enforcedPlatform("org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}")
+    
+    compileOnly "org.projectlombok:lombok:${lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${lombok_version}"
+    
+    implementation "com.fasterxml.jackson.core:jackson-annotations"
+  }
 }
-
-// TODO toolchain 방식 확인
-//gradle.toolchains {
-//  jvm {
-//    javaVersion = JavaLanguageVersion.of(java_version)
-//    vendor = JvmVendorSpec.ADOPTIUM
-//  }
-//}
-

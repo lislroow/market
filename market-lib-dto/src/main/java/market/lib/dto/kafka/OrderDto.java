@@ -28,6 +28,7 @@ public class OrderDto {
   
   @JsonIgnoreProperties({"order"})
   @ToString.Exclude
-  private List<OrderItemDto> orderItems = new ArrayList<OrderItemDto>();
+  //private List<OrderItemDto> orderItems = new ArrayList<OrderItemDto>(); // '@Builder' 가 있을 경우 무시됨
+  private List<OrderItemDto> orderItems;
 
 }
