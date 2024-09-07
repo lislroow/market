@@ -6,6 +6,28 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   
+  <name>market-bom</name>
+  <description>market dependencies</description>
+  <url>https://lislroow.github.io/market</url>
+  <licenses>
+    <license>
+      <name>Apache License, Version 2.0</name>
+      <url>https://www.apache.org/licenses/LICENSE-2.0</url>
+    </license>
+  </licenses>
+  <developers>
+    <developer>
+      <id>lislroow</id>
+      <name>KIM MYEONGGU</name>
+      <email>lislroow@daum.net</email>
+    </developer>
+  </developers>
+  <scm>
+    <connection>git@github.com:lislroow/market.git</connection>
+    <developerConnection>git@github.com:lislroow/market.git</developerConnection>
+    <url>https://github.com/lislroow/market</url>
+  </scm>
+  
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <downloadSources>true</downloadSources>

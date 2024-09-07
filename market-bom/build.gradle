@@ -1,14 +1,13 @@
 plugins {
-  id 'java-library'
+  id 'java-platform'
   id 'maven-publish'
-  //id 'org.springframework.boot' version '3.2.5'
   id 'io.spring.dependency-management'
 }
 
 ext {
   dependencyRepos = {
     maven { url = uri('https://repo.maven.apache.org/maven2/') }
-    maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
+    //maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
     mavenLocal()
   }
   
@@ -20,14 +19,16 @@ ext {
         password = findProperty('nexusPassword') ?: System.getenv('NEXUS_PASSWORD')
       }
     }
-    maven {
-      url = uri('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
-    }
+    
+    // Passing invalid URIs to URI or File converting methods. This behavior has been deprecated
+    //maven {
+    //  url = uri('file://' + new File(System.getProperty('user.home'), '.m2/repository').absolutePath)
+    //}
   }
   
   publishingPom = {
     name = project.name
-    description = 'mgkim.net market-bom'
+    description = 'market-bom'
     url = 'http://lislroow.github.io'
     licenses {
       license {
@@ -38,64 +39,86 @@ ext {
     developers {
       developer {
         id = 'lislroow'
-        name = 'Myeonggu Kim'
-        email = 'hi@mgkim.net'
+        name = 'KIM MYEONGGU'
+        email = 'lislroow@daum.net'
       }
     }
     scm {
-      connection = 'git@github.com:lislroow/market-bom.git'
-      developerConnection = 'git@github.com:lislroow/market-bom.git'
-      url = 'https://github.com/lislroow/market-bom'
+      connection = 'git@github.com:lislroow/market.git'
+      developerConnection = 'git@github.com:lislroow/market.git'
+      url = 'https://github.com/lislroow/market'
     }
   }
+  spring_boot_version = '3.3.3'
+  spring_cloud_version = '2023.0.3'
 }
 
-group = 'spring.application'
+group = 'spring.app'
 version = '0.1-SNAPSHOT'
 
 repositories dependencyRepos
 
-java {
-  sourceCompatibility = JavaVersion.VERSION_17
-  targetCompatibility = JavaVersion.VERSION_17
+// BOM (Bill of Materials)으로 사용
+javaPlatform {
+  allowDependencies()
 }
 
-dependencyManagement {
-  imports {
-    mavenBom 'spring.framework.modules:springboot-3.x-bom:0.1-SNAPSHOT'
-  }
-}
-
-dependencies {
-  api 'spring.framework.modules:common'
-  annotationProcessor 'org.projectlombok:lombok'
-}
-
-//springBoot {
-//  mainClass = 'spring.MainApplication'
+// java-platform 의 DSL 을 사용하는 경우 dependencyManagement 예시
+//dependencyManagement {
+//  imports {
+//    mavenBom 'org.springframework.boot:spring-boot-dependencies:${spring_boot_version}'
+//    mavenBom 'org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}'
+//  }
 //}
-
-task sourceJar(type: Jar) {
-  from sourceSets.main.allJava
-  archiveClassifier = "sources"
-}
 
 publishing {
   repositories publishingRepos
   publications {
-    maven(MavenPublication) {
-      from(components.java)
+    mavenBom(MavenPublication) {
+    //maven(MavenPublication) {
+      from components.javaPlatform
+      //from(components.java)
       //artifact bootJar
-      artifact sourceJar
+      //artifact sourceJar
       pom publishingPom
     }
   }
 }
 
-tasks.withType(JavaCompile) {
-  options.encoding = 'utf-8'
+dependencies {
+  constraints {
+    //api 'org.springframework.boot:spring-boot-starter-actuator'
+    //annotationProcessor 'org.projectlombok:lombok'
+    api "org.springframework.boot:spring-boot-dependencies:${spring_boot_version}"
+    api "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}"
+  }
 }
 
-tasks.withType(Javadoc) {
-  options.encoding = 'utf-8'
-}
+//subprojects {
+//  apply plugin: 'java'
+//  
+//  java {
+//    sourceCompatibility = JavaVersion.VERSION_17
+//    targetCompatibility = JavaVersion.VERSION_17
+//  }
+//  
+//  repositories dependencyRepos
+//  
+//  dependencies {
+//    // root 프로젝트 BOM 의존성 사용
+//    //implementation platform(project(":"))
+//  }
+//}
+
+//task sourceJar(type: Jar) {
+//  from sourceSets.main.allJava
+//  archiveClassifier = "sources"
+//}
+
+//tasks.withType(JavaCompile) {
+//  options.encoding = 'utf-8'
+//}
+//
+//tasks.withType(Javadoc) {
+//  options.encoding = 'utf-8'
+//}

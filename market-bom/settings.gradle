@@ -5,8 +5,11 @@ pluginManagement {
     maven { url 'https://repo.spring.io/plugins-snapshot' }
   }
   plugins {
-    id 'io.spring.dependency-management' version '1.1.6-SNAPSHOT'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
   }
 }
 
 rootProject.name = 'market-bom'
+include 'market-lib-const'
+
+project(':market-lib-const').projectDir = file('../market-lib-const')
