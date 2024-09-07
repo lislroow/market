@@ -44,6 +44,8 @@ ext {
     }
   }
   
+  java_version = 17
+  
   spring_boot_version = '3.3.3'
   spring_cloud_version = '2023.0.3'
 }
@@ -73,3 +75,29 @@ publishing {
     }
   }
 }
+
+subprojects {
+  apply plugin: 'java'
+  
+  // TODO toolchain 방식 확인
+  //java {
+  //  toolchain {
+  //    languageVersion = JavaLanguageVersion.of(java_version)
+  //  }
+  //}
+  java {
+    sourceCompatibility = java_version.toString()
+    targetCompatibility = java_version.toString()
+  }
+  
+  repositories dependencyRepos
+}
+
+// TODO toolchain 방식 확인
+//gradle.toolchains {
+//  jvm {
+//    javaVersion = JavaLanguageVersion.of(java_version)
+//    vendor = JvmVendorSpec.ADOPTIUM
+//  }
+//}
+
