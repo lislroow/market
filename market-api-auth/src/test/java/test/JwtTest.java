@@ -11,7 +11,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class JwtTest {
   
   @Test
@@ -35,6 +35,7 @@ public class JwtTest {
     if (decodeStr.startsWith("{") && decodeStr.endsWith("}")) {
       ObjectMapper mapper = new ObjectMapper();
       try {
+        @SuppressWarnings("unchecked")
         Map<String, Object> map = mapper.readValue(decodeStr, java.util.Map.class);
         map.forEach((key, value) -> {
           System.out.println(String.format("%s=%s", key, value));

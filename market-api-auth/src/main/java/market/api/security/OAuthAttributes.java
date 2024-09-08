@@ -63,6 +63,7 @@ public class OAuthAttributes {
   private static OAuthAttributes ofKakao(String registrationId,
       String userNameAttributeName, Map<String, Object> attributes) {
     // properties [nickname, profile_image, thumbnail_image]
+    @SuppressWarnings("unchecked")
     Map<String, Object> properties = (Map<String, Object>) attributes.get("properties"); 
     // kakao_account [profile_nickname_needs_agreement, profile_image_needs_agreement, properties ... ]
     //Map<String, Object> kakao_account = (Map<String, Object>) attributes.get("kakao_account"); 
@@ -81,6 +82,7 @@ public class OAuthAttributes {
       String userNameAttributeName, Map<String, Object> attributes) {
     // id=nwtYEDZWgcIBeXRpkgYf61KBwAESLFvPftUDI5mlyaI, nickname=mgk, profile_image=https://ssl.pstatic.net/static/pwe/address/img_profile.png,
     // age, gender, mobile, mobile_e164, name, birthday, birthyear
+    @SuppressWarnings("unchecked")
     Map<String, Object> response = (Map<String, Object>) attributes.get("response"); 
     return OAuthAttributes.builder()
             .oAuth2Id((String) response.get("id"))

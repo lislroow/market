@@ -5,6 +5,8 @@ plugins {
 
 dependencies {
   implementation enforcedPlatform(project(":"))
+  
+  implementation "com.fasterxml.jackson.core:jackson-annotations"
 }
 
 publishing {
