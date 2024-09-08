@@ -54,7 +54,7 @@ public class Product {
     joinColumns = @JoinColumn(name = "product_id"),
     inverseJoinColumns = @JoinColumn(name = "category_id")
   )
-  private List<ProductCategory> categories = new ArrayList<ProductCategory>();
+  private List<ProductCategory> categories;
   
   @OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private ProductInventory inventory;

@@ -38,11 +38,4 @@ public class SecurityConfig {
     ;
     return http.build();
   }
-  
-  @Bean
-  public RoleHierarchy roleHierarchy() {
-      RoleHierarchyImpl roleHierarchy = new RoleHierarchyImpl();
-      roleHierarchy.setHierarchy("ROLE_ADMIN > ROLE_USER");
-      return roleHierarchy;
-  }
 }
