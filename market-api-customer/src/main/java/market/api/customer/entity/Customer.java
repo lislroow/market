@@ -48,7 +48,7 @@ public class Customer {
   private LocalDateTime modifyDate;
   
   @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<CustomerDelivery> deliveries = new ArrayList<CustomerDelivery>();
+  private List<CustomerDelivery> deliveries;
   
   public Customer saveBasicInfo(CustomerReqDto.InfoReq request) {
     this.name = request.getName();
