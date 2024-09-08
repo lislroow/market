@@ -6,6 +6,7 @@ include 'market-com-eureka'
 include 'market-com-gateway'
 include 'market-api-auth'
 include 'market-api-customer'
+include 'market-api-delivery'
 
 project(':market-lib-const').projectDir = file('../market-lib-const')
 project(':market-lib-dto').projectDir = file('../market-lib-dto')
@@ -14,3 +15,4 @@ project(':market-com-eureka').projectDir = file('../market-com-eureka')
 project(':market-com-gateway').projectDir = file('../market-com-gateway')
 project(':market-api-auth').projectDir = file('../market-api-auth')
 project(':market-api-customer').projectDir = file('../market-api-customer')
+project(':market-api-delivery').projectDir = file('../market-api-delivery')

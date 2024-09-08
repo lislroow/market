@@ -1,31 +1,31 @@
 package market.lib.config.webmvc;
 
-import java.util.Collection;
+//import java.util.Collection;
 
-import org.apache.catalina.Valve;
-import org.apache.catalina.connector.Connector;
-import org.apache.catalina.valves.AccessLogValve;
-import org.apache.catalina.valves.HealthCheckValve;
-import org.apache.catalina.valves.RemoteIpValve;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
-import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
+//import org.apache.catalina.Valve;
+//import org.apache.catalina.connector.Connector;
+//import org.apache.catalina.valves.AccessLogValve;
+//import org.apache.catalina.valves.HealthCheckValve;
+//import org.apache.catalina.valves.RemoteIpValve;
+//import org.springframework.beans.factory.annotation.Autowired;
+//import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
+//import org.springframework.boot.context.properties.EnableConfigurationProperties;
+//import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.Ordered;
 import org.springframework.web.filter.ForwardedHeaderFilter;
-import org.springframework.web.servlet.ViewResolver;
+//import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.view.InternalResourceViewResolver;
+//import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
+//@Slf4j
 //@EnableConfigurationProperties({WebMvcProperties.class})
 @Configuration
 public class WebMvcConfig implements WebMvcConfigurer {

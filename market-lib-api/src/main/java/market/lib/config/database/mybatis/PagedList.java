@@ -98,6 +98,7 @@ public class PagedList<T> implements List<T> {
     return list.toArray();
   }
 
+  @SuppressWarnings("hiding")
   @Override
   public <T> T[] toArray(T[] a) {
     return list.toArray(a);

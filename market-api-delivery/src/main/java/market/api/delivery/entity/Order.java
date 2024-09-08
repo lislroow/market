@@ -1,6 +1,5 @@
 package market.api.delivery.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
@@ -41,6 +40,6 @@ public class Order {
   
   @JsonIgnoreProperties({"order"})
   @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+  private List<OrderItem> orderItems;
   
 }

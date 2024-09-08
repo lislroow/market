@@ -25,7 +25,7 @@ import org.springframework.context.annotation.Configuration;
 //
 //import com.zaxxer.hikari.HikariDataSource;
 
-import lombok.extern.slf4j.Slf4j;
+//import lombok.extern.slf4j.Slf4j;
 
 //@Slf4j
 @Configuration

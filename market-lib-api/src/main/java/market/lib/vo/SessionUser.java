@@ -83,12 +83,12 @@ public class SessionUser implements OAuth2User, UserDetails {
   }
   @Override
   public boolean isAccountNonExpired() {
-    boolean isAccountNonExpired = !"N".equals(user.getDormantYn());
+    boolean isAccountNonExpired = !"N".equals(user.getDormantYn().name());
     return isAccountNonExpired;
   }
   @Override
   public boolean isAccountNonLocked() {
-    boolean isAccountNonLocked = !"N".equals(user.getLockedYn());
+    boolean isAccountNonLocked = !"N".equals(user.getLockedYn().name());
     return isAccountNonLocked;
   }
   @Override
