@@ -25,6 +25,7 @@ public class RedisSupport {
     hashOps.put(key, hashKey, val);
   }
   
+  @SuppressWarnings("unchecked")
   public <T> T getHash(String key, String hashKey, Class<T> type) {
     return (T) hashOps.get(key, hashKey);
   }

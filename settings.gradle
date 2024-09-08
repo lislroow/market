@@ -1,0 +1,24 @@
+rootProject.name = 'market'
+include 'market-lib-const'
+include 'market-lib-dto'
+include 'market-lib-api'
+include 'market-com-eureka'
+include 'market-com-gateway'
+include 'market-api-auth'
+include 'market-api-customer'
+include 'market-api-delivery'
+include 'market-api-inventory'
+include 'market-api-order'
+include 'market-api-product'
+
+//project(':market-lib-const').projectDir = file('../market-lib-const')
+//project(':market-lib-dto').projectDir = file('../market-lib-dto')
+//project(':market-lib-api').projectDir = file('../market-lib-api')
+//project(':market-com-eureka').projectDir = file('../market-com-eureka')
+//project(':market-com-gateway').projectDir = file('../market-com-gateway')
+//project(':market-api-auth').projectDir = file('../market-api-auth')
+//project(':market-api-customer').projectDir = file('../market-api-customer')
+//project(':market-api-delivery').projectDir = file('../market-api-delivery')
+//project(':market-api-inventory').projectDir = file('../market-api-inventory')
+//project(':market-api-order').projectDir = file('../market-api-order')
+//project(':market-api-product').projectDir = file('../market-api-product')

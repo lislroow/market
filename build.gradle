@@ -1,0 +1,97 @@
+plugins {
+  id 'java-platform'
+  id 'maven-publish'
+}
+
+ext {
+  dependencyRepos = {
+    mavenCentral()
+    //maven { url = uri('https://nexus.mgkim.net/repository/maven-public/') }
+    mavenLocal()
+  }
+  
+  publishingRepos = {
+    maven {
+      url = "https://nexus.mgkim.net/repository/maven-${rootProject.version.endsWith('-SNAPSHOT') ? 'snapshots' : 'releases'}/"
+      credentials {
+        username = findProperty('nexusUsername') ?: System.getenv('NEXUS_USERNAME')
+        password = findProperty('nexusPassword') ?: System.getenv('NEXUS_PASSWORD')
+      }
+    }
+  }
+  
+  java_version = 17
+  
+  spring_boot_version = '3.3.3'
+  spring_cloud_version = '2023.0.3'
+  mybatis_version = '3.0.3'
+  
+  lombok_version = '1.18.32'
+  lombok_mapstruct_binding_version = '0.2.0'
+  mapstruct_version = '1.5.5.Final'
+  modelmapper_version = '3.2.0'
+  swagger_version = '1.6.14'
+  jasypt_spring_boot_version = '3.0.5'
+  log4jdbc_version = '1.16'
+}
+
+group = 'spring.app'
+version = '0.1-SNAPSHOT'
+
+repositories dependencyRepos
+
+dependencies {
+  constraints {
+    platform "org.springframework.boot:spring-boot-dependencies:${spring_boot_version}"
+    platform "org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}"
+  }
+}
+
+javaPlatform {
+  allowDependencies()
+}
+
+publishing {
+  repositories publishingRepos
+  publications {
+    mavenBom(MavenPublication) {
+      from components.javaPlatform
+    }
+  }
+}
+
+subprojects {
+  apply plugin: 'java'
+  
+  java {
+    sourceCompatibility = java_version.toString()
+    targetCompatibility = java_version.toString()
+  }
+  
+  repositories dependencyRepos
+  
+  dependencies {
+    implementation platform("org.springframework.boot:spring-boot-dependencies:${spring_boot_version}")
+    implementation platform("org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}")
+    
+    compileOnly "org.projectlombok:lombok:${lombok_version}"
+    annotationProcessor "org.projectlombok:lombok:${lombok_version}"
+    
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'junit:junit'
+  }
+  
+  task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+  }
+  
+  tasks.withType(Javadoc) {
+    options.encoding = 'utf-8'
+  }
+  
+  tasks.withType(JavaCompile) {
+    options.encoding = 'utf-8'
+  }
+}
+
