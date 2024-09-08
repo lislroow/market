@@ -1,6 +1,5 @@
 package market.api.order.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -41,7 +40,7 @@ public class Order {
   private String receiverAddress;
   
   @OneToMany(mappedBy = "order", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<OrderItem> orderItems = new ArrayList<OrderItem>();
+  private List<OrderItem> orderItems;
   
   public void setOrderItems(List<OrderItem> orderItems) {
     orderItems.forEach(item -> item.setOrder(this));

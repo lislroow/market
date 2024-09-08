@@ -1,7 +1,6 @@
 package market.api.order.entity;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.annotations.ColumnDefault;
@@ -43,5 +42,5 @@ public class Customer {
   private LocalDateTime modifyDate;
   
   @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  private List<Order> orders = new ArrayList<Order>();
+  private List<Order> orders;
 }
