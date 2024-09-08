@@ -2,7 +2,6 @@ package market.api.inventory.service;
 
 import java.util.List;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +16,6 @@ import market.api.inventory.repository.InventoryRepository;
 public class InventoryService {
   
   private final InventoryRepository inventoryRepository;
-  private final ModelMapper modelMapper;
   
   @Transactional
   public void updateQty(List<InventoryReqDto.UpdateQty> request) {
