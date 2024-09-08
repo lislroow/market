@@ -20,7 +20,7 @@
     <dependencies>
       <dependency>
         <groupId>spring.app</groupId>
-        <artifactId>market-bom</artifactId>
+        <artifactId>market</artifactId>
         <version>${market-bom.version}</version>
         <type>pom</type>
         <scope>import</scope>

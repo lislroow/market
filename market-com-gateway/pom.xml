@@ -4,7 +4,7 @@
   <artifactId>market-com-gateway</artifactId>
   <parent>
     <groupId>spring.app</groupId>
-    <artifactId>market-bom</artifactId>
+    <artifactId>market</artifactId>
     <version>0.1-SNAPSHOT</version>
   </parent>
   
