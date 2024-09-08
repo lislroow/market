@@ -80,6 +80,19 @@ subprojects {
     
     implementation "com.fasterxml.jackson.core:jackson-annotations"
   }
+  
+  task sourceJar(type: Jar) {
+    from sourceSets.main.allJava
+    archiveClassifier = 'sources'
+  }
+  
+  tasks.withType(Javadoc) {
+    options.encoding = 'utf-8'
+  }
+  
+  tasks.withType(JavaCompile) {
+    options.encoding = 'utf-8'
+  }
 }
 
 

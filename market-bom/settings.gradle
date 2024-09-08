@@ -2,7 +2,9 @@ rootProject.name = 'market-bom'
 include 'market-lib-const'
 include 'market-lib-dto'
 include 'market-lib-api'
+include 'market-com-eureka'
 
 project(':market-lib-const').projectDir = file('../market-lib-const')
 project(':market-lib-dto').projectDir = file('../market-lib-dto')
 project(':market-lib-api').projectDir = file('../market-lib-api')
+project(':market-com-eureka').projectDir = file('../market-com-eureka')
