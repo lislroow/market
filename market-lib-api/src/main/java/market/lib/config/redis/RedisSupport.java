@@ -10,13 +10,11 @@ import org.springframework.data.redis.core.RedisTemplate;
 
 public class RedisSupport {
 
-  private final RedisTemplate<String, Object> redisTemplate;
   private final HashOperations<String, String, Object> hashOps;
   
   private final ModelMapper modelMapper;
   
   public RedisSupport(RedisTemplate<String, Object> redisTemplate, ModelMapper modelMapper) {
-    this.redisTemplate = redisTemplate;
     this.hashOps = redisTemplate.opsForHash();
     this.modelMapper = modelMapper;
   }

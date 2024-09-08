@@ -38,7 +38,7 @@ public class KafkaConfig {
   KafkaProperties properties;
   
   // kafka-producer
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Bean
   ProducerFactory<String, Object> producerFactory() {
     Map<String, Object> config = new HashMap<>();
@@ -63,7 +63,7 @@ public class KafkaConfig {
   
   
   // kafka-consumer
-  @SuppressWarnings("unchecked")
+  @SuppressWarnings({ "unchecked", "rawtypes" })
   @Bean
   ConsumerFactory<String, Object> consumerFactory() {
     Map<String, Object> config = new HashMap<>();
