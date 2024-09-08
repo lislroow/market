@@ -17,7 +17,6 @@ import org.springframework.context.annotation.Primary;
 //import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.util.ObjectUtils;
 
-import lombok.extern.slf4j.Slf4j;
 import market.lib.config.database.mybatis.DaoSupport;
 
 //@Slf4j
@@ -59,7 +58,7 @@ public class MybatisConfig {
     }
     // mybatis.xml 은 application.properties 의 mybatis 설정으로 대체
     //sqlSessionFactoryBean.setConfigurationProperties(mybatisProperties.getConfigurationProperties());
-    // TODO 적용 안됨
+    // 적용 안됨
     //mybatisProperties.getConfiguration().applyTo((sqlSessionFactoryBean.getObject()).getConfiguration());
     
     // ---

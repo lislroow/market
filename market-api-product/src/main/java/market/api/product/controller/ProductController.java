@@ -1,7 +1,5 @@
 package market.api.product.controller;
 
-import java.util.List;
-
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,13 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import market.api.product.dto.ProductReqDto;
 import market.api.product.dto.ProductResDto;
 import market.api.product.service.ProductService;
 import market.lib.dto.kafka.ResponseDto;
 
-@Slf4j
 @RestController
 @RequiredArgsConstructor
 public class ProductController {

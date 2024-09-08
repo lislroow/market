@@ -16,6 +16,8 @@ import lombok.NoArgsConstructor;
 @JsonIgnoreProperties("passwd")
 public class SnsUser implements Serializable {
   
+  private static final long serialVersionUID = 4358471420033975600L;
+  
   private String snsId;
   private String site;
   private String email;

@@ -56,7 +56,6 @@ public class Customer {
   }
   
   public Customer saveDeliveries(List<CustomerReqDto.DeliveryReq> request) {
-    // TODO
     return this;
   }
 }

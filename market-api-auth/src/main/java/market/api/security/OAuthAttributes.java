@@ -70,7 +70,7 @@ public class OAuthAttributes {
     return OAuthAttributes.builder()
             .oAuth2Id(((Long) attributes.get("id")).toString())
             .registrationId(registrationId)
-            //.email((String) attributes.get("email")) // TODO kakao 는 사이트 인증이되어야 email 제공함
+            //.email((String) attributes.get("email")) // kakao 는 사이트 인증이되어야 email 제공함
             .nickname((String) properties.get("nickname"))
             .picture((String) properties.get("profile_image"))
             .attributes(attributes)

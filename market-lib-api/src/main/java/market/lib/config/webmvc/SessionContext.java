@@ -14,7 +14,7 @@ public class SessionContext {
     if (principal instanceof SessionUser) {
       user = (SessionUser) principal;
     } else if (principal instanceof String) {
-      String userId = (String) principal;
+      //String userId = (String) principal;
     }
     return Optional.ofNullable(user);
   }

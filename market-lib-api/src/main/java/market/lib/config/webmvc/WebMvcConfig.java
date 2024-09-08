@@ -33,7 +33,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //  @Autowired
 //  WebMvcProperties properties;
   
-  // TODO
   @Override
   public void addCorsMappings(CorsRegistry registry) {
     registry.addMapping("/**")
@@ -112,7 +111,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 //    return tomcat;
 //  }
   
-  // [TODO] ForwardedHeaderFilter 는 request 객체를 
+  // ForwardedHeaderFilter 는 request 객체를 
   // wrapper 객체로 새로 생성하기 때문에
   // proxy 된 localhost ip 가 나오지 않음
   // 개발 시 iphone 에서 pc 로 요청할 때 ip 를 사용하는데

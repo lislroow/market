@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import market.api.customer.dto.CustomerReqDto;
 import market.api.customer.dto.CustomerResDto;
-import market.api.customer.feign.UserControllerFeign;
 import market.api.customer.service.CustomerService;
 import market.lib.dto.kafka.ResponseDto;
 
@@ -21,7 +20,7 @@ import market.lib.dto.kafka.ResponseDto;
 public class CustomerController {
   
   private final CustomerService customerService;
-  private final UserControllerFeign userControllerFeign;
+  //private final UserControllerFeign userControllerFeign;
   
   @GetMapping("/customer/v1/my/info")
   public ResponseDto<CustomerResDto.InfoRes> getMyInfo() throws Exception {

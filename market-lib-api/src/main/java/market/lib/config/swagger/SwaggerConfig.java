@@ -1,6 +1,5 @@
 package market.lib.config.swagger;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Conditional;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,6 +7,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class SwaggerConfig {
 
-  @Autowired
-  private SwaggerProperties properties;
+  //@Autowired
+  //private SwaggerProperties properties;
 }

@@ -3,7 +3,6 @@ package market.lib.config.common;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Condition;
 import org.springframework.context.annotation.ConditionContext;
-import org.springframework.context.annotation.Conditional;
 import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import lombok.extern.slf4j.Slf4j;

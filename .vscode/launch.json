@@ -1,0 +1,46 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-MainApplication<market-com-eureka>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "market.com.MainApplication",
+            "projectName": "market-com-eureka",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=45056 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=market-com-eureka"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MainApplication<market-com-gateway>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "market.com.MainApplication",
+            "projectName": "market-com-gateway",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env",
+            "vmArgs": " -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=45080 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Dspring.jmx.enabled=true -Djava.rmi.server.hostname=localhost -Dspring.application.admin.enabled=true -Dspring.boot.project.name=market-com-gateway"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MainApplication<market-api-auth>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "market.api.MainApplication",
+            "projectName": "market-api-auth",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        },
+        {
+            "type": "java",
+            "name": "Spring Boot-MainApplication<market-api-customer>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "market.api.MainApplication",
+            "projectName": "market-api-customer",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}

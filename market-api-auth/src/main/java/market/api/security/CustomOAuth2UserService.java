@@ -12,14 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
-import lombok.extern.slf4j.Slf4j;
 import market.api.auth.entity.UserEntity;
 import market.api.auth.producer.UserProducer;
 import market.api.auth.repository.UserRepository;
 import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
-@Slf4j
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
   

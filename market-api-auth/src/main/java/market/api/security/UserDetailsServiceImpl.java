@@ -10,13 +10,11 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import lombok.extern.slf4j.Slf4j;
 import market.api.auth.repository.UserRepository;
 import market.api.auth.sql.UserSql;
 import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
-@Slf4j
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

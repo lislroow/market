@@ -27,6 +27,7 @@ import lombok.extern.slf4j.Slf4j;
 public class RestControllerAspect {
   
   //@Around("execution(* market.*.controller.*Controller.*(..))") // market 하위 1단계만 weaving 됨 
+  @SuppressWarnings("unused")
   @Around("execution(* market..controller.*Controller.*(..))")  // market 하위 모든 단계가 weaving 됨
   public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
     jakarta.servlet.http.HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
