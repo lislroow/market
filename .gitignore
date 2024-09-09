@@ -12,6 +12,10 @@
 */.externalToolBuilders
 
 
+# [intellij]
+.idea/workspace.xml
+
+
 # [maven]
 target
 .mvn
