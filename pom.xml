@@ -6,7 +6,7 @@
   <version>0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
   
-  <name>market-bom</name>
+  <name>market</name>
   <description>market dependencies</description>
   <url>https://lislroow.github.io/market</url>
   <licenses>
