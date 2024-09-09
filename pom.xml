@@ -27,7 +27,22 @@
     <developerConnection>git@github.com:lislroow/market.git</developerConnection>
     <url>https://github.com/lislroow/market</url>
   </scm>
-  
+
+  <modules>
+    <module>market-lib-const</module>
+    <module>market-lib-dto</module>
+    <module>market-lib-api</module>
+    <module>market-com-eureka</module>
+    <module>market-com-gateway</module>
+    <module>market-api-auth</module>
+    <module>market-api-customer</module>
+    <module>market-api-delivery</module>
+    <module>market-api-inventory</module>
+    <module>market-api-order</module>
+    <module>market-api-product</module>
+  </modules>
+
+
   <properties>
     <project.build.sourceEncoding>utf-8</project.build.sourceEncoding>
     <downloadSources>true</downloadSources>

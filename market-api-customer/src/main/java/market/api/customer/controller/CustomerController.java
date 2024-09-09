@@ -24,6 +24,8 @@ public class CustomerController {
   
   @GetMapping("/customer/v1/my/info")
   public ResponseDto<CustomerResDto.InfoRes> getMyInfo() throws Exception {
+    String a = "hello";
+    System.out.println(a);
     return ResponseDto.body(customerService.myInfo());
   }
   
