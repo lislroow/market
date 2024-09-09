@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
+  <component name="GradleSettings">
+    <option name="linkedExternalProjectsSettings">
+      <GradleProjectSettings>
+        <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="#JAVA_HOME" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/market-api-auth" />
+            <option value="$PROJECT_DIR$/market-api-customer" />
+            <option value="$PROJECT_DIR$/market-api-delivery" />
+            <option value="$PROJECT_DIR$/market-api-inventory" />
+            <option value="$PROJECT_DIR$/market-api-order" />
+            <option value="$PROJECT_DIR$/market-api-product" />
+            <option value="$PROJECT_DIR$/market-com-eureka" />
+            <option value="$PROJECT_DIR$/market-com-gateway" />
+            <option value="$PROJECT_DIR$/market-lib-api" />
+            <option value="$PROJECT_DIR$/market-lib-const" />
+            <option value="$PROJECT_DIR$/market-lib-dto" />
+          </set>
+        </option>
+      </GradleProjectSettings>
+    </option>
+  </component>
+</project>
