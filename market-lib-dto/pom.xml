@@ -13,9 +13,6 @@
     <downloadSources>true</downloadSources>
     <downloadJavadocs>true</downloadJavadocs>
     <java.version>17</java.version>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
-    <springboot-3.x-bom.version>0.1-SNAPSHOT</springboot-3.x-bom.version>
   </properties>
   
   <dependencies>

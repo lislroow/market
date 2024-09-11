@@ -13,8 +13,6 @@
     <downloadSources>true</downloadSources>
     <downloadJavadocs>true</downloadJavadocs>
     <java.version>17</java.version>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
   </properties>
   
   <dependencies>
@@ -45,7 +43,6 @@
       <artifactId>zipkin-reporter-brave</artifactId>
     </dependency>
     
-    <!-- additional -->
     <dependency>
       <groupId>io.zipkin.brave</groupId>
       <artifactId>brave-instrumentation-spring-web</artifactId>
@@ -74,7 +71,6 @@
       <artifactId>spring-cloud-starter-sleuth</artifactId>
     </dependency>-->
     
-    <!-- logging for elastic -->
     <dependency>
       <groupId>co.elastic.logging</groupId>
       <artifactId>logback-ecs-encoder</artifactId>

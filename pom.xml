@@ -48,31 +48,33 @@
     <downloadSources>true</downloadSources>
     <downloadJavadocs>true</downloadJavadocs>
     <java.version>17</java.version>
-    <maven.compiler.target>17</maven.compiler.target>
-    <maven.compiler.source>17</maven.compiler.source>
     
     <!--
     <spring-boot.version>3.2.5</spring-boot.version>
-    <spring-cloud.version>2023.0.2</spring-cloud.version>
-    
     <spring-boot.version>3.1.12</spring-boot.version>
     <spring-cloud.version>2022.0.5</spring-cloud.version>
+    <spring-cloud.version>2023.0.2</spring-cloud.version>
     -->
     <spring-boot.version>3.3.3</spring-boot.version>
     <spring-cloud.version>2023.0.3</spring-cloud.version>
     <mybatis.version>3.0.3</mybatis.version>
-    <!--<swagger-v3.version>2.2.23</swagger-v3.version>-->
+    
     <lombok.version>1.18.32</lombok.version>
     <lombok-mapstruct-binding.version>0.2.0</lombok-mapstruct-binding.version>
     <mapstruct.version>1.5.5.Final</mapstruct.version>
     <modelmapper.version>3.2.0</modelmapper.version>
     <swagger.version>1.6.14</swagger.version>
+    <!--
+    <swagger-v3.version>2.2.23</swagger-v3.version>
+    -->
     <jasypt-spring-boot.version>3.0.5</jasypt-spring-boot.version>
     <log4jdbc.version>1.16</log4jdbc.version>
     
     <market-lib-dto.version>0.1-SNAPSHOT</market-lib-dto.version>
     <market-lib-api.version>0.1-SNAPSHOT</market-lib-api.version>
     <market-lib-const.version>0.1-SNAPSHOT</market-lib-const.version>
+    
+    <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
   </properties>
   
   <dependencyManagement>
@@ -215,10 +217,10 @@
         <plugin>
           <groupId>org.apache.maven.plugins</groupId>
           <artifactId>maven-compiler-plugin</artifactId>
-          <version>3.11.0</version>
+          <version>${maven-compiler-plugin.version}</version>
           <configuration>
-            <source>17</source>
-            <target>17</target>
+            <source>${java.version}</source>
+            <target>${java.version}</target>
             <encoding>${project.build.sourceEncoding}</encoding>
             <debug>true</debug>
             <compilerArgs>
