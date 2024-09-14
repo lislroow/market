@@ -13,7 +13,11 @@
 
 
 # [intellij]
-.idea/workspace.xml
+.idea
+
+
+# [vscode]
+.vscode
 
 
 # [maven]

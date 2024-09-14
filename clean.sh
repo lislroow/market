@@ -7,7 +7,6 @@ if [ "${BASEDIR}" == '/usr/bin' ]; then
 fi
 
 LIST=($(cat <<- EOF
-
 .project
 .settings
 .classpath
@@ -20,10 +19,19 @@ target
 build
 bin
 
+.gitlab-ci.yml
+mvnw
+mvnw.cmd
+gradle
+gradlew
+gradlew.bat
+.mvn
+
 EOF
 ))
 
 read -r rows <<< ${LIST[*]}
 for item in ${LIST[*]}; do
+  rm -rf ${BASEDIR}/${item}
   rm -rf ${BASEDIR}/*/${item}
 done
