@@ -11,6 +11,7 @@ import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import lombok.extern.slf4j.Slf4j;
+import market.com.filter.AuthFilter;
 import reactor.core.publisher.Mono;
 
 
@@ -30,5 +31,12 @@ public class GatewayConfig {
         //log.info("Global Filter: Post-processing, {}", exchange.getRequest().getURI());
       }));
     };
+  }
+  
+  @Bean
+  @Order(1)
+  AuthFilter authFilter() {
+    log.info("create authFilter");
+    return new AuthFilter();
   }
 }
