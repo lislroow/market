@@ -15,6 +15,7 @@ import lombok.RequiredArgsConstructor;
 import market.api.product.dto.ProductReqDto;
 import market.api.product.dto.ProductResDto;
 import market.api.product.service.ProductService;
+import market.lib.aop.annotation.Login;
 import market.lib.aop.annotation.UserInfo;
 import market.lib.dto.ResponseDto;
 import market.lib.vo.UserVo;
@@ -26,7 +27,7 @@ public class ProductController {
   private final ProductService productService;
   
   @GetMapping("/product/v1/list")
-  public ResponseDto<ProductResDto.ItemListRes> list(UserVo user) {
+  public ResponseDto<ProductResDto.ItemListRes> list() {
     ProductResDto.ItemListRes resDto = new ProductResDto.ItemListRes();
     resDto.setList(productService.list());
     return ResponseDto.body(resDto);
@@ -40,7 +41,8 @@ public class ProductController {
   }
   
   @PutMapping("/product/v1/products")
-  public ResponseDto<ProductResDto.ItemListRes> saveProducts(
+  @Login
+  public ResponseDto<ProductResDto.ItemListRes> saveProducts(UserVo user,
       @RequestBody ProductReqDto.ItemListReq request) {
     ProductResDto.ItemListRes resDto = new ProductResDto.ItemListRes();
     resDto.setList(productService.saveProductList(request));
@@ -49,7 +51,9 @@ public class ProductController {
   
   @PutMapping(value = "/product/v1/product",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @Login
   public ResponseDto<ProductResDto.ItemRes> saveProduct(
+      UserVo user,
       @RequestPart(name = "req") ProductReqDto.ItemReq request,
       @RequestPart(name = "imgThumb", required = false) MultipartFile imgThumb
       ) throws Exception {
@@ -59,7 +63,9 @@ public class ProductController {
   
   @DeleteMapping(value = "/product/v1/product",
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
+  @Login
   public ResponseDto<ProductResDto.ItemRes> deleteProduct(
+      UserVo user,
       @RequestBody ProductReqDto.ItemReq request) throws Exception {
     ProductResDto.ItemRes resDto = productService.deleteProduct(request);
     return ResponseDto.body(resDto);

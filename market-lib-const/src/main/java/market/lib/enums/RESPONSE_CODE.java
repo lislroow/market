@@ -14,7 +14,8 @@ public enum RESPONSE_CODE {
   G998("ResponseDto creation error"),
   G999("unknown gateway error"),
   A001("token creation error"),
-  A002("token verification error")
+  A002("token verification error"),
+  AL01("login required")
   ;
   
   private String message;

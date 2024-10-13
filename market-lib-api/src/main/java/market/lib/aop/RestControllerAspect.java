@@ -25,6 +25,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.lib.aop.annotation.Login;
 import market.lib.aop.annotation.UserInfo;
+import market.lib.enums.RESPONSE_CODE;
+import market.lib.exception.MarketException;
 import market.lib.vo.UserVo;
 
 @Aspect
@@ -59,27 +61,27 @@ public class RestControllerAspect {
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
     Method refMethod = methodSignature.getMethod();
     Login login = refMethod.getAnnotation(Login.class);
+    Object[] args = joinPoint.getArgs();
     if (login != null) {
-      Assert.isTrue(StringUtils.hasLength(userId), "userId 가 null 입니다.");
+      if (!StringUtils.hasLength(userId)) {
+        throw new MarketException(RESPONSE_CODE.AL01);
+      }
+      //Assert.isTrue(StringUtils.hasLength(userId), "userId 가 null 입니다.");
+      for (int i=0; i<args.length; i++) {
+        Object arg = args[i];
+        //Annotation[] annotations = parameterAnnotations[i];
+        //boolean hasUserInfoAnnotation = Arrays.stream(annotations)
+        //    .anyMatch(annotation -> annotation.annotationType().equals(UserInfo.class));
+        //if (hasUserInfoAnnotation && arg instanceof UserVo) {
+        if (arg instanceof UserVo) {
+          UserVo userVo = new UserVo();
+          userVo.setUserId(userId);
+          args[i] = userVo;
+        }
+      }
     }
     Object result = null;
     Throwable throwable = null;
-    
-    //Annotation[][] parameterAnnotations = refMethod.getParameterAnnotations();
-    Object[] args = joinPoint.getArgs();
-    for (int i=0; i<args.length; i++) {
-      Object arg = args[i];
-      //Annotation[] annotations = parameterAnnotations[i];
-      //boolean hasUserInfoAnnotation = Arrays.stream(annotations)
-      //    .anyMatch(annotation -> annotation.annotationType().equals(UserInfo.class));
-      //if (hasUserInfoAnnotation && arg instanceof UserVo) {
-      if (arg instanceof UserVo) {
-        UserVo userVo = new UserVo();
-        userVo.setUserId(userId);
-        args[i] = userVo;
-      }
-    }
-    
     try {
       result = joinPoint.proceed(args);
     } catch (Throwable e) {
