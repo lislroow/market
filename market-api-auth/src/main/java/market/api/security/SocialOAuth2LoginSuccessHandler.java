@@ -26,10 +26,9 @@ public class SocialOAuth2LoginSuccessHandler implements AuthenticationSuccessHan
       Authentication authentication) throws IOException, ServletException {
     Assert.isTrue(authentication.getPrincipal() != null, "authentication.getPrincipal() is null");
     Assert.isTrue(authentication.getPrincipal() instanceof SessionUser, "authentication.getPrincipal() is not SessionUser type");
-    String userId = ((SessionUser)authentication.getPrincipal()).getEmail();
     
     try {
-      ResponseCookie cookie = tokenService.createTokenCookie(userId);
+      ResponseCookie cookie = tokenService.createTokenCookie(authentication);
       response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
     } catch (Exception e) {
       log.error(e.getMessage());

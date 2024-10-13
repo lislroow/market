@@ -14,6 +14,7 @@ public class JwtProperty {
   
   @Data
   public class Cert {
+    private String publicKeyFilePath;
     private String privateKeyFilePath;
   }
   

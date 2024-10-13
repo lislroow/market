@@ -26,7 +26,6 @@ public class UsernamePasswordAuthenticationSuccessHandler implements Authenticat
       Authentication authentication) throws IOException, ServletException {
     Assert.isTrue(authentication.getPrincipal() != null, "authentication.getPrincipal() is null");
     Assert.isTrue(authentication.getPrincipal() instanceof SessionUser, "authentication.getPrincipal() is not SessionUser type");
-    String userId = ((SessionUser)authentication.getPrincipal()).getEmail();
     
     try {
       //String tokenId = tokenService.createToken(userId);
@@ -36,7 +35,7 @@ public class UsernamePasswordAuthenticationSuccessHandler implements Authenticat
       //if (converter.canWrite(message.getClass(), jsonMimeType)) {
       //    converter.write(message, jsonMimeType, new ServletServerHttpResponse(response));
       //}
-      ResponseCookie cookie = tokenService.createTokenCookie(userId);
+      ResponseCookie cookie = tokenService.createTokenCookie(authentication);
       response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
       //response.setHeader(HttpHeaders.LOCATION, "/");
       //response.setStatus(HttpStatus.FOUND.value());
