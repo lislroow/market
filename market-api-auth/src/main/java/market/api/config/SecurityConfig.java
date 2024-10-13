@@ -23,19 +23,19 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 import lombok.RequiredArgsConstructor;
-import market.api.security.CustomAuthenticationFailureHandler;
-import market.api.security.CustomAuthenticationSuccessHandler;
-import market.api.security.CustomLogoutHandler;
-import market.api.security.CustomLogoutSuccessHandler;
-import market.api.security.CustomOAuth2LoginSuccessHandler;
+import market.api.security.UsernamePasswordAuthenticationFailureHandler;
+import market.api.security.UsernamePasswordAuthenticationSuccessHandler;
+import market.api.security.LogoutHandlerImpl;
+import market.api.security.LogoutSuccessHandlerImpl;
+import market.api.security.SocialOAuth2LoginSuccessHandler;
 import market.api.security.TokenService;
-import market.api.security.UserDetailsServiceImpl;
+import market.api.security.UsernamePasswordDetailsService;
 
 @Configuration
 @RequiredArgsConstructor
 public class SecurityConfig {
   
-  private final UserDetailsServiceImpl userDetailsServiceImpl;
+  private final UsernamePasswordDetailsService usernamePasswordDetailsService;
   
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
@@ -45,8 +45,8 @@ public class SecurityConfig {
       .formLogin((formLogin) -> {
         formLogin
           .loginProcessingUrl("/auth/v1/login/process")
-          .failureHandler(authenticationFailureHandler())
-          .successHandler(authenticationSuccessHandler(tokenService));
+          .failureHandler(usernamePasswordAuthenticationFailureHandler())
+          .successHandler(usernamePasswordAuthenticationSuccessHandler(tokenService));
       })
       .authenticationProvider(daoAuthenticationProvider())
       .authorizeHttpRequests((authorizeRequests) -> {
@@ -72,7 +72,7 @@ public class SecurityConfig {
             );
           })
           //.defaultSuccessUrl(String.format("http://%s", HOST), true)
-          .successHandler(customOAuth2LoginSuccessHandler(tokenService))
+          .successHandler(socialOAuth2LoginSuccessHandler(tokenService))
       )
       .sessionManagement(sessionManagement -> {
         // spring-security 에서 세션을 생성하지 않고 사용도 하지 않도록 함
@@ -81,8 +81,8 @@ public class SecurityConfig {
       .logout(logout -> { logout
         .logoutUrl("/auth/v1/logout")
         .logoutSuccessUrl("/")
-        .addLogoutHandler(customLogoutHandler())
-        .logoutSuccessHandler(customLogoutSuccessHandler())
+        .addLogoutHandler(logoutHandlerImpl())
+        .logoutSuccessHandler(logoutSuccessHandlerImpl())
         .deleteCookies("user");
       });
     ;
@@ -92,13 +92,13 @@ public class SecurityConfig {
   @Bean
   DaoAuthenticationProvider daoAuthenticationProvider() {
     DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
-    provider.setUserDetailsService(userDetailsServiceImpl);
+    provider.setUserDetailsService(usernamePasswordDetailsService);
     return provider;
   }
   
   @Bean
-  AuthenticationFailureHandler authenticationFailureHandler() {
-    AuthenticationFailureHandler handler = new CustomAuthenticationFailureHandler();
+  AuthenticationFailureHandler usernamePasswordAuthenticationFailureHandler() {
+    AuthenticationFailureHandler handler = new UsernamePasswordAuthenticationFailureHandler();
     return handler;
   }
   
@@ -106,14 +106,14 @@ public class SecurityConfig {
   TokenService tokenService;
   
   @Bean
-  AuthenticationSuccessHandler authenticationSuccessHandler(TokenService tokenService) {
-    AuthenticationSuccessHandler handler = new CustomAuthenticationSuccessHandler(tokenService);
+  AuthenticationSuccessHandler usernamePasswordAuthenticationSuccessHandler(TokenService tokenService) {
+    AuthenticationSuccessHandler handler = new UsernamePasswordAuthenticationSuccessHandler(tokenService);
     return handler;
   }
   
   @Bean
-  CustomOAuth2LoginSuccessHandler customOAuth2LoginSuccessHandler(TokenService tokenService) {
-    CustomOAuth2LoginSuccessHandler handler = new CustomOAuth2LoginSuccessHandler(tokenService);
+  SocialOAuth2LoginSuccessHandler socialOAuth2LoginSuccessHandler(TokenService tokenService) {
+    SocialOAuth2LoginSuccessHandler handler = new SocialOAuth2LoginSuccessHandler(tokenService);
     return handler;
   }
   
@@ -135,14 +135,14 @@ public class SecurityConfig {
     return new DefaultOAuth2AuthorizationRequestResolver(clientRegistrationRepository, authorizationRequestBaseUri);
   }
   
-  CustomLogoutHandler customLogoutHandler() {
-    CustomLogoutHandler handler = new CustomLogoutHandler();
+  LogoutHandlerImpl logoutHandlerImpl() {
+    LogoutHandlerImpl handler = new LogoutHandlerImpl();
     return handler;
   }
   
   @Bean
-  CustomLogoutSuccessHandler customLogoutSuccessHandler() {
-    CustomLogoutSuccessHandler handler = new CustomLogoutSuccessHandler();
+  LogoutSuccessHandlerImpl logoutSuccessHandlerImpl() {
+    LogoutSuccessHandlerImpl handler = new LogoutSuccessHandlerImpl();
     return handler;
   }
 }

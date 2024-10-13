@@ -3,7 +3,6 @@ package market.api.security;
 import java.io.IOException;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -18,7 +17,7 @@ import market.lib.vo.SessionUser;
 
 @Slf4j
 @RequiredArgsConstructor
-public class CustomOAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
+public class SocialOAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
   
   private final TokenService tokenService;
   
@@ -35,9 +34,8 @@ public class CustomOAuth2LoginSuccessHandler implements AuthenticationSuccessHan
     } catch (Exception e) {
       log.error(e.getMessage());
     }
-    
-    response.setHeader(HttpHeaders.LOCATION, "/");
-    response.setStatus(HttpStatus.FOUND.value());
-    response.getWriter().flush();
+    //response.setHeader(HttpHeaders.LOCATION, "/");
+    //response.setStatus(HttpStatus.FOUND.value());
+    //response.getWriter().flush();
   }
 }

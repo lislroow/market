@@ -1,13 +1,9 @@
 package market.api.security;
 
 import java.io.IOException;
-import java.util.Map;
 
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseCookie;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
-import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.util.Assert;
@@ -21,7 +17,7 @@ import market.lib.vo.SessionUser;
 
 @Slf4j
 @RequiredArgsConstructor
-public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
+public class UsernamePasswordAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
   private final TokenService tokenService;
   
@@ -42,6 +38,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
       //}
       ResponseCookie cookie = tokenService.createTokenCookie(userId);
       response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+      //response.setHeader(HttpHeaders.LOCATION, "/");
+      //response.setStatus(HttpStatus.FOUND.value());
     } catch (Exception e) {
       log.error(e.getMessage());
     }

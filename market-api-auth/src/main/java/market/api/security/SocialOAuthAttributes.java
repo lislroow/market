@@ -11,7 +11,7 @@ import market.lib.enumcode.YN;
 import market.lib.util.Uuid;
 
 @Getter
-public class OAuthAttributes {
+public class SocialOAuthAttributes {
   private Map<String, Object> attributes;
   private String nameAttributeKey;
   private String oauth2Id;
@@ -21,7 +21,7 @@ public class OAuthAttributes {
   private String picture;
   
   @Builder
-  public OAuthAttributes(Map<String, Object> attributes,
+  public SocialOAuthAttributes(Map<String, Object> attributes,
       String nameAttributeKey, 
       String oAuth2Id, String registrationId, String email, String nickname, String picture) {
     
@@ -34,9 +34,9 @@ public class OAuthAttributes {
     this.picture = picture;
   }
   
-  public static OAuthAttributes of(String registrationId,
+  public static SocialOAuthAttributes of(String registrationId,
       String userNameAttributeName, Map<String, Object> attributes) {
-    OAuthAttributes result = null;
+    SocialOAuthAttributes result = null;
     if ("google".equals(registrationId)) {
       result = ofGoogle(registrationId, userNameAttributeName, attributes);
     } else if ("kakao".equals(registrationId)) {
@@ -47,9 +47,9 @@ public class OAuthAttributes {
     return result;
   }
   
-  private static OAuthAttributes ofGoogle(String registrationId,
+  private static SocialOAuthAttributes ofGoogle(String registrationId,
       String userNameAttributeName, Map<String, Object> attributes) {
-    return OAuthAttributes.builder()
+    return SocialOAuthAttributes.builder()
             .oAuth2Id((String) attributes.get("sub"))
             .registrationId(registrationId)
             .email((String) attributes.get("email"))
@@ -60,14 +60,14 @@ public class OAuthAttributes {
             .build();
   }
   
-  private static OAuthAttributes ofKakao(String registrationId,
+  private static SocialOAuthAttributes ofKakao(String registrationId,
       String userNameAttributeName, Map<String, Object> attributes) {
     // properties [nickname, profile_image, thumbnail_image]
     @SuppressWarnings("unchecked")
     Map<String, Object> properties = (Map<String, Object>) attributes.get("properties"); 
     // kakao_account [profile_nickname_needs_agreement, profile_image_needs_agreement, properties ... ]
     //Map<String, Object> kakao_account = (Map<String, Object>) attributes.get("kakao_account"); 
-    return OAuthAttributes.builder()
+    return SocialOAuthAttributes.builder()
             .oAuth2Id(((Long) attributes.get("id")).toString())
             .registrationId(registrationId)
             //.email((String) attributes.get("email")) // kakao 는 사이트 인증이되어야 email 제공함
@@ -78,13 +78,13 @@ public class OAuthAttributes {
             .build();
   }
   
-  private static OAuthAttributes ofNaver(String registrationId,
+  private static SocialOAuthAttributes ofNaver(String registrationId,
       String userNameAttributeName, Map<String, Object> attributes) {
     // id=nwtYEDZWgcIBeXRpkgYf61KBwAESLFvPftUDI5mlyaI, nickname=mgk, profile_image=https://ssl.pstatic.net/static/pwe/address/img_profile.png,
     // age, gender, mobile, mobile_e164, name, birthday, birthyear
     @SuppressWarnings("unchecked")
     Map<String, Object> response = (Map<String, Object>) attributes.get("response"); 
-    return OAuthAttributes.builder()
+    return SocialOAuthAttributes.builder()
             .oAuth2Id((String) response.get("id"))
             .registrationId(registrationId)
             .nickname((String) response.get("nickname"))

@@ -19,7 +19,7 @@ import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
 @Service
-public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
+public class SocialOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
   
   @Autowired
   UserRepository userRepository;
@@ -37,7 +37,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     OAuth2User loadedUser = delegate.loadUser(userRequest);
     String registrationId = userRequest.getClientRegistration().getRegistrationId();
     String userNameAttributeName = userRequest.getClientRegistration().getProviderDetails().getUserInfoEndpoint().getUserNameAttributeName();
-    OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, loadedUser.getAttributes());
+    SocialOAuthAttributes attributes = SocialOAuthAttributes.of(registrationId, userNameAttributeName, loadedUser.getAttributes());
     UserEntity entity = userRepository.findByOauth2Id(attributes.getOauth2Id());
     if (ObjectUtils.isEmpty(entity)) {
       entity = attributes.toEntity();

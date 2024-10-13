@@ -8,6 +8,7 @@ import org.springframework.web.server.ServerWebExchange;
 
 import lombok.extern.slf4j.Slf4j;
 import market.com.feign.AuthFeign;
+import market.lib.constant.Constant;
 import market.lib.dto.ResponseDto;
 import market.lib.dto.auth.TokenResDto;
 import reactor.core.publisher.Mono;
@@ -28,9 +29,9 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       // pre process
       ServerHttpRequest request = exchange.getRequest();
       ServerHttpResponse response = exchange.getResponse();
-      if (request.getCookies().get("X-TOKEN-ID") != null) {
-        String tokenId = request.getCookies().get("X-TOKEN-ID").get(0).getValue();
-        log.info("X-TOKEN-ID={}", tokenId);
+      if (request.getCookies().get(Constant.X_TOKEN_ID) != null) {
+        String tokenId = request.getCookies().get(Constant.X_TOKEN_ID).get(0).getValue();
+        log.info(Constant.X_TOKEN_ID+"={}", tokenId);
         log.debug("authFeign={}", authFeign);
         ResponseDto<TokenResDto.Verify> resDto = authFeign.verifyToken(tokenId);
         String userId = resDto.getBody().getUserId();

@@ -14,7 +14,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class CustomAuthenticationFailureHandler implements AuthenticationFailureHandler {
+public class UsernamePasswordAuthenticationFailureHandler implements AuthenticationFailureHandler {
   
   @Override
   public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,

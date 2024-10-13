@@ -27,6 +27,7 @@ import com.nimbusds.jwt.SignedJWT;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.api.config.JwtProperty;
+import market.lib.constant.Constant;
 import market.lib.dto.auth.TokenResDto;
 
 @Component
@@ -82,7 +83,7 @@ public class TokenService {
       signedJWT.sign(this.signer);
       String token = signedJWT.serialize();
       if (log.isDebugEnabled()) System.out.println(tokenId + " " + token);
-      redisTemplate.opsForHash().put(tokenId, "accessToken", token); // , Duration.ofMillis(5000)
+      redisTemplate.opsForHash().put(tokenId, Constant.ACCESS_TOKEN, token); // , Duration.ofMillis(5000)
       
       claimsSet = new JWTClaimsSet.Builder()
           .subject(userId)
@@ -95,7 +96,7 @@ public class TokenService {
           claimsSet
           );
       if (log.isDebugEnabled()) System.out.println(tokenId + " " + token);
-      redisTemplate.opsForHash().put(tokenId, "refreshToken", token);
+      redisTemplate.opsForHash().put(tokenId, Constant.REFRESH_TOKEN, token);
     } catch (Exception e) {
       log.error(e.getMessage());
     }
@@ -104,7 +105,7 @@ public class TokenService {
   
   public ResponseCookie createTokenCookie(String userId) throws Exception {
     String tokenId = this.createToken(userId);
-    ResponseCookie cookie = ResponseCookie.from("X-TOKEN-ID", tokenId)
+    ResponseCookie cookie = ResponseCookie.from(Constant.X_TOKEN_ID, tokenId)
         .path("/")
         .httpOnly(true)
         .build();
@@ -113,7 +114,7 @@ public class TokenService {
   
   public TokenResDto.Verify verifyToken(String tokenId) throws Exception {
     TokenResDto.Verify resDto = new TokenResDto.Verify();
-    Object accessToken = redisTemplate.opsForHash().get(tokenId, "accessToken");
+    Object accessToken = redisTemplate.opsForHash().get(tokenId, Constant.ACCESS_TOKEN);
     resDto.setUserId("myeonggu.kim");
     return resDto;
   }

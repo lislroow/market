@@ -16,7 +16,7 @@ import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
 @Service
-public class UserDetailsServiceImpl implements UserDetailsService {
+public class UsernamePasswordDetailsService implements UserDetailsService {
 
   Logger ecslog = LoggerFactory.getLogger("ECS_JSON");
   
