@@ -15,7 +15,9 @@ import lombok.RequiredArgsConstructor;
 import market.api.product.dto.ProductReqDto;
 import market.api.product.dto.ProductResDto;
 import market.api.product.service.ProductService;
-import market.lib.dto.kafka.ResponseDto;
+import market.lib.aop.annotation.UserInfo;
+import market.lib.dto.ResponseDto;
+import market.lib.vo.UserVo;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,7 +26,7 @@ public class ProductController {
   private final ProductService productService;
   
   @GetMapping("/product/v1/list")
-  public ResponseDto<ProductResDto.ItemListRes> list() {
+  public ResponseDto<ProductResDto.ItemListRes> list(UserVo user) {
     ProductResDto.ItemListRes resDto = new ProductResDto.ItemListRes();
     resDto.setList(productService.list());
     return ResponseDto.body(resDto);

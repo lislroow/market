@@ -12,10 +12,12 @@ dependencies {
   implementation enforcedPlatform(project(":"))
   
   implementation project(":market-lib-const")
+  implementation project(":market-lib-dto")
   
   implementation "org.springframework.cloud:spring-cloud-starter-gateway"
   implementation "org.springframework.cloud:spring-cloud-starter-netflix-eureka-client"
   implementation "org.springframework.cloud:spring-cloud-starter-circuitbreaker-reactor-resilience4j"
+  implementation "org.springframework.cloud:spring-cloud-starter-openfeign"
   implementation "io.micrometer:micrometer-tracing-bridge-brave"
   implementation "io.zipkin.reporter2:zipkin-reporter-brave"
   implementation "io.zipkin.brave:brave-instrumentation-spring-web"

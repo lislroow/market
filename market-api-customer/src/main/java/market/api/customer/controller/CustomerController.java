@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 import market.api.customer.dto.CustomerReqDto;
 import market.api.customer.dto.CustomerResDto;
 import market.api.customer.service.CustomerService;
-import market.lib.dto.kafka.ResponseDto;
+import market.lib.dto.ResponseDto;
 
 @RestController
 @RequiredArgsConstructor

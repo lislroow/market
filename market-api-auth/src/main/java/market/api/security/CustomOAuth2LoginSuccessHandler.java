@@ -6,38 +6,36 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.web.WebAttributes;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.util.Assert;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import market.lib.vo.SessionUser;
 
 @Slf4j
+@RequiredArgsConstructor
 public class CustomOAuth2LoginSuccessHandler implements AuthenticationSuccessHandler {
-
+  
+  private final TokenService tokenService;
+  
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException, ServletException {
-    HttpSession session = request.getSession();
-    //SessionUser sessionUser = (SessionUser) session.getAttribute("user");
-    //ObjectMapper mapper = new ObjectMapper();
-    //String json = mapper.writeValueAsString(sessionUser);
-    //String b64 = new String(Base64.getEncoder().encode(json.getBytes()));
-    //ResponseCookie resCookie = ResponseCookie.from("user", b64)
-    //    .path("/")
-    //    .build();
-    ResponseCookie resCookie = ResponseCookie.from("LOGINED", "true")
-        .path("/")
-        .build();
-        //.maxAge(0)
-        //.httpOnly(true)
-        //.secure(true)
-    response.setHeader(HttpHeaders.SET_COOKIE, resCookie.toString());
-    log.info("response-cookie: user="+resCookie.toString());
-    session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+    Assert.isTrue(authentication.getPrincipal() != null, "authentication.getPrincipal() is null");
+    Assert.isTrue(authentication.getPrincipal() instanceof SessionUser, "authentication.getPrincipal() is not SessionUser type");
+    String userId = ((SessionUser)authentication.getPrincipal()).getEmail();
+    
+    try {
+      ResponseCookie cookie = tokenService.createTokenCookie(userId);
+      response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+    } catch (Exception e) {
+      log.error(e.getMessage());
+    }
+    
     response.setHeader(HttpHeaders.LOCATION, "/");
     response.setStatus(HttpStatus.FOUND.value());
     response.getWriter().flush();

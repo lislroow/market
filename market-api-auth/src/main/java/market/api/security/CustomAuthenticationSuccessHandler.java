@@ -10,28 +10,40 @@ import org.springframework.http.converter.json.MappingJackson2HttpMessageConvert
 import org.springframework.http.server.ServletServerHttpResponse;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.util.Assert;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import market.lib.vo.SessionUser;
+
 @Slf4j
+@RequiredArgsConstructor
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
+  private final TokenService tokenService;
+  
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
       Authentication authentication) throws IOException, ServletException {
-    ResponseCookie resCookie = ResponseCookie.from("LOGINED", "true")
-        .path("/")
-        .build();
-    response.setHeader(HttpHeaders.SET_COOKIE, resCookie.toString());
-    log.info("response-cookie: user="+resCookie.toString());
+    Assert.isTrue(authentication.getPrincipal() != null, "authentication.getPrincipal() is null");
+    Assert.isTrue(authentication.getPrincipal() instanceof SessionUser, "authentication.getPrincipal() is not SessionUser type");
+    String userId = ((SessionUser)authentication.getPrincipal()).getEmail();
     
-    MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-    MediaType jsonMimeType = MediaType.APPLICATION_JSON;
-    Map<String, String> message = Map.of("result", "AuthenticationSuccess");
-    if (converter.canWrite(message.getClass(), jsonMimeType)) {
-        converter.write(message, jsonMimeType, new ServletServerHttpResponse(response));
+    try {
+      //String tokenId = tokenService.createToken(userId);
+      //MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
+      //MediaType jsonMimeType = MediaType.APPLICATION_JSON;
+      //Map<String, String> message = Map.of("token", tokenId);
+      //if (converter.canWrite(message.getClass(), jsonMimeType)) {
+      //    converter.write(message, jsonMimeType, new ServletServerHttpResponse(response));
+      //}
+      ResponseCookie cookie = tokenService.createTokenCookie(userId);
+      response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
+    } catch (Exception e) {
+      log.error(e.getMessage());
     }
   }
 }

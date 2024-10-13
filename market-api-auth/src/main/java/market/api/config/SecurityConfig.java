@@ -28,6 +28,7 @@ import market.api.security.CustomAuthenticationSuccessHandler;
 import market.api.security.CustomLogoutHandler;
 import market.api.security.CustomLogoutSuccessHandler;
 import market.api.security.CustomOAuth2LoginSuccessHandler;
+import market.api.security.TokenService;
 import market.api.security.UserDetailsServiceImpl;
 
 @Configuration
@@ -45,13 +46,14 @@ public class SecurityConfig {
         formLogin
           .loginProcessingUrl("/auth/v1/login/process")
           .failureHandler(authenticationFailureHandler())
-          .successHandler(authenticationSuccessHandler());
+          .successHandler(authenticationSuccessHandler(tokenService));
       })
       .authenticationProvider(daoAuthenticationProvider())
       .authorizeHttpRequests((authorizeRequests) -> {
         authorizeRequests
           .requestMatchers("/auth/v1/login/process").permitAll()
           .requestMatchers("/auth/v1/session").permitAll()
+          .requestMatchers("/auth/v1/token/**").permitAll() // TODO 임시 허용
           .requestMatchers("/actuator/**").permitAll()
           .requestMatchers("/error").permitAll()
           .requestMatchers("/auth/v1/test").permitAll()
@@ -70,12 +72,11 @@ public class SecurityConfig {
             );
           })
           //.defaultSuccessUrl(String.format("http://%s", HOST), true)
-          .successHandler(customOAuth2LoginSuccessHandler())
+          .successHandler(customOAuth2LoginSuccessHandler(tokenService))
       )
       .sessionManagement(sessionManagement -> {
-        sessionManagement
-          .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED);
-          //.sessionCreationPolicy(SessionCreationPolicy.NEVER);
+        // spring-security 에서 세션을 생성하지 않고 사용도 하지 않도록 함
+        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
       })
       .logout(logout -> { logout
         .logoutUrl("/auth/v1/logout")
@@ -101,15 +102,18 @@ public class SecurityConfig {
     return handler;
   }
   
+  @Autowired
+  TokenService tokenService;
+  
   @Bean
-  AuthenticationSuccessHandler authenticationSuccessHandler() {
-    AuthenticationSuccessHandler handler = new CustomAuthenticationSuccessHandler();
+  AuthenticationSuccessHandler authenticationSuccessHandler(TokenService tokenService) {
+    AuthenticationSuccessHandler handler = new CustomAuthenticationSuccessHandler(tokenService);
     return handler;
   }
   
   @Bean
-  CustomOAuth2LoginSuccessHandler customOAuth2LoginSuccessHandler() {
-    CustomOAuth2LoginSuccessHandler handler = new CustomOAuth2LoginSuccessHandler();
+  CustomOAuth2LoginSuccessHandler customOAuth2LoginSuccessHandler(TokenService tokenService) {
+    CustomOAuth2LoginSuccessHandler handler = new CustomOAuth2LoginSuccessHandler(tokenService);
     return handler;
   }
   

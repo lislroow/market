@@ -7,10 +7,12 @@ import org.slf4j.MDC;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 
 import lombok.extern.slf4j.Slf4j;
+import market.com.feign.AuthFeign;
 import market.com.filter.AuthFilter;
 import reactor.core.publisher.Mono;
 
@@ -18,7 +20,7 @@ import reactor.core.publisher.Mono;
 @Slf4j(topic = "ECS_JSON")
 @Configuration
 public class GatewayConfig {
-
+  
   @Bean
   @Order(Ordered.LOWEST_PRECEDENCE)
   GlobalFilter customGlobalFilter() {
@@ -35,8 +37,8 @@ public class GatewayConfig {
   
   @Bean
   @Order(1)
-  AuthFilter authFilter() {
+  AuthFilter authFilter(@Lazy AuthFeign authFeign) {
     log.info("create authFilter");
-    return new AuthFilter();
+    return new AuthFilter(authFeign);
   }
 }
