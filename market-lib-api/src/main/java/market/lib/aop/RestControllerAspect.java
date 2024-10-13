@@ -54,12 +54,11 @@ public class RestControllerAspect {
     log.debug("*RemoteAddr   : {}", remoteAddr);
     
     String userId = request.getHeader("X-USER_ID");
-    String userNm = request.getHeader("X-USER_NM");
     log.info("*userId   : {}", userId);
-    log.info("*userNm   : {}", userNm);
     
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
     Method refMethod = methodSignature.getMethod();
+    Annotation[][] parameterAnnotations = refMethod.getParameterAnnotations();
     Login login = refMethod.getAnnotation(Login.class);
     Object[] args = joinPoint.getArgs();
     if (login != null) {
@@ -67,19 +66,20 @@ public class RestControllerAspect {
         throw new MarketException(RESPONSE_CODE.AL01);
       }
       //Assert.isTrue(StringUtils.hasLength(userId), "userId 가 null 입니다.");
-      for (int i=0; i<args.length; i++) {
-        Object arg = args[i];
-        //Annotation[] annotations = parameterAnnotations[i];
-        //boolean hasUserInfoAnnotation = Arrays.stream(annotations)
-        //    .anyMatch(annotation -> annotation.annotationType().equals(UserInfo.class));
-        //if (hasUserInfoAnnotation && arg instanceof UserVo) {
-        if (arg instanceof UserVo) {
-          UserVo userVo = new UserVo();
-          userVo.setUserId(userId);
-          args[i] = userVo;
-        }
+    }
+    
+    for (int i=0; i<args.length; i++) {
+      Object arg = args[i];
+      Annotation[] annotations = parameterAnnotations[i];
+      boolean hasUserInfoAnnotation = Arrays.stream(annotations)
+          .anyMatch(annotation -> annotation.annotationType().equals(UserInfo.class));
+      if (hasUserInfoAnnotation && arg instanceof UserVo) {
+        UserVo userVo = new UserVo();
+        userVo.setUserId(userId);
+        args[i] = userVo;
       }
     }
+    
     Object result = null;
     Throwable throwable = null;
     try {

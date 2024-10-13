@@ -27,6 +27,9 @@ public class ProductController {
   private final ProductService productService;
   
   @GetMapping("/product/v1/list")
+  //@Login
+  //public ResponseDto<ProductResDto.ItemListRes> list(@UserInfo UserVo user) { // [O]
+  //public ResponseDto<ProductResDto.ItemListRes> list(UserVo user) { // [X]
   public ResponseDto<ProductResDto.ItemListRes> list() {
     ProductResDto.ItemListRes resDto = new ProductResDto.ItemListRes();
     resDto.setList(productService.list());
@@ -42,7 +45,7 @@ public class ProductController {
   
   @PutMapping("/product/v1/products")
   @Login
-  public ResponseDto<ProductResDto.ItemListRes> saveProducts(UserVo user,
+  public ResponseDto<ProductResDto.ItemListRes> saveProducts(@UserInfo UserVo user,
       @RequestBody ProductReqDto.ItemListReq request) {
     ProductResDto.ItemListRes resDto = new ProductResDto.ItemListRes();
     resDto.setList(productService.saveProductList(request));
@@ -53,7 +56,7 @@ public class ProductController {
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   @Login
   public ResponseDto<ProductResDto.ItemRes> saveProduct(
-      UserVo user,
+      @UserInfo UserVo user,
       @RequestPart(name = "req") ProductReqDto.ItemReq request,
       @RequestPart(name = "imgThumb", required = false) MultipartFile imgThumb
       ) throws Exception {
@@ -65,7 +68,7 @@ public class ProductController {
       consumes = {MediaType.APPLICATION_JSON_VALUE, MediaType.MULTIPART_FORM_DATA_VALUE})
   @Login
   public ResponseDto<ProductResDto.ItemRes> deleteProduct(
-      UserVo user,
+      @UserInfo UserVo user,
       @RequestBody ProductReqDto.ItemReq request) throws Exception {
     ProductResDto.ItemRes resDto = productService.deleteProduct(request);
     return ResponseDto.body(resDto);
