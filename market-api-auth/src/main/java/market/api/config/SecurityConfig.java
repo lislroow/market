@@ -56,7 +56,7 @@ public class SecurityConfig {
           .requestMatchers("/auth/v1/token/**").permitAll() // TODO 임시 허용
           .requestMatchers("/actuator/**").permitAll()
           .requestMatchers("/error").permitAll()
-          .requestMatchers("/auth/v1/test").permitAll()
+          //.requestMatchers("/auth/v1/test").permitAll()
           .anyRequest().authenticated();
         }
       )

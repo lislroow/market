@@ -36,6 +36,8 @@ import lombok.extern.slf4j.Slf4j;
 import market.api.config.JwtProperty;
 import market.lib.constant.Constant;
 import market.lib.dto.auth.TokenResDto;
+import market.lib.enums.RESPONSE_CODE;
+import market.lib.exception.MarketException;
 import market.lib.vo.SessionUser;
 
 @Component
@@ -50,13 +52,6 @@ public class TokenService {
 
   @PostConstruct
   public void init() throws Exception {
-    // 키 생성
-    /*
-    KeyPairGenerator keyGen = KeyPairGenerator.getInstance("RSA");
-    keyGen.initialize(2048);
-    KeyPair keyPair = keyGen.generateKeyPair();
-    RSAPrivateKey privateKey = (RSAPrivateKey) keyPair.getPrivate();
-    */
     RSAPublicKey publicKey = loadRSAPublicKey(jwtProperty.getCert().getPublicKeyFilePath());
     this.verifier = new RSASSAVerifier(publicKey);
     
@@ -118,7 +113,7 @@ public class TokenService {
       if (log.isDebugEnabled()) System.out.println(tokenId + " " + token);
       this.redisTemplate.opsForHash().put(tokenId, Constant.REFRESH_TOKEN, token);
     } catch (Exception e) {
-      log.error(e.getMessage());
+      throw new MarketException(RESPONSE_CODE.A001, e);
     }
     return tokenId;
   }
@@ -143,7 +138,7 @@ public class TokenService {
       String email = signedJWT.getJWTClaimsSet().getSubject();
       resDto.setUserId(email);
     } else {
-      throw new Exception("토큰 검증 결과 실패");
+      throw new MarketException(RESPONSE_CODE.A002);
     }
     return resDto;
   }

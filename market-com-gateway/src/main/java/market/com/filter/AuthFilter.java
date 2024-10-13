@@ -11,6 +11,8 @@ import market.com.feign.AuthFeign;
 import market.lib.constant.Constant;
 import market.lib.dto.ResponseDto;
 import market.lib.dto.auth.TokenResDto;
+import market.lib.enums.RESPONSE_CODE;
+import market.lib.exception.MarketException;
 import reactor.core.publisher.Mono;
 
 @Slf4j
@@ -34,6 +36,10 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
         log.info(Constant.X_TOKEN_ID+"={}", tokenId);
         log.debug("authFeign={}", authFeign);
         ResponseDto<TokenResDto.Verify> resDto = authFeign.verifyToken(tokenId);
+        if (resDto.getBody() == null) {
+          throw new MarketException(RESPONSE_CODE.A002);
+        }
+        
         String userId = resDto.getBody().getUserId();
         ServerHttpRequest modifiedRequest = request.mutate()
             .header("X-USER_ID", userId)
@@ -41,14 +47,14 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
         ServerWebExchange modifiedExchange = exchange.mutate().request(modifiedRequest).build();
         return chain.filter(modifiedExchange).then(Mono.fromRunnable(() -> {
           // post process
-          log.info("response status={}", response.getStatusCode());
+          log.debug("response status={}", response.getStatusCode());
         }));
       } else {
         log.info("tokenId is null");
       }
       return chain.filter(exchange).then(Mono.fromRunnable(() -> {
         // post process
-        log.info("response status={}", response.getStatusCode());
+        log.debug("response status={}", response.getStatusCode());
       }));
     };
   }

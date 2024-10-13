@@ -3,6 +3,7 @@ package market.lib.dto;
 import java.io.Serializable;
 
 import lombok.Data;
+import market.lib.enums.RESPONSE_CODE;
 
 @Data
 public class ResponseDto<T> implements Serializable {
@@ -50,6 +51,14 @@ public class ResponseDto<T> implements Serializable {
   
   public static<T> ResponseDto<T> body(String code, String message) {
     return new ResponseDto<T>(code, message);
+  }
+  
+  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode, T data) {
+    return new ResponseDto<T>(responseCode.code(), responseCode.message(), data);
+  }
+  
+  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode) {
+    return new ResponseDto<T>(responseCode.code(), responseCode.message());
   }
   
   public static<T> ResponseDto<T> body(T data) {
