@@ -7,7 +7,7 @@ import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.web.server.ServerWebExchange;
 
 import lombok.extern.slf4j.Slf4j;
-import market.com.feign.AuthFeign;
+import market.com.feign.AuthControllerFeign;
 import market.lib.constant.Constant;
 import market.lib.dto.ResponseDto;
 import market.lib.dto.auth.TokenResDto;
@@ -18,11 +18,11 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
   
-  private AuthFeign authFeign;
+  private AuthControllerFeign authControllerFeign;
   
-  public AuthFilter(AuthFeign authFeign) {
+  public AuthFilter(AuthControllerFeign authControllerFeign) {
     super(Config.class);
-    this.authFeign = authFeign;
+    this.authControllerFeign = authControllerFeign;
   }
   
   @Override
@@ -34,8 +34,8 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       if (request.getCookies().get(Constant.X_TOKEN_ID) != null) {
         String tokenId = request.getCookies().get(Constant.X_TOKEN_ID).get(0).getValue();
         log.info(Constant.X_TOKEN_ID+"={}", tokenId);
-        log.debug("authFeign={}", authFeign);
-        ResponseDto<TokenResDto.Verify> resDto = authFeign.verifyToken(tokenId);
+        log.debug("authFeign={}", authControllerFeign);
+        ResponseDto<TokenResDto.Verify> resDto = authControllerFeign.verifyToken(tokenId);
         if (resDto.getBody() == null) {
           throw new MarketException(RESPONSE_CODE.A002);
         }

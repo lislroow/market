@@ -9,7 +9,7 @@ import market.lib.dto.ResponseDto;
 import market.lib.dto.auth.TokenResDto;
 
 @FeignClient(name = "market-api-auth", url = "http://localhost:20000", configuration = { FeignConfig.class })
-public interface AuthFeign {
+public interface AuthControllerFeign {
 
   @GetMapping("/auth/v1/token/verify")
   //ResponseDto<TokenResDto.Verify> verifyToken(@RequestHeader("Authorization") String authorization, @RequestParam("tokenId") String tokenId);

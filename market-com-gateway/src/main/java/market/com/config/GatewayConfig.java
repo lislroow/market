@@ -18,7 +18,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import market.com.feign.AuthFeign;
+import market.com.feign.AuthControllerFeign;
 import market.com.filter.AuthFilter;
 import market.lib.dto.ResponseDto;
 import market.lib.enums.RESPONSE_CODE;
@@ -78,8 +78,8 @@ public class GatewayConfig {
   
   @Bean
   @Order(Ordered.LOWEST_PRECEDENCE - 1)
-  AuthFilter authFilter(@Lazy AuthFeign authFeign) {
+  AuthFilter authFilter(@Lazy AuthControllerFeign authControllerFeign) {
     log.debug("create authFilter");
-    return new AuthFilter(authFeign);
+    return new AuthFilter(authControllerFeign);
   }
 }
