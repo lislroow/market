@@ -11,15 +11,12 @@ import java.security.interfaces.RSAPublicKey;
 import java.util.Date;
 import java.util.UUID;
 
-import javax.annotation.PostConstruct;
-
 import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.modelmapper.internal.util.Assert;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseCookie;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import com.nimbusds.jose.JOSEObjectType;
@@ -31,6 +28,7 @@ import com.nimbusds.jose.crypto.RSASSAVerifier;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.api.config.JwtProperty;
