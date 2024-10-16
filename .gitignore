@@ -37,6 +37,12 @@ bin
 */build
 */bin
 
+# [sonarqube]
+.scannerwork
+.sonarlint
+*/.scannerwork
+*/.sonarlint
+
 # [application]
 logs
 */logs
