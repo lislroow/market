@@ -7,11 +7,12 @@ import org.springframework.data.repository.Repository;
 
 import market.api.customer.entity.Customer;
 
-public interface CustomerRepository extends Repository<Customer, String> {
+public interface MyInfoRepository extends Repository<Customer, String> {
   
   List<Customer> saveAll(Iterable<Customer> param);
   
   Optional<Customer> findById(String id);
+  Optional<Customer> findByEmail(String email);
   
   Optional<Customer> save(Customer param);
   

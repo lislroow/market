@@ -7,7 +7,7 @@ import org.springframework.data.repository.Repository;
 
 import market.api.customer.entity.CustomerDelivery;
 
-public interface CustomerDeliveryRepository extends Repository<CustomerDelivery, Integer> {
+public interface MyDeliveryRepository extends Repository<CustomerDelivery, Integer> {
 
   Optional<CustomerDelivery> findById(Integer param);
   

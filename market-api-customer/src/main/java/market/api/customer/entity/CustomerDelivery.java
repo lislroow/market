@@ -14,7 +14,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import market.api.customer.dto.CustomerReqDto;
+import market.api.customer.dto.MyInfoReqDto;
 import market.lib.enumcode.YN;
 
 @Entity
@@ -45,7 +45,7 @@ public class CustomerDelivery {
     return entity;
   }
   
-  public CustomerDelivery update(CustomerReqDto.DeliveryReq request) {
+  public CustomerDelivery update(MyInfoReqDto.DeliveryAddressReq request) {
     this.address = request.getAddress();
     this.primaryYn = request.getPrimaryYn();
     return this;

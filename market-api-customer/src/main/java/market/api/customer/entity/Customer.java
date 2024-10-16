@@ -17,7 +17,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import market.api.customer.dto.CustomerReqDto;
+import market.api.customer.dto.MyInfoReqDto;
 
 @Entity
 @DynamicInsert
@@ -49,13 +49,13 @@ public class Customer {
   @OneToMany(mappedBy = "customer", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   private List<CustomerDelivery> deliveries;
   
-  public Customer saveBasicInfo(CustomerReqDto.InfoReq request) {
+  public Customer saveBasicInfo(MyInfoReqDto.UserReq request) {
     this.name = request.getName();
     this.setModifyDate(LocalDateTime.now());
     return this;
   }
   
-  public Customer saveDeliveries(List<CustomerReqDto.DeliveryReq> request) {
+  public Customer saveDeliveries(List<MyInfoReqDto.DeliveryAddressReq> request) {
     return this;
   }
 }

@@ -8,14 +8,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
 import market.api.customer.entity.Customer;
-import market.api.customer.repository.CustomerRepository;
+import market.api.customer.repository.MyInfoRepository;
 import market.lib.vo.User;
 
 @Component
 @RequiredArgsConstructor
 public class UserConsumer {
   
-  private final CustomerRepository repository;
+  private final MyInfoRepository repository;
   
   @KafkaListener(topics = "CustomOAuth2UserService.loadUser", containerFactory = "kafkaListener")
   @Transactional
