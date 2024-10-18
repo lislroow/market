@@ -55,7 +55,7 @@ public class Customer {
     return this;
   }
   
-  public Customer saveDeliveries(List<MyInfoReqDto.DeliveryAddressReq> request) {
+  public Customer saveDeliveries() {
     return this;
   }
 }

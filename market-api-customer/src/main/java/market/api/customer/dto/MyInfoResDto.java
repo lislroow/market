@@ -5,9 +5,10 @@ import market.lib.enumcode.YN;
 
 public class MyInfoResDto {
   
+  private MyInfoResDto() {}
+  
   @Data
   public static class UserRes {
-    
     private String id;
     private String name;
     private String email;

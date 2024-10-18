@@ -4,6 +4,8 @@ import lombok.Data;
 import market.lib.enumcode.YN;
 
 public class MyInfoReqDto {
+  
+  private MyInfoReqDto() {}
 
   @Data
   public static class UserReq {

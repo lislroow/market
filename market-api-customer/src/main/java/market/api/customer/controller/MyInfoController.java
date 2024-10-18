@@ -25,7 +25,7 @@ public class MyInfoController {
   
   @GetMapping("/customer/v1/my/user")
   @Login
-  public ResponseDto<MyInfoResDto.UserRes> getUser(@UserInfo UserVo user) throws Exception {
+  public ResponseDto<MyInfoResDto.UserRes> getUser(@UserInfo UserVo user) {
     return ResponseDto.body(myInfoService.getUser(user));
   }
   
