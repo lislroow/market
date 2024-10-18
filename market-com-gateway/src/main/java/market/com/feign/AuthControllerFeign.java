@@ -12,7 +12,6 @@ import market.lib.dto.auth.TokenResDto;
 public interface AuthControllerFeign {
 
   @GetMapping("/auth/v1/token/verify")
-  //ResponseDto<TokenResDto.Verify> verifyToken(@RequestHeader("Authorization") String authorization, @RequestParam("tokenId") String tokenId);
   ResponseDto<TokenResDto.Verify> verifyToken(@RequestParam("tokenId") String tokenId);
   
 }

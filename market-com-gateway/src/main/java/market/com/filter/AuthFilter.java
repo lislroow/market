@@ -42,24 +42,24 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
         
         String userId = resDto.getBody().getUserId();
         ServerHttpRequest modifiedRequest = request.mutate()
-            .header("X-USER_ID", userId)
+            .header(Constant.X_TOKEN_ID, userId)
             .build();
         ServerWebExchange modifiedExchange = exchange.mutate().request(modifiedRequest).build();
-        return chain.filter(modifiedExchange).then(Mono.fromRunnable(() -> {
+        return chain.filter(modifiedExchange).then(Mono.fromRunnable(() -> 
           // post process
-          log.debug("response status={}", response.getStatusCode());
-        }));
+          log.debug("response status={}", response.getStatusCode())
+        ));
       } else {
         log.info("tokenId is null");
       }
-      return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+      return chain.filter(exchange).then(Mono.fromRunnable(() -> 
         // post process
-        log.debug("response status={}", response.getStatusCode());
-      }));
+        log.debug("response status={}", response.getStatusCode())
+      ));
     };
   }
   
   public static class Config {
-    // put the configuration properties
+    long id = -1;
   }
 }
