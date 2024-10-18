@@ -66,7 +66,6 @@ public class SocialOAuthAttributes {
     @SuppressWarnings("unchecked")
     Map<String, Object> properties = (Map<String, Object>) attributes.get("properties"); 
     // kakao_account [profile_nickname_needs_agreement, profile_image_needs_agreement, properties ... ]
-    //Map<String, Object> kakao_account = (Map<String, Object>) attributes.get("kakao_account"); 
     return SocialOAuthAttributes.builder()
             .oAuth2Id(((Long) attributes.get("id")).toString())
             .registrationId(registrationId)

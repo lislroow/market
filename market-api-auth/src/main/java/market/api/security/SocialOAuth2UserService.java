@@ -1,7 +1,6 @@
 package market.api.security;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -12,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
+import lombok.RequiredArgsConstructor;
 import market.api.auth.entity.UserEntity;
 import market.api.auth.producer.UserProducer;
 import market.api.auth.repository.UserRepository;
@@ -19,16 +19,12 @@ import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
 @Service
+@RequiredArgsConstructor
 public class SocialOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
   
-  @Autowired
-  UserRepository userRepository;
-  
-  @Autowired
-  UserProducer userProducer;
-
-  @Autowired
-  ModelMapper model;
+  final UserRepository userRepository;
+  final UserProducer userProducer;
+  final ModelMapper model;
   
   @Transactional
   @Override
@@ -45,11 +41,6 @@ public class SocialOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
       entity = userRepository.save(entity);
       userProducer.send(model.map(entity, User.class));
     }
-    
-    System.err.println(String.format("tokenValue=%s", userRequest.getAccessToken().getTokenValue()));
-    System.err.println(String.format("id_token=%s", userRequest.getAdditionalParameters().get("id_token")));
-    
-    SessionUser sessionUser = new SessionUser(model.map(entity, User.class), attributes.getAttributes());
-    return sessionUser;
+    return new SessionUser(model.map(entity, User.class), attributes.getAttributes());
   }
 }

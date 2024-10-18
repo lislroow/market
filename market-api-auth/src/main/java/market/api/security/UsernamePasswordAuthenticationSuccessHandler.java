@@ -28,17 +28,8 @@ public class UsernamePasswordAuthenticationSuccessHandler implements Authenticat
     Assert.isTrue(authentication.getPrincipal() instanceof SessionUser, "authentication.getPrincipal() is not SessionUser type");
     
     try {
-      //String tokenId = tokenService.createToken(userId);
-      //MappingJackson2HttpMessageConverter converter = new MappingJackson2HttpMessageConverter();
-      //MediaType jsonMimeType = MediaType.APPLICATION_JSON;
-      //Map<String, String> message = Map.of("token", tokenId);
-      //if (converter.canWrite(message.getClass(), jsonMimeType)) {
-      //    converter.write(message, jsonMimeType, new ServletServerHttpResponse(response));
-      //}
       ResponseCookie cookie = tokenService.createTokenCookie(authentication);
       response.addHeader(HttpHeaders.SET_COOKIE, cookie.toString());
-      //response.setHeader(HttpHeaders.LOCATION, "/");
-      //response.setStatus(HttpStatus.FOUND.value());
     } catch (Exception e) {
       log.error(e.getMessage());
     }

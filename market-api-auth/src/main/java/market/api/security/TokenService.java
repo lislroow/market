@@ -4,10 +4,12 @@ import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.security.PrivateKey;
+import java.security.cert.CertificateException;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
+import java.text.ParseException;
 import java.util.Date;
 import java.util.UUID;
 
@@ -19,6 +21,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
+import com.nimbusds.jose.JOSEException;
 import com.nimbusds.jose.JOSEObjectType;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
@@ -49,7 +52,7 @@ public class TokenService {
   private RSASSAVerifier verifier;
 
   @PostConstruct
-  public void init() throws Exception {
+  public void init() throws CertificateException, IOException {
     RSAPublicKey publicKey = loadRSAPublicKey(jwtProperty.getCert().getPublicKeyFilePath());
     this.verifier = new RSASSAVerifier(publicKey);
     
@@ -70,11 +73,12 @@ public class TokenService {
     }
   }
   
-  private RSAPublicKey loadRSAPublicKey(String crtFilePath) throws Exception {
-    FileInputStream fis = new FileInputStream(crtFilePath);
-    CertificateFactory cf = CertificateFactory.getInstance("X.509");
-    X509Certificate cert = (X509Certificate) cf.generateCertificate(fis);
-    return (RSAPublicKey) cert.getPublicKey();
+  private RSAPublicKey loadRSAPublicKey(String crtFilePath) throws CertificateException, IOException  {
+    try (FileInputStream fis = new FileInputStream(crtFilePath)) {
+      CertificateFactory cf = CertificateFactory.getInstance("X.509");
+      X509Certificate cert = (X509Certificate) cf.generateCertificate(fis);
+      return (RSAPublicKey) cert.getPublicKey();
+    }
   }
   
   public String createToken(org.springframework.security.core.Authentication authentication) throws Exception {
@@ -95,7 +99,6 @@ public class TokenService {
       );
       signedJWT.sign(this.signer);
       String token = signedJWT.serialize();
-      if (log.isDebugEnabled()) System.out.println(tokenId + " " + token);
       this.redisTemplate.opsForHash().put(tokenId, Constant.ACCESS_TOKEN, token); // , Duration.ofMillis(5000)
       
       claimsSet = new JWTClaimsSet.Builder()
@@ -108,7 +111,7 @@ public class TokenService {
           new JWSHeader.Builder(JWSAlgorithm.RS256).type(JOSEObjectType.JWT).build(),
           claimsSet
           );
-      if (log.isDebugEnabled()) System.out.println(tokenId + " " + token);
+      token = signedJWT.serialize();
       this.redisTemplate.opsForHash().put(tokenId, Constant.REFRESH_TOKEN, token);
     } catch (Exception e) {
       throw new MarketException(RESPONSE_CODE.A001, e);
@@ -118,18 +121,21 @@ public class TokenService {
   
   public ResponseCookie createTokenCookie(org.springframework.security.core.Authentication authentication) throws Exception {
     String tokenId = this.createToken(authentication);
-    ResponseCookie cookie = ResponseCookie.from(Constant.X_TOKEN_ID, tokenId)
+    return ResponseCookie.from(Constant.X_TOKEN_ID, tokenId)
         .path("/")
         .httpOnly(true)
         .build();
-    return cookie;
   }
   
-  public TokenResDto.Verify verifyToken(String tokenId) throws Exception {
+  public TokenResDto.Verify verifyToken(String tokenId) throws ParseException, JOSEException {
     TokenResDto.Verify resDto = new TokenResDto.Verify();
     Object accessToken = redisTemplate.opsForHash().get(tokenId, Constant.ACCESS_TOKEN);
     Assert.isTrue(accessToken != null, "accessToken not be null");
     Assert.isTrue(accessToken instanceof String, "accessToken type is java.lang.String");
+    
+    if (accessToken == null) {
+      throw new MarketException(RESPONSE_CODE.A003);
+    }
     
     SignedJWT signedJWT = SignedJWT.parse(accessToken.toString());
     if (signedJWT.verify(this.verifier)) {

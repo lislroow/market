@@ -33,8 +33,5 @@ public class SocialOAuth2LoginSuccessHandler implements AuthenticationSuccessHan
     } catch (Exception e) {
       log.error(e.getMessage());
     }
-    //response.setHeader(HttpHeaders.LOCATION, "/");
-    //response.setStatus(HttpStatus.FOUND.value());
-    //response.getWriter().flush();
   }
 }

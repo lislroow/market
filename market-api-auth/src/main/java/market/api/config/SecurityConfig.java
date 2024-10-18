@@ -3,13 +3,13 @@ package market.api.config;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientPropertiesMapper;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.oauth2.client.registration.ClientRegistration;
 import org.springframework.security.oauth2.client.registration.ClientRegistrationRepository;
@@ -23,12 +23,12 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.security.web.authentication.Http403ForbiddenEntryPoint;
 
 import lombok.RequiredArgsConstructor;
-import market.api.security.UsernamePasswordAuthenticationFailureHandler;
-import market.api.security.UsernamePasswordAuthenticationSuccessHandler;
 import market.api.security.LogoutHandlerImpl;
 import market.api.security.LogoutSuccessHandlerImpl;
 import market.api.security.SocialOAuth2LoginSuccessHandler;
 import market.api.security.TokenService;
+import market.api.security.UsernamePasswordAuthenticationFailureHandler;
+import market.api.security.UsernamePasswordAuthenticationSuccessHandler;
 import market.api.security.UsernamePasswordDetailsService;
 
 @Configuration
@@ -40,52 +40,50 @@ public class SecurityConfig {
   @Bean
   SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
     http
-      .csrf((csrf) -> csrf.disable())
-      .httpBasic((httpBasic) -> httpBasic.disable())
-      .formLogin((formLogin) -> {
+      .csrf(csrf -> csrf.disable())
+      .httpBasic(AbstractHttpConfigurer::disable)
+      .formLogin(formLogin -> 
         formLogin
           .loginProcessingUrl("/auth/v1/login/process")
           .failureHandler(usernamePasswordAuthenticationFailureHandler())
-          .successHandler(usernamePasswordAuthenticationSuccessHandler(tokenService));
-      })
+          .successHandler(usernamePasswordAuthenticationSuccessHandler(tokenService))
+      )
       .authenticationProvider(daoAuthenticationProvider())
-      .authorizeHttpRequests((authorizeRequests) -> {
+      .authorizeHttpRequests(authorizeRequests -> 
         authorizeRequests
           .requestMatchers("/auth/v1/login/process").permitAll()
           .requestMatchers("/auth/v1/session").permitAll()
-          .requestMatchers("/auth/v1/token/**").permitAll() // TODO 임시 허용
+          .requestMatchers("/auth/v1/token/**").permitAll()
           .requestMatchers("/actuator/**").permitAll()
           .requestMatchers("/error").permitAll()
           //.requestMatchers("/auth/v1/test").permitAll()
-          .anyRequest().authenticated();
-        }
+          .anyRequest().authenticated()
       )
-      .exceptionHandling((exceptionHandlingCustomizer) -> 
+      .exceptionHandling(exceptionHandlingCustomizer -> 
         exceptionHandlingCustomizer.authenticationEntryPoint(new Http403ForbiddenEntryPoint())
       )
-      .oauth2Login((oauth2Login) ->
+      .oauth2Login(oauth2Login ->
         oauth2Login
           .permitAll()
-          .authorizationEndpoint((authorizationEndpointCustomizer) -> {
+          .authorizationEndpoint(authorizationEndpointCustomizer -> 
             authorizationEndpointCustomizer.authorizationRequestResolver(
               oauth2AuthorizationRequestResolver(clientRegistrationRepository())
-            );
-          })
+            )
+          )
           //.defaultSuccessUrl(String.format("http://%s", HOST), true)
           .successHandler(socialOAuth2LoginSuccessHandler(tokenService))
       )
-      .sessionManagement(sessionManagement -> {
+      .sessionManagement(sessionManagement -> 
         // spring-security 에서 세션을 생성하지 않고 사용도 하지 않도록 함
-        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-      })
-      .logout(logout -> { logout
-        .logoutUrl("/auth/v1/logout")
-        .logoutSuccessUrl("/")
-        .addLogoutHandler(logoutHandlerImpl())
-        .logoutSuccessHandler(logoutSuccessHandlerImpl())
-        .deleteCookies("user");
-      });
-    ;
+        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+      )
+      .logout(logout ->
+        logout.logoutUrl("/auth/v1/logout")
+          .logoutSuccessUrl("/")
+          .addLogoutHandler(logoutHandlerImpl())
+          .logoutSuccessHandler(logoutSuccessHandlerImpl())
+          .deleteCookies("user")
+      );
     return http.build();
   }
   
@@ -98,27 +96,22 @@ public class SecurityConfig {
   
   @Bean
   AuthenticationFailureHandler usernamePasswordAuthenticationFailureHandler() {
-    AuthenticationFailureHandler handler = new UsernamePasswordAuthenticationFailureHandler();
-    return handler;
+    return new UsernamePasswordAuthenticationFailureHandler();
   }
   
-  @Autowired
-  TokenService tokenService;
+  final TokenService tokenService;
   
   @Bean
   AuthenticationSuccessHandler usernamePasswordAuthenticationSuccessHandler(TokenService tokenService) {
-    AuthenticationSuccessHandler handler = new UsernamePasswordAuthenticationSuccessHandler(tokenService);
-    return handler;
+    return new UsernamePasswordAuthenticationSuccessHandler(tokenService);
   }
   
   @Bean
   SocialOAuth2LoginSuccessHandler socialOAuth2LoginSuccessHandler(TokenService tokenService) {
-    SocialOAuth2LoginSuccessHandler handler = new SocialOAuth2LoginSuccessHandler(tokenService);
-    return handler;
+    return new SocialOAuth2LoginSuccessHandler(tokenService);
   }
   
-  @Autowired
-  OAuth2ClientProperties properties;
+  final OAuth2ClientProperties properties;
   
   @Bean
   ClientRegistrationRepository clientRegistrationRepository() {
@@ -136,13 +129,11 @@ public class SecurityConfig {
   }
   
   LogoutHandlerImpl logoutHandlerImpl() {
-    LogoutHandlerImpl handler = new LogoutHandlerImpl();
-    return handler;
+    return new LogoutHandlerImpl();
   }
   
   @Bean
   LogoutSuccessHandlerImpl logoutSuccessHandlerImpl() {
-    LogoutSuccessHandlerImpl handler = new LogoutSuccessHandlerImpl();
-    return handler;
+    return new LogoutSuccessHandlerImpl();
   }
 }

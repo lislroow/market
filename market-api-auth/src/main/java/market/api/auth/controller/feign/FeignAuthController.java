@@ -27,7 +27,6 @@ public class FeignAuthController {
     TokenResDto.Verify dto = null;
     try {
       dto = tokenService.verifyToken(tokenId);
-      //int a = 1/0;
     } catch (Exception e) {
       throw new MarketException(RESPONSE_CODE.A002, e);
     }

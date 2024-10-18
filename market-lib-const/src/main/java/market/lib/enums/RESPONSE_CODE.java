@@ -15,6 +15,7 @@ public enum RESPONSE_CODE {
   G999("unknown gateway error"),
   A001("token creation error"),
   A002("token verification error"),
+  A003("token is empty"),
   AL01("login required")
   ;
   
