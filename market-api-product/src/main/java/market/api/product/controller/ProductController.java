@@ -1,5 +1,7 @@
 package market.api.product.controller;
 
+import java.io.IOException;
+
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +20,8 @@ import market.api.product.service.ProductService;
 import market.lib.aop.annotation.Login;
 import market.lib.aop.annotation.UserInfo;
 import market.lib.dto.ResponseDto;
+import market.lib.enums.RESPONSE_CODE;
+import market.lib.exception.MarketException;
 import market.lib.vo.UserVo;
 
 @RestController
@@ -59,8 +63,13 @@ public class ProductController {
       @UserInfo UserVo user,
       @RequestPart(name = "req") ProductReqDto.ItemReq request,
       @RequestPart(name = "imgThumb", required = false) MultipartFile imgThumb
-      ) throws Exception {
-    ProductResDto.ItemRes resDto = productService.saveProduct(request, imgThumb);
+      ) {
+    ProductResDto.ItemRes resDto = null;
+    try {
+      resDto = productService.saveProduct(request, imgThumb);
+    } catch (IllegalStateException|IOException e) {
+      throw new MarketException(RESPONSE_CODE.C002);
+    }
     return ResponseDto.body(resDto);
   }
   
@@ -69,19 +78,13 @@ public class ProductController {
   @Login
   public ResponseDto<ProductResDto.ItemRes> deleteProduct(
       @UserInfo UserVo user,
-      @RequestBody ProductReqDto.ItemReq request) throws Exception {
+      @RequestBody ProductReqDto.ItemReq request) {
     ProductResDto.ItemRes resDto = productService.deleteProduct(request);
     return ResponseDto.body(resDto);
   }
   
-  @PostMapping("/product/v1/init")
-  public ResponseDto<?> init() {
-    productService.init();
-    return ResponseDto.body();
-  }
-  
   @PostMapping("/product/v1/add")
-  public ResponseDto<?> add() {
+  public ResponseDto<Object> add() {
     productService.add();
     return ResponseDto.body();
   }
