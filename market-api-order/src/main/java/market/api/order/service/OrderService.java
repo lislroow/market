@@ -1,7 +1,6 @@
 package market.api.order.service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
@@ -35,8 +34,7 @@ public class OrderService {
     // persist
     User user = new User();
     user.setId("01ibc1wnncc6ld");
-    SessionUser sessionUser = new SessionUser(user);
-    Customer customer = customerRepository.findById(SessionContext.getUser().orElse(sessionUser).getId()).get();
+    Customer customer = customerRepository.findById(user.getId()).orElseThrow();
     Order order = model.map(request, Order.class);
     order.setCustomer(customer);
     
@@ -51,12 +49,11 @@ public class OrderService {
   }
   
   public List<OrderResDto.ItemRes> myOrders() {
-    Customer customer = customerRepository.findById(SessionContext.getUser().orElseThrow().getId()).get();
-    List<Order> result = repository.findByCustomerId(customer.getId()).get();
-    List<OrderResDto.ItemRes> listRES = result.stream()
+    Customer customer = customerRepository.findById(SessionContext.getUser().orElseThrow().getId()).orElseThrow();
+    List<Order> result = repository.findByCustomerId(customer.getId()).orElseThrow();
+    return result.stream()
         .map(item -> model.map(item, OrderResDto.ItemRes.class))
-        .collect(Collectors.toList());
-    return listRES;
+        .toList();
   }
   
 }

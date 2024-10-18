@@ -18,7 +18,7 @@ public class OrderController {
   private final OrderService orderService;
   
   @PostMapping("/order/v1/process")
-  public ResponseDto<?> orderProducts(@RequestBody OrderReqDto.ItemReq request) {
+  public ResponseDto<Object> orderProducts(@RequestBody OrderReqDto.ItemReq request) {
     orderService.process(request);
     return ResponseDto.body();
   }

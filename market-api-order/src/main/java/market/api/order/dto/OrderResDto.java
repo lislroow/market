@@ -10,6 +10,8 @@ import lombok.ToString;
 
 public class OrderResDto {
   
+  private OrderResDto() {}
+  
   @Data
   public static class ItemRes {
     private Integer id;
@@ -20,7 +22,7 @@ public class OrderResDto {
     private String receiverAddress;
     @JsonIgnoreProperties({"order"})
     @ToString.Exclude
-    private List<OrderResDto.ItemRes.OrderItem> orderItemInfoList = new ArrayList<OrderResDto.ItemRes.OrderItem>();
+    private List<OrderResDto.ItemRes.OrderItem> orderItemInfoList = new ArrayList<>();
     
     @Data
     public class Customer {

@@ -6,6 +6,8 @@ import lombok.Data;
 
 public class OrderReqDto {
   
+  private OrderReqDto() {}
+  
   @Data
   public static class ItemReq {
     private String receiverName;
