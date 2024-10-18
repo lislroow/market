@@ -32,12 +32,9 @@ public class ProductInventory {
   @Column(columnDefinition = "int(5)")
   private Integer totalQty;
   
-  //@Column(columnDefinition = "int(5)")
-  //private Integer soldQty;
   
   public ProductInventory updateQty(InventoryReqDto.UpdateQty request) {
     this.totalQty = request.getTotalQty();
-    //this.soldQty = req.getSoldQty();
     return this;
   }
 }

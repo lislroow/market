@@ -18,7 +18,7 @@ public class InventoryController {
   private final InventoryService inventoryService;
   
   @PutMapping("/inventory/v1/qty")
-  public ResponseDto<?> qty(@RequestBody List<InventoryReqDto.UpdateQty> request) {
+  public ResponseDto<Object> qty(@RequestBody List<InventoryReqDto.UpdateQty> request) {
     inventoryService.updateQty(request);
     return ResponseDto.body();
   }

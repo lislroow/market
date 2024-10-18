@@ -4,6 +4,8 @@ import lombok.Data;
 
 public class InventoryReqDto {
   
+  private InventoryReqDto() {}
+  
   @Data
   public static class UpdateQty {
     private Integer id;
