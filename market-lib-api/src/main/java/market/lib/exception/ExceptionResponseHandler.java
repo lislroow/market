@@ -20,30 +20,30 @@ import market.lib.enums.RESPONSE_CODE;
 @Slf4j
 @AllArgsConstructor
 public class ExceptionResponseHandler extends ResponseEntityExceptionHandler {
-
+  
+  static final String LOGFMT = "[{}] {}. {}";
+  static final String CAUSE = "/ cause: ";
+  
   @ExceptionHandler({MarketException.class})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  protected ResponseDto<?> handleMarketException(MarketException e, WebRequest request) {
-    log.error("[{}] {}. {}", e.getErrorCode(), e.getErrorMessage(), e.getCause() != null ? "/ cause: " + e.getCause().getClass() : e.getClass());
+  protected ResponseDto<Object> handleMarketException(MarketException e, WebRequest request) {
+    log.error(LOGFMT, e.getErrorCode(), e.getErrorMessage(), e.getCause() != null ? CAUSE + e.getCause().getClass() : e.getClass());
     return ResponseDto.body(e.getErrorCode(), e.getErrorMessage());
   }
   
   @ExceptionHandler({FeignException.class})
   @ResponseStatus(HttpStatus.OK)
-  @ResponseBody
-  protected ResponseDto<?> handleFeignException(FeignException e) {
+  protected ResponseDto<Object> handleFeignException(FeignException e) {
     RESPONSE_CODE responseCode = RESPONSE_CODE.G001;
-    log.error("[{}] {}. {}", responseCode.code(), responseCode.message(), e.getCause() != null ? "/ cause: " + e.getCause().getClass() : e.getClass());
+    log.error(LOGFMT, responseCode.code(), responseCode.message(), e.getCause() != null ? CAUSE + e.getCause().getClass() : e.getClass());
     return ResponseDto.body(responseCode.code(), responseCode.message());
   }
   
   @ExceptionHandler({Exception.class})
   @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-  @ResponseBody
-  protected ResponseDto<?> handleException(Exception e) {
+  protected ResponseDto<Object> handleException(Exception e) {
     RESPONSE_CODE responseCode = RESPONSE_CODE.E999;
-    log.error("[{}] {}. {}", responseCode.code(), responseCode.message(), e.getCause() != null ? "/ cause: " + e.getCause().getClass() : e.getClass());
+    log.error(LOGFMT, responseCode.code(), responseCode.message(), e.getCause() != null ? CAUSE + e.getCause().getClass() : e.getClass());
     return ResponseDto.body(responseCode.code(), responseCode.message());
   }
 }

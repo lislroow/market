@@ -6,9 +6,8 @@ import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorCon
 import org.springframework.boot.web.error.ErrorAttributeOptions;
 import org.springframework.boot.web.servlet.error.ErrorAttributes;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -24,14 +23,14 @@ public class ErrorController extends AbstractErrorController {
     super(errorAttributes);
   }
   
-  @RequestMapping(value = "/error", produces = "application/json;charset=UTF-8")
-  public ResponseEntity<ResponseDto<?>> error(HttpServletRequest request) {
+  @GetMapping(value = "/error", produces = "application/json;charset=UTF-8")
+  public ResponseEntity<ResponseDto<Object>> error(HttpServletRequest request) {
     Map<String, Object> errorAttributes = super.getErrorAttributes(request, ErrorAttributeOptions.defaults());
     HttpStatus status = getStatus(request);
     RESPONSE_CODE responseCode = RESPONSE_CODE.E999;
-    errorAttributes.forEach((key, value) -> {
-      log.error("[{}] {}. {}={}", responseCode.code(), responseCode.message(), key, value);
-    });
+    errorAttributes.forEach((key, value) -> 
+      log.error("[{}] {}. {}={}", responseCode.code(), responseCode.message(), key, value)
+    );
     return ResponseEntity.status(status)
         .body(ResponseDto.body(responseCode));
   }
