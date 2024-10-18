@@ -1,9 +1,5 @@
 package market.lib.enums;
 
-//import java.util.Arrays;
-//import java.util.List;
-//import java.util.stream.Collectors;
-
 public enum RESPONSE_CODE {
   
   /** 성공 */
@@ -34,10 +30,4 @@ public enum RESPONSE_CODE {
   public String code() {
     return this.name();
   }
-  
-  //public static void search(String code) {
-  //  List<RESPONSE_CODE> list = Arrays.stream(RESPONSE_CODE.values())
-  //          .filter(item -> item.name().equals(code))
-  //          .collect(Collectors.toList());
-  //}
 }
