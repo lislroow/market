@@ -42,16 +42,16 @@ public class OrderConsumer {
     orderRepository.save(orderEntity);
     
     List<Delivery> entityList = orderDto.getOrderItems().stream()
-      .map(item -> {
-        return Delivery.builder()
-            .receiverName(orderDto.getReceiverName())
-            .receiverAddress(orderDto.getReceiverAddress())
-            .id(DeliveryId.builder()
-                .orderId(orderDto.getId())
-                .orderItemId(item.getId())
-                .build())
-            .build();
-      }).collect(Collectors.toList());
+      .map(item ->
+        Delivery.builder()
+          .receiverName(orderDto.getReceiverName())
+          .receiverAddress(orderDto.getReceiverAddress())
+          .id(DeliveryId.builder()
+              .orderId(orderDto.getId())
+              .orderItemId(item.getId())
+              .build())
+          .build()
+      ).toList();
     repository.saveAll(entityList);
   }
 }
