@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import lombok.RequiredArgsConstructor;
-import market.api.delivery.dto.DeliveryRES;
-import market.api.delivery.dto.OrderItemRES;
+import market.api.delivery.dto.DeliveryResDto;
 import market.api.delivery.entity.Delivery;
 import market.api.delivery.repository.DeliveryRepository;
 
@@ -20,12 +19,12 @@ public class DeliveryService {
   private final DeliveryRepository repository;
   private final ModelMapper model;
   
-  public List<DeliveryRES> getOrder(Integer orderId) {
+  public List<DeliveryResDto.StatusRes> getOrder(Integer orderId) {
     List<Delivery> entityList = repository.findByOrderId(orderId).orElseThrow();
     return entityList.stream()
         .map(item -> {
-          DeliveryRES res = DeliveryRES.create(item);
-          res.setOrderItem(model.map(item.getOrderItem(), OrderItemRES.class));
+          DeliveryResDto.StatusRes res = DeliveryResDto.StatusRes.create(item);
+          res.setOrderItem(model.map(item.getOrderItem(), DeliveryResDto.OrderItemRes.class));
           return res;
         })
         .toList();
