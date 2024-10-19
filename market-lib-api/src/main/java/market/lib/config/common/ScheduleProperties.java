@@ -7,8 +7,8 @@ import org.springframework.core.type.AnnotatedTypeMetadata;
 
 import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 @ConfigurationProperties(prefix = "framework.common.scheduler")
+@Slf4j
 public class ScheduleProperties implements Condition {
 
   private final String ENABLED = "framework.common.scheduler.enabled";

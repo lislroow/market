@@ -66,9 +66,7 @@ public class GatewayConfig {
   @Order(Ordered.LOWEST_PRECEDENCE)
   GlobalFilter globalFilter() {
     return (exchange, chain) -> {
-      //String url = URLDecoder.decode(exchange.getRequest().getURI().toString(), Charset.forName("utf-8"));
       return chain.filter(exchange).then(Mono.fromRunnable(() -> {
-        //log.info("Global Filter: Post-processing, {}", exchange.getRequest().getURI());
         MDC.put("requestUrl", exchange.getRequest().getURI().toString());
         MDC.put("clientIp", exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
         log.info("[{}] {}.", RESPONSE_CODE.S000.code(), RESPONSE_CODE.S000.message());
