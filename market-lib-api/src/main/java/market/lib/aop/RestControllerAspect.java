@@ -87,12 +87,11 @@ public class RestControllerAspect {
     } finally {
       ObjectMapper objectMapper = new ObjectMapper();
       objectMapper.disable(SerializationFeature.FAIL_ON_EMPTY_BEANS);
-      Object[] newArgs = Arrays.stream(args).map(item -> {
-        if(item instanceof RequestFacade || item instanceof ResponseFacade || item instanceof MultipartFile) {
-          item = item.getClass();
-        }
-        return item;
-      }).toArray();
+      Object[] newArgs = Arrays.stream(args).map(item -> 
+        (item instanceof RequestFacade || 
+        item instanceof ResponseFacade || 
+        item instanceof MultipartFile) ? item.getClass() : null
+      ).toArray();
       String reqstr = objectMapper.writeValueAsString(newArgs);
       String resstr = null;
       if (throwable != null) {

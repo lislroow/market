@@ -1,8 +1,8 @@
-package market.lib.initial;
+package market.com.initial;
 
 import org.springframework.boot.BootstrapRegistry;
 
-public class BootstrapRegistryInitializer implements org.springframework.boot.BootstrapRegistryInitializer {
+public class BootstrapInitializer implements org.springframework.boot.BootstrapRegistryInitializer {
 
   @Override
   public void initialize(BootstrapRegistry registry) {

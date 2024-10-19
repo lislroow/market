@@ -13,7 +13,6 @@ import market.api.customer.entity.Customer;
 import market.api.customer.entity.CustomerDelivery;
 import market.api.customer.repository.MyDeliveryRepository;
 import market.api.customer.repository.MyInfoRepository;
-import market.lib.config.webmvc.SessionContext;
 import market.lib.vo.UserVo;
 
 @Service
@@ -53,7 +52,7 @@ public class MyInfoService {
   public List<MyInfoResDto.DeliveryAddressRes> saveDeliveryAddress(
       UserVo user,
       List<MyInfoReqDto.DeliveryAddressReq> request) {
-    String customerId = SessionContext.getUser().orElseThrow().getId();
+    String customerId = user.getUserId();
     Customer customer = myInfoRepository.findById(customerId).orElseThrow();
     List<CustomerDelivery> entityList = request.stream()
         .map(item -> {

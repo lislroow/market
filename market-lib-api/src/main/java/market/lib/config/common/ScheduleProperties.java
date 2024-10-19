@@ -11,14 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ScheduleProperties implements Condition {
 
-  private final String ENABLED = "framework.common.scheduler.enabled";
+  private static final String CONF_ENABLED = "framework.common.scheduler.enabled";
   private boolean enabled;
   
   @Override 
   public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
-    String enabled = context.getEnvironment().getProperty(ENABLED);
-    log.trace("framework.common.scheduler.enabled: {}", enabled);
-    return "true".equals(enabled);
+    String value = context.getEnvironment().getProperty(CONF_ENABLED);
+    log.trace("framework.common.scheduler.enabled: {}", value);
+    return "true".equals(value);
   }
   
   public boolean isEnabled() {

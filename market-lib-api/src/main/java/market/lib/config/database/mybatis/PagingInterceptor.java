@@ -38,19 +38,15 @@ public class PagingInterceptor implements Interceptor {
     Executor executor = (Executor) invocation.getTarget();
     
     log.info("sqlid: {}", ms.getId());
-    if (parameter instanceof Pageable &&
+    if (parameter instanceof Pageable pagableParameter &&
         SqlCommandType.SELECT == ms.getSqlCommandType()) {
       PagedList<Object> pagedList = new PagedList<>();
-      executor.query(ms, parameter,
-          new RowBounds(0, RowBounds.NO_ROW_LIMIT),
-          new ResultHandler<>() {
-            @Override
-            public void handleResult(ResultContext<?> resultContext) {
-              pagedList.setTotal(resultContext.getResultCount());
-            }
-          });
-      int page = ((Pageable<?>) parameter).getPage();
-      int pageSize = ((Pageable<?>) parameter).getPageSize();
+        executor.query(ms, parameter,
+            new RowBounds(0, RowBounds.NO_ROW_LIMIT),
+            resultContext -> pagedList.setTotal(resultContext.getResultCount())
+          );
+      int page = pagableParameter.getPage();
+      int pageSize = pagableParameter.getPageSize();
       int offset = (page - 1) * pageSize;
       int limit = pageSize;
       int start = offset + 1;

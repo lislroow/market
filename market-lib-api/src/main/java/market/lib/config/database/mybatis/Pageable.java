@@ -3,7 +3,7 @@ package market.lib.config.database.mybatis;
 import lombok.Data;
 
 @Data
-public class Pageable <T extends Object> {
+public class Pageable {
   
   protected Integer page;
   protected Integer pageSize;

@@ -12,6 +12,7 @@ import market.lib.util.Uuid;
 
 @Getter
 public class SocialOAuthAttributes {
+  
   private Map<String, Object> attributes;
   private String nameAttributeKey;
   private String oauth2Id;

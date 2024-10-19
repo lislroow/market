@@ -19,7 +19,7 @@ public class DaoSupport {
     return sqlSessionTemplate.selectList(sqlid, param);
   }
   @SuppressWarnings("unchecked")
-  public <E> PagedList<E> selectPaging(String sqlid, Pageable<?> param) {
+  public <E> PagedList<E> selectPaging(String sqlid, Pageable param) {
     return (PagedList<E>) sqlSessionTemplate.selectList(sqlid, param);
   }
   public int insert(String sqlid, Object param) {

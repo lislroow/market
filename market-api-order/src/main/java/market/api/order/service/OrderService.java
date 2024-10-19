@@ -14,9 +14,9 @@ import market.api.order.entity.Order;
 import market.api.order.producer.OrderProducer;
 import market.api.order.repository.CustomerRepository;
 import market.api.order.repository.OrderRepository;
-import market.lib.config.webmvc.SessionContext;
 import market.lib.dto.kafka.OrderDto;
 import market.lib.vo.User;
+import market.lib.vo.UserVo;
 
 @Service
 @Transactional
@@ -47,8 +47,8 @@ public class OrderService {
     //  - inventory 에서 재고 데이터 반영
   }
   
-  public List<OrderResDto.ItemRes> myOrders() {
-    Customer customer = customerRepository.findById(SessionContext.getUser().orElseThrow().getId()).orElseThrow();
+  public List<OrderResDto.ItemRes> myOrders(UserVo user) {
+    Customer customer = customerRepository.findById(user.getUserId()).orElseThrow();
     List<Order> result = repository.findByCustomerId(customer.getId()).orElseThrow();
     return result.stream()
         .map(item -> model.map(item, OrderResDto.ItemRes.class))

@@ -1,2 +1,2 @@
 org.springframework.boot.BootstrapRegistryInitializer=\
-market.com.initial.BootstrapRegistryInitializer
+market.com.initial.BootstrapInitializer

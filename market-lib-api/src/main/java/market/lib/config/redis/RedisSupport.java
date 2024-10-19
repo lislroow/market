@@ -21,7 +21,7 @@ public class RedisSupport {
   }
   
   @SuppressWarnings("unchecked")
-  public <T> T getHash(String key, String hashKey, Class<T> type) {
+  public <T> T getHash(String key, String hashKey) {
     return (T) this.redisTemplate.opsForHash().get(key, hashKey);
   }
   

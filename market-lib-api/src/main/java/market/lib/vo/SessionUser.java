@@ -25,7 +25,7 @@ public class SessionUser implements OAuth2User, UserDetails {
   private Role role;
   
   private User user;
-  private Map<String,Object> attributes;
+  private transient Map<String,Object> attributes;
   
   public SessionUser(User user) {
     this.user = user;
@@ -51,9 +51,7 @@ public class SessionUser implements OAuth2User, UserDetails {
   // [OAuth2User, UserDetails]
   @Override
   public Collection<? extends GrantedAuthority> getAuthorities() {
-    Collection<? extends GrantedAuthority> authorities = 
-        Collections.singleton(new SimpleGrantedAuthority(user.getRole().name()));
-    return authorities;
+    return Collections.singleton(new SimpleGrantedAuthority(user.getRole().name()));
   }
   // --[OAuth2User, UserDetails]
   
@@ -83,26 +81,21 @@ public class SessionUser implements OAuth2User, UserDetails {
   }
   @Override
   public boolean isAccountNonExpired() {
-    boolean isAccountNonExpired = "N".equals(user.getDormantYn().name());
-    return isAccountNonExpired;
+    return "N".equals(user.getDormantYn().name());
   }
   @Override
   public boolean isAccountNonLocked() {
-    boolean isAccountNonLocked = "N".equals(user.getLockedYn().name());
-    return isAccountNonLocked;
+    return "N".equals(user.getLockedYn().name());
   }
   @Override
   public boolean isCredentialsNonExpired() {
-    boolean isCredentialsNonExpired = 
-        user.getPasswordExpireDate().isAfter(LocalDateTime.now());
-    return isCredentialsNonExpired;
+    return user.getPasswordExpireDate().isAfter(LocalDateTime.now());
   }
   @Override
   public boolean isEnabled() {
-    boolean isEnabled = isAccountNonExpired()
+    return isAccountNonExpired()
         && isAccountNonLocked()
         && isCredentialsNonExpired();
-    return isEnabled;
   }
   // --[UserDetails]
 }

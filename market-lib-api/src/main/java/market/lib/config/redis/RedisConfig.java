@@ -56,7 +56,6 @@ public class RedisConfig {
 
   @Bean
   RedisSupport redisSupport(RedisTemplate<String, Object> redisTemplate, ModelMapper modelMapper) {
-    RedisSupport redisSupport = new RedisSupport(redisTemplate, modelMapper);
-    return redisSupport;
+    return new RedisSupport(redisTemplate, modelMapper);
   }
 }

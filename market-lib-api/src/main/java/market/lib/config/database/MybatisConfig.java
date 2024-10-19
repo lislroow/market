@@ -9,45 +9,35 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.boot.autoconfigure.MybatisProperties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
-//import org.springframework.jdbc.datasource.LazyConnectionDataSourceProxy;
 import org.springframework.util.ObjectUtils;
 
+import lombok.RequiredArgsConstructor;
 import market.lib.config.database.mybatis.DaoSupport;
 
-//@Slf4j
 @Configuration
+@RequiredArgsConstructor
 public class MybatisConfig {
   
   Logger log = LoggerFactory.getLogger(MybatisConfig.class);
   
   
-  @Autowired
-  MybatisProperties mybatisProperties;
+  final MybatisProperties mybatisProperties;
   
-  //@Autowired
-  //@Qualifier("lazyConnectionDataSourceProxy")
-  //LazyConnectionDataSourceProxy lazyConnectionDataSourceProxy;
-  
-  @Autowired
-  //@Qualifier("dataSource_primary")
-  DataSource dataSource_primary;
+  final DataSource dataSourcePrimary;
   
   // primary
   @Bean(name = "sqlSessionFactoryBean_primary")
   @Primary
-  SqlSessionFactoryBean sqlSessionFactoryBean_primary() throws Exception {
+  SqlSessionFactoryBean sqlSessionFactoryBean_primary() {
     String typeAliasesPackage = mybatisProperties.getTypeAliasesPackage();
-    log.info("[primary] typeAliasesPackage: " + typeAliasesPackage);
+    log.info("[primary] typeAliasesPackage: {}", typeAliasesPackage);
     
     SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
-    // RoutingDataSource 로 runtime 시 datasource 를 결정해야 할 경우 아래 코드 사용
-    // sqlSessionFactoryBean.setDataSource(lazyConnectionDataSourceProxy);
-    sqlSessionFactoryBean.setDataSource(dataSource_primary);
+    sqlSessionFactoryBean.setDataSource(dataSourcePrimary);
     
     // mybatis.xml 을 사용할 경우
     sqlSessionFactoryBean.setMapperLocations(mybatisProperties.resolveMapperLocations());
@@ -56,10 +46,6 @@ public class MybatisConfig {
     if (!ObjectUtils.isEmpty(typeAliasesPackage)) {
       sqlSessionFactoryBean.setTypeAliasesPackage(typeAliasesPackage);
     }
-    // mybatis.xml 은 application.properties 의 mybatis 설정으로 대체
-    //sqlSessionFactoryBean.setConfigurationProperties(mybatisProperties.getConfigurationProperties());
-    // 적용 안됨
-    //mybatisProperties.getConfiguration().applyTo((sqlSessionFactoryBean.getObject()).getConfiguration());
     
     // ---
     org.apache.ibatis.session.Configuration configuration = new org.apache.ibatis.session.Configuration();
@@ -76,7 +62,7 @@ public class MybatisConfig {
   @Bean
   @Primary
   DaoSupport daoSupport_primary(
-      @Qualifier("sqlSessionTemplate_primary") SqlSessionTemplate sqlSessionTemplate) throws Exception {
+      @Qualifier("sqlSessionTemplate_primary") SqlSessionTemplate sqlSessionTemplate) {
     return new DaoSupport(sqlSessionTemplate);
   }
   

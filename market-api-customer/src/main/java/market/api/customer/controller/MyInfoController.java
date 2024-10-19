@@ -29,24 +29,24 @@ public class MyInfoController {
     return ResponseDto.body(myInfoService.getUser(user));
   }
   
-  @Login
   @PutMapping("/customer/v1/my/user")
+  @Login
   public ResponseDto<MyInfoResDto.UserRes> saveUser(
       @UserInfo UserVo user,
       @RequestBody MyInfoReqDto.UserReq request) {
     return ResponseDto.body(myInfoService.saveMyInfo(user, request));
   }
 
-  @Login
   @GetMapping("/customer/v1/my/delivery-address")
+  @Login
   public ResponseDto<List<MyInfoResDto.DeliveryAddressRes>> getDeliveryAddress(
       @UserInfo UserVo user) {
     List<MyInfoResDto.DeliveryAddressRes> res = myInfoService.getDeliveryAddress(user);
     return ResponseDto.body(res);
   }
 
-  @Login
   @PutMapping("/customer/v1/my/delivery-address")
+  @Login
   public ResponseDto<List<MyInfoResDto.DeliveryAddressRes>> saveDeliveryAddress(
       @UserInfo UserVo user,
       @RequestBody List<MyInfoReqDto.DeliveryAddressReq> request) {
@@ -54,8 +54,8 @@ public class MyInfoController {
     return ResponseDto.body(resList);
   }
 
-  @Login
   @DeleteMapping("/customer/v1/my/delivery-address")
+  @Login
   public ResponseDto<List<MyInfoResDto.DeliveryAddressRes>> deleteDeliveryAddress(
       @UserInfo UserVo user,
       @RequestBody List<MyInfoReqDto.DeliveryAddressReq> request) {
