@@ -16,7 +16,6 @@ import market.api.order.repository.CustomerRepository;
 import market.api.order.repository.OrderRepository;
 import market.lib.config.webmvc.SessionContext;
 import market.lib.dto.kafka.OrderDto;
-import market.lib.vo.SessionUser;
 import market.lib.vo.User;
 
 @Service
