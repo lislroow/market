@@ -1,5 +1,6 @@
 package market.api.inventory.controller;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.PutMapping;
@@ -18,7 +19,7 @@ public class InventoryController {
   private final InventoryService inventoryService;
   
   @PutMapping("/inventory/v1/qty")
-  public ResponseDto<Object> qty(@RequestBody List<InventoryReqDto.UpdateQty> request) {
+  public ResponseDto<Serializable> qty(@RequestBody List<InventoryReqDto.UpdateQty> request) {
     inventoryService.updateQty(request);
     return ResponseDto.body();
   }

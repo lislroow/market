@@ -1,5 +1,6 @@
 package market.lib.exception;
 
+import java.io.Serializable;
 import java.util.Map;
 
 import org.springframework.boot.autoconfigure.web.servlet.error.AbstractErrorController;
@@ -24,7 +25,7 @@ public class ErrorController extends AbstractErrorController {
   }
   
   @GetMapping(value = "/error", produces = "application/json;charset=UTF-8")
-  public ResponseEntity<ResponseDto<Object>> error(HttpServletRequest request) {
+  public ResponseEntity<ResponseDto<Serializable>> error(HttpServletRequest request) {
     Map<String, Object> errorAttributes = super.getErrorAttributes(request, ErrorAttributeOptions.defaults());
     HttpStatus status = getStatus(request);
     RESPONSE_CODE responseCode = RESPONSE_CODE.E999;

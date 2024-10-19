@@ -1,6 +1,7 @@
 package market.api.product.controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -84,7 +85,7 @@ public class ProductController {
   }
   
   @PostMapping("/product/v1/add")
-  public ResponseDto<Object> add() {
+  public ResponseDto<Serializable> add() {
     productService.add();
     return ResponseDto.body();
   }

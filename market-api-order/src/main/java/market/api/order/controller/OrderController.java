@@ -1,5 +1,7 @@
 package market.api.order.controller;
 
+import java.io.Serializable;
+
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -21,7 +23,7 @@ public class OrderController {
   private final OrderService orderService;
   
   @PostMapping("/order/v1/process")
-  public ResponseDto<Object> orderProducts(@RequestBody OrderReqDto.ItemReq request) {
+  public ResponseDto<Serializable> orderProducts(@RequestBody OrderReqDto.ItemReq request) {
     orderService.process(request);
     return ResponseDto.body();
   }

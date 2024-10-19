@@ -30,9 +30,9 @@ public class MybatisConfig {
   final DataSource dataSourcePrimary;
   
   // primary
-  @Bean(name = "sqlSessionFactoryBean_primary")
+  @Bean(name = "sqlSessionFactoryBeanPrimary")
   @Primary
-  SqlSessionFactoryBean sqlSessionFactoryBean_primary() {
+  SqlSessionFactoryBean sqlSessionFactoryBeanPrimary() {
     String typeAliasesPackage = mybatisProperties.getTypeAliasesPackage();
     log.info("[primary] typeAliasesPackage: {}", typeAliasesPackage);
     
@@ -61,21 +61,21 @@ public class MybatisConfig {
   
   @Bean
   @Primary
-  DaoSupport daoSupport_primary(
-      @Qualifier("sqlSessionTemplate_primary") SqlSessionTemplate sqlSessionTemplate) {
+  DaoSupport daoSupportPrimary(
+      @Qualifier("sqlSessionTemplatePrimary") SqlSessionTemplate sqlSessionTemplate) {
     return new DaoSupport(sqlSessionTemplate);
   }
   
-  @Bean(name = "sqlSessionTemplate_primary")
+  @Bean(name = "sqlSessionTemplatePrimary")
   @Primary
-  SqlSessionTemplate sqlSessionTemplate_primary(
-      @Qualifier("sqlSessionFactoryBean_primary") SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
+  SqlSessionTemplate sqlSessionTemplatePrimary(
+      @Qualifier("sqlSessionFactoryBeanPrimary") SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
      return new SqlSessionTemplate(sqlSessionFactoryBean.getObject());
   }
   
-  @Bean(name = "sqlSessionTemplateForBatchExecutor_primary")
-  SqlSessionTemplate sqlSessionTemplateForBatchExecutor_primary(
-      @Qualifier("sqlSessionFactoryBean_primary") SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
+  @Bean(name = "sqlSessionTemplateForBatchExecutorPrimary")
+  SqlSessionTemplate sqlSessionTemplateForBatchExecutorPrimary(
+      @Qualifier("sqlSessionFactoryBeanPrimary") SqlSessionFactoryBean sqlSessionFactoryBean) throws Exception {
     return new SqlSessionTemplate(sqlSessionFactoryBean.getObject(), ExecutorType.BATCH);
   }
 }

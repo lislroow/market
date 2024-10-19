@@ -16,7 +16,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class TransactionConfig {
 
-  final DataSource dataSource_primary;
+  final DataSource dataSourcePrimary;
   final AbstractEntityManagerFactoryBean entityManagerFactory;
   final MybatisProperties mybatisProperties;
   
@@ -25,7 +25,7 @@ public class TransactionConfig {
     DataSourceTransactionManager mybatisTransactionManager = null;
     if (mybatisProperties != null) {
       mybatisTransactionManager = new DataSourceTransactionManager();
-      mybatisTransactionManager.setDataSource(dataSource_primary);
+      mybatisTransactionManager.setDataSource(dataSourcePrimary);
     }
     
     JpaTransactionManager jpaTransactionManager = null;

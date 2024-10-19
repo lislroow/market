@@ -1,5 +1,6 @@
 package market.api.customer.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -39,27 +40,24 @@ public class MyInfoController {
 
   @GetMapping("/customer/v1/my/delivery-address")
   @Login
-  public ResponseDto<List<MyInfoResDto.DeliveryAddressRes>> getDeliveryAddress(
+  public ResponseDto<ArrayList<MyInfoResDto.DeliveryAddressRes>> getDeliveryAddress(
       @UserInfo UserVo user) {
-    List<MyInfoResDto.DeliveryAddressRes> res = myInfoService.getDeliveryAddress(user);
-    return ResponseDto.body(res);
+    return ResponseDto.body(new ArrayList<>(myInfoService.getDeliveryAddress(user)));
   }
 
   @PutMapping("/customer/v1/my/delivery-address")
   @Login
-  public ResponseDto<List<MyInfoResDto.DeliveryAddressRes>> saveDeliveryAddress(
+  public ResponseDto<ArrayList<MyInfoResDto.DeliveryAddressRes>> saveDeliveryAddress(
       @UserInfo UserVo user,
       @RequestBody List<MyInfoReqDto.DeliveryAddressReq> request) {
-    List<MyInfoResDto.DeliveryAddressRes> resList = myInfoService.saveDeliveryAddress(user, request);
-    return ResponseDto.body(resList);
+    return ResponseDto.body(new ArrayList<>(myInfoService.saveDeliveryAddress(user, request)));
   }
 
   @DeleteMapping("/customer/v1/my/delivery-address")
   @Login
-  public ResponseDto<List<MyInfoResDto.DeliveryAddressRes>> deleteDeliveryAddress(
+  public ResponseDto<ArrayList<MyInfoResDto.DeliveryAddressRes>> deleteDeliveryAddress(
       @UserInfo UserVo user,
       @RequestBody List<MyInfoReqDto.DeliveryAddressReq> request) {
-    List<MyInfoResDto.DeliveryAddressRes> resList = myInfoService.deleteDeliveryAddress(user, request);
-    return ResponseDto.body(resList);
+    return ResponseDto.body(new ArrayList<>(myInfoService.deleteDeliveryAddress(user, request)));
   }
 }

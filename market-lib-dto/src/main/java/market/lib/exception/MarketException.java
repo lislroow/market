@@ -7,7 +7,7 @@ public class MarketException extends RuntimeException {
   private static final long serialVersionUID = 1L;
   
   private final String errorCode;
-  private String errorMessage;
+  private final String errorMessage;
 
   public MarketException(String errorCode, String errorMessage) {
     super(errorMessage);
@@ -45,9 +45,5 @@ public class MarketException extends RuntimeException {
 
   public String getErrorMessage() {
     return errorMessage;
-  }
-
-  public void setErrorMessage(String errorMessage) {
-    this.errorMessage = errorMessage;
   }
 }

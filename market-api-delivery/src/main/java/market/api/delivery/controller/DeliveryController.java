@@ -1,6 +1,6 @@
 package market.api.delivery.controller;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,10 +18,8 @@ public class DeliveryController {
   private final DeliveryService deliveryService;
   
   @GetMapping("/delivery/v1/status/{orderId}")
-  public ResponseDto<List<DeliveryResDto.StatusRes>> getOrder(
+  public ResponseDto<ArrayList<DeliveryResDto.StatusRes>> getOrder(
       @PathVariable Integer orderId) {
-    List<DeliveryResDto.StatusRes> resList = deliveryService.getOrder(orderId);
-    return ResponseDto.body(resList);
+    return ResponseDto.body(new ArrayList<>(deliveryService.getOrder(orderId)));
   }
-  
 }

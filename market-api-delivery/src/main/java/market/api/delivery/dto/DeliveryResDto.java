@@ -1,17 +1,21 @@
 package market.api.delivery.dto;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.Data;
 import lombok.ToString;
 import market.api.delivery.entity.Delivery;
 
-public class DeliveryResDto {
+public class DeliveryResDto implements Serializable {
+  private static final long serialVersionUID = 1L;
   
   private DeliveryResDto() {}
   
   @Data
-  public static class StatusRes {
+  public static class StatusRes implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer orderId;
     private Integer orderItemId;
@@ -35,14 +39,16 @@ public class DeliveryResDto {
   }
   
   @Data
-  public static class OrderItemRes {
+  public static class OrderItemRes implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private Integer orderQty;
     private DeliveryResDto.ProductRes product;
   }
   
   @Data
-  public static class ProductRes {
+  public static class ProductRes implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String name;
     private String imgThumbUrl;

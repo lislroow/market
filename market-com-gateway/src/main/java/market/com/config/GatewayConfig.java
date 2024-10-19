@@ -65,13 +65,12 @@ public class GatewayConfig {
   @Bean
   @Order(Ordered.LOWEST_PRECEDENCE)
   GlobalFilter globalFilter() {
-    return (exchange, chain) -> {
-      return chain.filter(exchange).then(Mono.fromRunnable(() -> {
+    return (exchange, chain) -> 
+      chain.filter(exchange).then(Mono.fromRunnable(() -> {
         MDC.put("requestUrl", exchange.getRequest().getURI().toString());
         MDC.put("clientIp", exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
         log.info("[{}] {}.", RESPONSE_CODE.S000.code(), RESPONSE_CODE.S000.message());
       }));
-    };
   }
   
   @Bean

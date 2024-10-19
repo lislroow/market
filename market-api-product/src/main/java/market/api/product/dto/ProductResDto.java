@@ -1,5 +1,6 @@
 package market.api.product.dto;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -7,10 +8,12 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 
-public class ProductResDto {
+public class ProductResDto implements Serializable {
+  private static final long serialVersionUID = 1L;
 
   @Data
-  public static class ItemRes {
+  public static class ItemRes implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer id;
     private String name;
     private String imgThumbUrl;
@@ -27,18 +30,21 @@ public class ProductResDto {
   }
   
   @Data
-  public static class ItemListRes {
+  public static class ItemListRes implements Serializable {
+    private static final long serialVersionUID = 1L;
     private List<ProductResDto.ItemRes> list;
   }
   
   @Data
-  public class ItemCategory {
+  public class ItemCategory implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String name;
   }
   
   @Data
-  public class ItemQty {
+  public class ItemQty implements Serializable {
+    private static final long serialVersionUID = 1L;
     private Integer totalQty;
     private Integer soldQty;
   }

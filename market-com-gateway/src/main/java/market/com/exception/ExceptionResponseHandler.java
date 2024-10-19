@@ -1,5 +1,7 @@
 package market.com.exception;
 
+import java.io.Serializable;
+
 import org.springframework.cloud.gateway.support.NotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,29 +22,32 @@ import reactor.core.publisher.Mono;
 @AllArgsConstructor
 public class ExceptionResponseHandler {
   
+  static final String LOGFMT = "[{}] {}. {}";
+  static final String CAUSE = "/ cause: ";
+  
   @ExceptionHandler({MarketException.class})
   @ResponseStatus(HttpStatus.OK)
-  protected Mono<ResponseDto<?>> handleMarketException(MarketException e, ServerWebExchange exchange) {
-    log.error("[{}] {}. {}", e.getErrorCode(), e.getErrorMessage(), e.getCause() != null ? "/ cause: " + e.getCause().getClass() : "");
-    ResponseDto<?> response = ResponseDto.body(e.getErrorCode(), e.getMessage());
+  protected Mono<ResponseDto<Serializable>> handleMarketException(MarketException e, ServerWebExchange exchange) {
+    log.error(LOGFMT, e.getErrorCode(), e.getErrorMessage(), e.getCause() != null ? CAUSE + e.getCause().getClass() : "");
+    ResponseDto<Serializable> response = ResponseDto.body(e.getErrorCode(), e.getMessage());
     return Mono.just(response);
   }
   
   @ExceptionHandler({FeignException.class})
   @ResponseStatus(HttpStatus.OK)
-  protected Mono<ResponseDto<?>> handleFeignException(FeignException e, ServerWebExchange exchange) {
+  protected Mono<ResponseDto<Serializable>> handleFeignException(FeignException e, ServerWebExchange exchange) {
     RESPONSE_CODE responseCode = RESPONSE_CODE.G001;
-    log.error("[{}] {}. {}", responseCode.code(), responseCode.message(), e.getCause() != null ? "/ cause: " + e.getCause().getClass() : e.getClass());
-    ResponseDto<?> response = ResponseDto.body(responseCode);
+    log.error(LOGFMT, responseCode.code(), responseCode.message(), e.getCause() != null ? CAUSE + e.getCause().getClass() : e.getClass());
+    ResponseDto<Serializable> response = ResponseDto.body(responseCode);
     return Mono.just(response);
   }
   
   @ExceptionHandler({NotFoundException.class})
   @ResponseStatus(HttpStatus.OK)
-  protected Mono<ResponseDto<?>> handleNotFoundException(NotFoundException e, ServerWebExchange exchange) {
+  protected Mono<ResponseDto<Serializable>> handleNotFoundException(NotFoundException e, ServerWebExchange exchange) {
     RESPONSE_CODE responseCode = RESPONSE_CODE.G002;
-    log.error("[{}] {}. {}", responseCode.code(), responseCode.message(), e.getCause() != null ? "/ cause: " + e.getCause().getClass() : e.getClass());
-    ResponseDto<?> response = ResponseDto.body(responseCode);
+    log.error(LOGFMT, responseCode.code(), responseCode.message(), e.getCause() != null ? CAUSE + e.getCause().getClass() : e.getClass());
+    ResponseDto<Serializable> response = ResponseDto.body(responseCode);
     return Mono.just(response);
   }
 }

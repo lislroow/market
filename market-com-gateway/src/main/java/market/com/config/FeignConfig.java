@@ -16,11 +16,11 @@ public class FeignConfig {
 
   @Bean
   Decoder feignDecoder() {
-    return new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(() -> new HttpMessageConverters())));
+    return new OptionalDecoder(new ResponseEntityDecoder(new SpringDecoder(HttpMessageConverters::new)));
   }
 
   @Bean
   Encoder feignEncoder() {
-    return new SpringEncoder(() -> new HttpMessageConverters());
+    return new SpringEncoder(HttpMessageConverters::new);
   }
 }

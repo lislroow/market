@@ -1,6 +1,6 @@
 package market.api.customer.repository;
 
-import java.util.List;
+import java.util.ArrayList;
 import java.util.Optional;
 
 import org.springframework.data.repository.Repository;
@@ -11,10 +11,10 @@ public interface MyDeliveryRepository extends Repository<CustomerDelivery, Integ
 
   Optional<CustomerDelivery> findById(Integer param);
   
-  List<CustomerDelivery> findByCustomerId(String param);
+  ArrayList<CustomerDelivery> findByCustomerId(String param);
   
-  List<CustomerDelivery> saveAll(Iterable<CustomerDelivery> param);
+  ArrayList<CustomerDelivery> saveAll(Iterable<CustomerDelivery> param);
   
-  List<CustomerDelivery> deleteAll(Iterable<CustomerDelivery> param);
+  ArrayList<CustomerDelivery> deleteAll(Iterable<CustomerDelivery> param);
   
 }
