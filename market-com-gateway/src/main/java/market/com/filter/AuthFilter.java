@@ -1,7 +1,10 @@
 package market.com.filter;
 
+import java.util.List;
+
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.http.HttpCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
 import org.springframework.util.StringUtils;
@@ -32,10 +35,16 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       // pre process
       ServerHttpRequest request = exchange.getRequest();
       ServerHttpResponse response = exchange.getResponse();
-      String tokenId = request.getHeaders().get(Constant.X_TOKEN_ID).stream().findFirst().get();
-      if (!StringUtils.hasLength(tokenId)) {
-        log.warn("{} is null", Constant.X_TOKEN_ID);
-      } else {
+      List<String> headerTokens = request.getHeaders().get(Constant.X_TOKEN_ID);
+      String tokenId = null;
+      if (headerTokens == null || headerTokens.isEmpty()) {
+        HttpCookie cookieToken = request.getCookies().getFirst(Constant.X_TOKEN_ID);
+        tokenId = cookieToken != null ? cookieToken.getValue() : null;
+      } else if (headerTokens != null && !headerTokens.isEmpty()) {
+        tokenId = headerTokens.stream().findFirst().get();
+      }
+      
+      if (StringUtils.hasText(tokenId)) {
         log.info(Constant.X_TOKEN_ID+"={}", tokenId);
         log.debug("authFeign={}", authControllerFeign);
         ResponseDto<TokenResDto.Verify> resDto = authControllerFeign.verifyToken(tokenId);
