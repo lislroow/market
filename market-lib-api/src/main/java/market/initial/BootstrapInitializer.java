@@ -1,4 +1,4 @@
-package market.lib.initial;
+package market.initial;
 
 import org.springframework.boot.BootstrapRegistry;
 

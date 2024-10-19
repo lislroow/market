@@ -111,9 +111,11 @@ public class TokenService {
           new JWSHeader.Builder(JWSAlgorithm.RS256).type(JOSEObjectType.JWT).build(),
           claimsSet
           );
+      signedJWT.sign(this.signer);
       token = signedJWT.serialize();
       this.redisTemplate.opsForHash().put(tokenId, Constant.REFRESH_TOKEN, token);
     } catch (Exception e) {
+      log.error("message: {}", e.getMessage());
       throw new MarketException(RESPONSE_CODE.A001, e);
     }
     return tokenId;

@@ -1,6 +1,7 @@
 package market.api.security;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -25,6 +26,10 @@ public class SocialOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
   final UserRepository userRepository;
   final UserProducer userProducer;
   final ModelMapper model;
+  final BCryptPasswordEncoder bcryptPasswordEncoder;
+  
+  @Value("${social.user.defaultPassword}")
+  private String defaultPassword;
   
   @Transactional
   @Override
@@ -37,7 +42,7 @@ public class SocialOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     UserEntity entity = userRepository.findByOauth2Id(attributes.getOauth2Id());
     if (ObjectUtils.isEmpty(entity)) {
       entity = attributes.toEntity();
-      entity.setPassword("{bcrypt}" + new BCryptPasswordEncoder().encode("123"));
+      entity.setPassword("{bcrypt}" + bcryptPasswordEncoder.encode(defaultPassword));
       entity = userRepository.save(entity);
       userProducer.send(model.map(entity, User.class));
     }

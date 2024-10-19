@@ -3,6 +3,7 @@ package market.api.security;
 import java.io.IOException;
 
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseCookie;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -33,5 +34,7 @@ public class SocialOAuth2LoginSuccessHandler implements AuthenticationSuccessHan
     } catch (Exception e) {
       log.error(e.getMessage());
     }
+    response.setHeader(HttpHeaders.LOCATION, "/");
+    response.setStatus(HttpStatus.FOUND.value());
   }
 }
