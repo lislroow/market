@@ -10,7 +10,6 @@ import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
-import org.modelmapper.internal.util.Assert;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -25,6 +24,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.lib.aop.annotation.Login;
 import market.lib.aop.annotation.UserInfo;
+import market.lib.constant.Constant;
 import market.lib.enums.RESPONSE_CODE;
 import market.lib.exception.MarketException;
 import market.lib.vo.UserVo;
@@ -53,7 +53,7 @@ public class RestControllerAspect {
     log.debug("*ContentType  : {}", contentType);
     log.debug("*RemoteAddr   : {}", remoteAddr);
     
-    String userId = request.getHeader("X-USER_ID");
+    String userId = request.getHeader(Constant.X_TOKEN_ID);
     log.info("*userId   : {}", userId);
     
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
@@ -61,11 +61,8 @@ public class RestControllerAspect {
     Annotation[][] parameterAnnotations = refMethod.getParameterAnnotations();
     Login login = refMethod.getAnnotation(Login.class);
     Object[] args = joinPoint.getArgs();
-    if (login != null) {
-      if (!StringUtils.hasLength(userId)) {
-        throw new MarketException(RESPONSE_CODE.AL01);
-      }
-      //Assert.isTrue(StringUtils.hasLength(userId), "userId 가 null 입니다.");
+    if (login != null && !StringUtils.hasLength(userId)) {
+      throw new MarketException(RESPONSE_CODE.AL01);
     }
     
     for (int i=0; i<args.length; i++) {

@@ -4,6 +4,7 @@ import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +32,10 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       // pre process
       ServerHttpRequest request = exchange.getRequest();
       ServerHttpResponse response = exchange.getResponse();
-      if (request.getCookies().get(Constant.X_TOKEN_ID) != null) {
-        String tokenId = request.getCookies().get(Constant.X_TOKEN_ID).get(0).getValue();
+      String tokenId = request.getHeaders().get(Constant.X_TOKEN_ID).stream().findFirst().get();
+      if (!StringUtils.hasLength(tokenId)) {
+        log.warn("{} is null", Constant.X_TOKEN_ID);
+      } else {
         log.info(Constant.X_TOKEN_ID+"={}", tokenId);
         log.debug("authFeign={}", authControllerFeign);
         ResponseDto<TokenResDto.Verify> resDto = authControllerFeign.verifyToken(tokenId);
@@ -49,8 +52,6 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
           // post process
           log.debug("response status={}", response.getStatusCode())
         ));
-      } else {
-        log.info("tokenId is null");
       }
       return chain.filter(exchange).then(Mono.fromRunnable(() -> 
         // post process

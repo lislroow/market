@@ -12,7 +12,7 @@ public enum RESPONSE_CODE {
   A001("token creation error"),
   A002("token verification error"),
   A003("token is empty"),
-  AL01("login required"),
+  AL01("login required, userId is null"),
   C001("illegal access"),
   C002("fail to save")
   ;
