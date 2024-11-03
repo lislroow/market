@@ -15,4 +15,9 @@ public class Constant {
   public static final String REFRESH_TOKEN = "REFRESH_TOKEN";
   
   public static final String ENCODING_UTF8 = "utf-8";
+  
+  public static final String X_PUB_TOKEN = "X-PUB-TOKEN";
+  public static final String X_PUB_CAPTCHA_ENC = "X-PUB-CAPTCHA_ENC";
+  public static final String X_PUB_CAPTCHA_ANS = "X-PUB-CAPTCHA_ANS";
+  
 }
