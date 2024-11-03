@@ -11,6 +11,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
 import lombok.extern.slf4j.Slf4j;
+import market.com.config.redis.RedisSupport;
 import market.com.feign.AuthControllerFeign;
 import market.lib.constant.Constant;
 import market.lib.dto.ResponseDto;
@@ -22,10 +23,14 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
   
+  private RedisSupport redisSupport;
   private AuthControllerFeign authControllerFeign;
   
-  public AuthFilter(AuthControllerFeign authControllerFeign) {
+  public AuthFilter(
+      RedisSupport redisSupport,
+      AuthControllerFeign authControllerFeign) {
     super(Config.class);
+    this.redisSupport = redisSupport;
     this.authControllerFeign = authControllerFeign;
   }
   
@@ -43,10 +48,8 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       } else if (headerTokens != null && !headerTokens.isEmpty()) {
         tokenId = headerTokens.stream().findFirst().get();
       }
-      
       if (StringUtils.hasText(tokenId)) {
         log.info(Constant.X_TOKEN_ID+"={}", tokenId);
-        log.debug("authFeign={}", authControllerFeign);
         ResponseDto<TokenResDto.Verify> resDto = authControllerFeign.verifyToken(tokenId);
         if (resDto.getBody() == null) {
           throw new MarketException(RESPONSE_CODE.A002);

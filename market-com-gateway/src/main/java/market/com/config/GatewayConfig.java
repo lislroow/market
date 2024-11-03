@@ -3,6 +3,7 @@ package market.com.config;
 import java.nio.charset.StandardCharsets;
 
 import org.slf4j.MDC;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
@@ -18,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
+import market.com.config.redis.RedisSupport;
 import market.com.feign.AuthControllerFeign;
 import market.com.filter.AuthFilter;
 import market.lib.dto.ResponseDto;
@@ -74,9 +76,11 @@ public class GatewayConfig {
   }
   
   @Bean
-  @Order(Ordered.LOWEST_PRECEDENCE - 1)
-  AuthFilter authFilter(@Lazy AuthControllerFeign authControllerFeign) {
+  AuthFilter authFilter(
+      @Qualifier("redisSupportForAuthGuest") RedisSupport redisSupport,
+      @Lazy AuthControllerFeign authControllerFeign) {
     log.debug("create authFilter");
-    return new AuthFilter(authControllerFeign);
+    return new AuthFilter(redisSupport, authControllerFeign);
   }
+  
 }

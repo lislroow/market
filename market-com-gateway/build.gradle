@@ -24,6 +24,9 @@ dependencies {
   implementation "io.github.openfeign:feign-micrometer"
   implementation "io.micrometer:micrometer-observation"
   implementation "co.elastic.logging:logback-ecs-encoder:${logback_ecs_encoder_version}"
+  
+  implementation "org.springframework.boot:spring-boot-starter-data-redis"
+  implementation "org.modelmapper:modelmapper:${modelmapper_version}"
 }
 
 publishing {
