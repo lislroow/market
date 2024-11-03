@@ -1,5 +1,6 @@
 package market.lib.config.redis;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +19,11 @@ public class RedisSupport {
   // hash
   public void setHash(String key, String hashKey, Object val) {
     this.redisTemplate.opsForHash().put(key, hashKey, val);
+  }
+  
+  public void setHash(String key, String hashKey, Object val, Duration ttl) {
+    this.setHash(key, hashKey, val);
+    this.redisTemplate.expire(key, ttl);
   }
   
   @SuppressWarnings("unchecked")
@@ -53,4 +59,5 @@ public class RedisSupport {
   public void removeHash(String key, String hashKey) {
     this.redisTemplate.opsForHash().delete(key, hashKey);
   }
+  
 }

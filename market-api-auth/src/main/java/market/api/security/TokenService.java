@@ -10,6 +10,7 @@ import java.security.cert.X509Certificate;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.text.ParseException;
+import java.time.Duration;
 import java.util.Date;
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ import org.bouncycastle.asn1.pkcs.PrivateKeyInfo;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import org.modelmapper.internal.util.Assert;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseCookie;
 import org.springframework.stereotype.Component;
 
@@ -35,6 +36,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.api.config.JwtProperty;
+import market.lib.config.redis.RedisSupport;
 import market.lib.constant.Constant;
 import market.lib.dto.auth.TokenResDto;
 import market.lib.enums.RESPONSE_CODE;
@@ -46,8 +48,13 @@ import market.lib.vo.SessionUser;
 @RequiredArgsConstructor
 public class TokenService {
   
-  final RedisTemplate<String, String> redisTemplate;
+  @Qualifier("redisSupportForAuthUser")
+  final RedisSupport redisSupport;
   final JwtProperty jwtProperty;
+  
+  private Long refreshTokenExpTm;
+  private Long accessTokenExpTm;
+  
   private JWSSigner signer;
   private RSASSAVerifier verifier;
 
@@ -58,6 +65,8 @@ public class TokenService {
     
     RSAPrivateKey privateKey = loadRSAPrivateKey(jwtProperty.getCert().getPrivateKeyFilePath());
     this.signer = new RSASSASigner(privateKey);
+    this.refreshTokenExpTm = jwtProperty.getToken().getRefreshTokenExpireTime();
+    this.accessTokenExpTm = jwtProperty.getToken().getRefreshTokenExpireTime();
   }
   
   private RSAPrivateKey loadRSAPrivateKey(String keyFilePath) throws IOException {
@@ -87,24 +96,14 @@ public class TokenService {
     String tokenId = null;
     try {
       tokenId = UUID.randomUUID().toString();
-      JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
-          .subject(email)
-          .issuer(jwtProperty.getToken().getIssuer())
-          .expirationTime(new Date(new Date().getTime() + jwtProperty.getToken().getAccessTokenExpireTime() * 1000)) // 1시간 후 만료
-          .claim("scope", "user")
-          .build();
-      SignedJWT signedJWT = new SignedJWT(
-          new JWSHeader.Builder(JWSAlgorithm.RS256).type(JOSEObjectType.JWT).build(),
-          claimsSet
-      );
-      signedJWT.sign(this.signer);
-      String token = signedJWT.serialize();
-      this.redisTemplate.opsForHash().put(tokenId, Constant.ACCESS_TOKEN, token); // , Duration.ofMillis(5000)
+      JWTClaimsSet claimsSet;
+      SignedJWT signedJWT;
+      String token;
       
       claimsSet = new JWTClaimsSet.Builder()
           .subject(email)
           .issuer(jwtProperty.getToken().getIssuer())
-          .expirationTime(new Date(new Date().getTime() + jwtProperty.getToken().getRefreshTokenExpireTime() * 1000)) // 1시간 후 만료
+          .expirationTime(new Date(new Date().getTime() + refreshTokenExpTm * 1000))
           .claim("scope", "user")
           .build();
       signedJWT = new SignedJWT(
@@ -113,7 +112,22 @@ public class TokenService {
           );
       signedJWT.sign(this.signer);
       token = signedJWT.serialize();
-      this.redisTemplate.opsForHash().put(tokenId, Constant.REFRESH_TOKEN, token);
+      Duration ttl = Duration.ofSeconds(refreshTokenExpTm);
+      this.redisSupport.setHash(tokenId, Constant.REFRESH_TOKEN, token, ttl); // refreshToken 의 expireTime 을 ttl 로 설정
+      
+      claimsSet = new JWTClaimsSet.Builder()
+          .subject(email)
+          .issuer(jwtProperty.getToken().getIssuer())
+          .expirationTime(new Date(new Date().getTime() + accessTokenExpTm * 1000))
+          .claim("scope", "user")
+          .build();
+      signedJWT = new SignedJWT(
+          new JWSHeader.Builder(JWSAlgorithm.RS256).type(JOSEObjectType.JWT).build(),
+          claimsSet
+      );
+      signedJWT.sign(this.signer);
+      token = signedJWT.serialize();
+      this.redisSupport.setHash(tokenId, Constant.ACCESS_TOKEN, token);
     } catch (Exception e) {
       log.error("message: {}", e.getMessage());
       throw new MarketException(RESPONSE_CODE.A001, e);
@@ -131,7 +145,7 @@ public class TokenService {
   
   public TokenResDto.Verify verifyToken(String tokenId) throws ParseException, JOSEException {
     TokenResDto.Verify resDto = new TokenResDto.Verify();
-    Object accessToken = redisTemplate.opsForHash().get(tokenId, Constant.ACCESS_TOKEN);
+    Object accessToken = this.redisSupport.getHash(tokenId, Constant.ACCESS_TOKEN);
     Assert.isTrue(accessToken != null, "accessToken not be null");
     Assert.isTrue(accessToken instanceof String, "accessToken type is java.lang.String");
     

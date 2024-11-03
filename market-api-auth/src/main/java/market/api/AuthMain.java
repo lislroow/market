@@ -2,6 +2,7 @@ package market.api;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.ComponentScan;
@@ -10,7 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import market.api.config.JwtProperty;
 import market.lib.constant.Constant;
 
-@SpringBootApplication
+@SpringBootApplication(exclude = {RedisAutoConfiguration.class})
 @ComponentScan(basePackages = {Constant.BASE_PACKAGE})
 @EnableWebSecurity
 @EnableConfigurationProperties({OAuth2ClientProperties.class, JwtProperty.class})
