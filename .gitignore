@@ -43,6 +43,9 @@ bin
 */.scannerwork
 */.sonarlint
 
+# [memory-analyer]
+*/heapdump
+
 # [application]
 logs
 */logs
