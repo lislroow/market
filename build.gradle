@@ -75,6 +75,9 @@ subprojects {
     implementation platform("org.springframework.boot:spring-boot-dependencies:${spring_boot_version}")
     implementation platform("org.springframework.cloud:spring-cloud-dependencies:${spring_cloud_version}")
     
+    implementation "org.slf4j:slf4j-api"
+    implementation "com.fasterxml.jackson.core:jackson-databind"
+    
     compileOnly "org.projectlombok:lombok:${lombok_version}"
     annotationProcessor "org.projectlombok:lombok:${lombok_version}"
     
