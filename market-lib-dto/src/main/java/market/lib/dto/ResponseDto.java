@@ -12,15 +12,15 @@ public class ResponseDto<T> implements Serializable {
 
   private ResponseDto() {
     this.header = new Header();
-    this.header.code = "0000";
-    this.header.message = "Success";
+    this.header.code = RESPONSE_CODE.S000.name();
+    this.header.message = RESPONSE_CODE.S000.message();
     this.body = null;
   }
   
   private ResponseDto(T data) {
     this.header = new Header();
-    this.header.code = "0000";
-    this.header.message = "Success";
+    this.header.code = RESPONSE_CODE.S000.name();
+    this.header.message = RESPONSE_CODE.S000.message();
     this.body = data;
   }
   
