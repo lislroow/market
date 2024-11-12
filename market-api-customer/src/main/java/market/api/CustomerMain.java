@@ -1,6 +1,5 @@
 package market.api;
 
-import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.openfeign.EnableFeignClients;
@@ -16,9 +15,6 @@ import market.lib.constant.Constant;
 @EnableWebSecurity
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = Constant.BASE_PACKAGE)
-@MapperScan(basePackages = Constant.BASE_PACKAGE,
-  annotationClass = org.apache.ibatis.annotations.Mapper.class
-)
 @EnableFeignClients(basePackages = Constant.BASE_PACKAGE)
 public class CustomerMain {
   
