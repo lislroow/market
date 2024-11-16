@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import market.api.customer.entity.Customer;
 import market.api.customer.repository.MyInfoRepository;
-import market.lib.vo.User;
+import market.common.vo.User;
 
 @Component
 @RequiredArgsConstructor

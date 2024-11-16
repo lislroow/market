@@ -4,7 +4,7 @@ import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
-import market.lib.dto.kafka.OrderDto;
+import market.common.dto.kafka.OrderDto;
 
 @Component
 @RequiredArgsConstructor

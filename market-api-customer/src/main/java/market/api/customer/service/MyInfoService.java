@@ -13,7 +13,7 @@ import market.api.customer.entity.Customer;
 import market.api.customer.entity.CustomerDelivery;
 import market.api.customer.repository.MyDeliveryRepository;
 import market.api.customer.repository.MyInfoRepository;
-import market.lib.vo.UserVo;
+import market.common.vo.UserVo;
 
 @Service
 @Transactional(readOnly = true)

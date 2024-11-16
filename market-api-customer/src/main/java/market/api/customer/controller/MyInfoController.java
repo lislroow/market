@@ -13,10 +13,10 @@ import lombok.RequiredArgsConstructor;
 import market.api.customer.dto.MyInfoReqDto;
 import market.api.customer.dto.MyInfoResDto;
 import market.api.customer.service.MyInfoService;
-import market.lib.aop.annotation.Login;
-import market.lib.aop.annotation.UserInfo;
-import market.lib.dto.ResponseDto;
-import market.lib.vo.UserVo;
+import market.common.aop.annotation.Login;
+import market.common.aop.annotation.UserInfo;
+import market.common.dto.ResponseDto;
+import market.common.vo.UserVo;
 
 @RestController
 @RequiredArgsConstructor

@@ -14,9 +14,9 @@ import market.api.order.entity.Order;
 import market.api.order.producer.OrderProducer;
 import market.api.order.repository.CustomerRepository;
 import market.api.order.repository.OrderRepository;
-import market.lib.dto.kafka.OrderDto;
-import market.lib.vo.User;
-import market.lib.vo.UserVo;
+import market.common.dto.kafka.OrderDto;
+import market.common.vo.User;
+import market.common.vo.UserVo;
 
 @Service
 @Transactional

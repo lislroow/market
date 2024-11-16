@@ -18,12 +18,12 @@ import lombok.RequiredArgsConstructor;
 import market.api.product.dto.ProductReqDto;
 import market.api.product.dto.ProductResDto;
 import market.api.product.service.ProductService;
-import market.lib.aop.annotation.Login;
-import market.lib.aop.annotation.UserInfo;
-import market.lib.dto.ResponseDto;
-import market.lib.enums.RESPONSE_CODE;
-import market.lib.exception.MarketException;
-import market.lib.vo.UserVo;
+import market.common.aop.annotation.Login;
+import market.common.aop.annotation.UserInfo;
+import market.common.dto.ResponseDto;
+import market.common.enumcode.RESPONSE_CODE;
+import market.common.exception.MarketException;
+import market.common.vo.UserVo;
 
 @RestController
 @RequiredArgsConstructor

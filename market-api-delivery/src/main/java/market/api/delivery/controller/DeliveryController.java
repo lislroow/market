@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import market.api.delivery.dto.DeliveryResDto;
 import market.api.delivery.service.DeliveryService;
-import market.lib.dto.ResponseDto;
+import market.common.dto.ResponseDto;
 
 @RestController
 @RequiredArgsConstructor

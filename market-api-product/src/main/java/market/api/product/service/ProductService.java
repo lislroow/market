@@ -18,10 +18,10 @@ import market.api.product.dto.ProductReqDto;
 import market.api.product.dto.ProductResDto;
 import market.api.product.entity.Product;
 import market.api.product.repository.ProductRepository;
-import market.lib.constant.Constant;
-import market.lib.enums.RESPONSE_CODE;
-import market.lib.exception.MarketException;
-import market.lib.util.Uuid;
+import market.common.constant.Constant;
+import market.common.enumcode.RESPONSE_CODE;
+import market.common.exception.MarketException;
+import market.common.util.Uuid;
 
 @Service
 @Transactional

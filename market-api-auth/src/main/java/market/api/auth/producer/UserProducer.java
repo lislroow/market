@@ -3,7 +3,7 @@ package market.api.auth.producer;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
-import market.lib.vo.User;
+import market.common.vo.User;
 
 @Component
 public class UserProducer {

@@ -17,7 +17,7 @@ import market.api.delivery.entity.Order;
 import market.api.delivery.entity.id.DeliveryId;
 import market.api.delivery.repository.DeliveryRepository;
 import market.api.delivery.repository.OrderRepository;
-import market.lib.dto.kafka.OrderDto;
+import market.common.dto.kafka.OrderDto;
 
 @Slf4j
 @Component

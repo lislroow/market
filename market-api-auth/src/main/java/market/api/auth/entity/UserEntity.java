@@ -15,8 +15,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import market.lib.enumcode.Role;
-import market.lib.enumcode.YN;
+import market.common.enumcode.Role;
+import market.common.enumcode.YN;
 
 @Entity(name = "user")
 @DynamicInsert

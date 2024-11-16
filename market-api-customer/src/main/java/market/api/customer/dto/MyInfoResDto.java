@@ -3,7 +3,7 @@ package market.api.customer.dto;
 import java.io.Serializable;
 
 import lombok.Data;
-import market.lib.enumcode.YN;
+import market.common.enumcode.YN;
 
 public class MyInfoResDto implements Serializable {
   private static final long serialVersionUID = 1L;

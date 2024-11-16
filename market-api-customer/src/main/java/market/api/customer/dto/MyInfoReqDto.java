@@ -1,7 +1,7 @@
 package market.api.customer.dto;
 
 import lombok.Data;
-import market.lib.enumcode.YN;
+import market.common.enumcode.YN;
 
 public class MyInfoReqDto {
   

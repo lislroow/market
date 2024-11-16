@@ -15,7 +15,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import market.api.customer.dto.MyInfoReqDto;
-import market.lib.enumcode.YN;
+import market.common.enumcode.YN;
 
 @Entity
 @Data
