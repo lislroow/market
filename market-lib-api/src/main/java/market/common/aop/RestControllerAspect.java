@@ -3,6 +3,8 @@ package market.common.aop;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Formatter;
+import java.util.List;
 
 import org.apache.catalina.connector.RequestFacade;
 import org.apache.catalina.connector.ResponseFacade;
@@ -27,6 +29,7 @@ import market.common.aop.annotation.UserInfo;
 import market.common.constant.Constant;
 import market.common.enumcode.RESPONSE_CODE;
 import market.common.exception.MarketException;
+import market.common.util.AsciiTable;
 import market.common.vo.UserVo;
 
 @Aspect
@@ -36,9 +39,8 @@ import market.common.vo.UserVo;
 @RequiredArgsConstructor
 public class RestControllerAspect {
   
-  //@Around("execution(* market.*.controller.*Controller.*(..))") // market 하위 1단계만 weaving 됨 
   @SuppressWarnings("unused")
-  @Around("execution(* market..controller.*Controller.*(..))")  // market 하위 모든 단계가 weaving 됨
+  @Around("execution(* market..controller.*Controller.*(..))")
   public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
     jakarta.servlet.http.HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getRequest();
     jakarta.servlet.http.HttpServletResponse response = ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes()).getResponse();
@@ -46,22 +48,22 @@ public class RestControllerAspect {
     String method = request.getMethod();
     String contentType = request.getHeader("Content-Type");
     String remoteAddr = request.getRemoteAddr();
+    String tokenId = request.getHeader(Constant.X_TOKEN_ID);
     
-    log.debug("*Class        : {}", joinPoint.getTarget());
-    log.debug("*Method       : {}", method);
-    log.info("*RequestURI   : {}", reqUri);
-    log.debug("*ContentType  : {}", contentType);
-    log.debug("*RemoteAddr   : {}", remoteAddr);
-    
-    String userId = request.getHeader(Constant.X_TOKEN_ID);
-    log.info("*userId   : {}", userId);
+    List<AsciiTable.Column> columns = AsciiTable.ColumnLayout.NAME_VALUE;
+    Formatter fmt = AsciiTable.header(columns);
+    AsciiTable.body(columns, new Object[] {"RequestURI", String.format("%s %s", method, reqUri)}, fmt);
+    AsciiTable.body(columns, new Object[] {"Class", joinPoint.getSignature().toShortString()}, fmt);
+    AsciiTable.body(columns, new Object[] {"RemoteAddr", String.format("%s  %s", remoteAddr, tokenId)}, fmt);
+    AsciiTable.space(columns, fmt);
+    log.info("Request Info \n{}", fmt);
     
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
     Method refMethod = methodSignature.getMethod();
     Annotation[][] parameterAnnotations = refMethod.getParameterAnnotations();
     Login login = refMethod.getAnnotation(Login.class);
     Object[] args = joinPoint.getArgs();
-    if (login != null && !StringUtils.hasLength(userId)) {
+    if (login != null && !StringUtils.hasLength(tokenId)) {
       throw new MarketException(RESPONSE_CODE.AL01);
     }
     
@@ -72,7 +74,7 @@ public class RestControllerAspect {
           .anyMatch(annotation -> annotation.annotationType().equals(UserInfo.class));
       if (hasUserInfoAnnotation && arg instanceof UserVo) {
         UserVo userVo = new UserVo();
-        userVo.setUserId(userId);
+        userVo.setUserId(tokenId);
         args[i] = userVo;
       }
     }

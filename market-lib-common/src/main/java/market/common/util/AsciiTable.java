@@ -1,5 +1,6 @@
 package market.common.util;
 
+import java.util.Arrays;
 import java.util.Formatter;
 import java.util.List;
 
@@ -11,6 +12,12 @@ import lombok.NoArgsConstructor;
 public class AsciiTable {
   
   public static final String SPACE = "-";
+  
+  public static class ColumnLayout {
+    public static final List<AsciiTable.Column> NAME_VALUE = Arrays.asList(
+        new AsciiTable.Column("Name", 20),
+        new AsciiTable.Column("Value", 40));
+  }
   
   @Data
   @Builder
