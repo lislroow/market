@@ -38,7 +38,7 @@ public class PagingInterceptor implements Interceptor {
     ResultHandler<?> resultHandler = (ResultHandler<?>) args[3];
     Executor executor = (Executor) invocation.getTarget();
     
-    log.info("sqlid: {}", ms.getId());
+    log.debug("sqlid: {}", ms.getId());
     if (parameter instanceof Pageable &&
         SqlCommandType.SELECT == ms.getSqlCommandType()) {
       PagedList<Object> pagedList = new PagedList<>();
