@@ -1,17 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<configuration scan="true" scanPeriod="3 seconds">
-  <conversionRule conversionWord="clr" converterClass="org.springframework.boot.logging.logback.ColorConverter" />
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr([%C{40}]){cyan}:%L{cyan} ## %msg%n</pattern>
-    </encoder>
-  </appender>
+<configuration>
   
   <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
   
-  <root level="info">
+  <logger name="org.springframework.security" level="debug" additivity="false">
     <appender-ref ref="STDOUT"/>
-  </root>
+  </logger>
+  
+  <logger name="org.springframework.data.repository.config.RepositoryConfigurationDelegate" level="error" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.servlet.FrameworkServlet" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.security.web" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="com.zaxxer.hikari.pool.HikariPool" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="io.lettuce.core" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.data.redis" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.apache.kafka" level="error" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
   
   
   <logger name="com.netflix.discovery" level="info" additivity="false">
