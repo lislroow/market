@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD mapper 3.0//EN" 
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="market.prototype.dao.EmployDao">
+  
+  <select id="findAll" resultType="EmployVo">
+    SELECT *
+    FROM   employ
+    ORDER BY id DESC
+  </select>
+  
+  <select id="findById" resultType="EmployVo">
+    SELECT *
+    FROM   employ
+    WHERE  id = #{id}
+  </select>
+  
+  <select id="findList">
+    SELECT *
+    FROM   employ
+    ORDER BY id DESC
+  </select>
+  
+  <select id="findListByName" resultType="EmployVo">
+    SELECT *
+    FROM   employ
+    <if test="name != null and !''.equals(vo.name)">
+      WHERE name LIKE '%'||#{vo.name}||'%'
+    </if>
+    ORDER BY id DESC
+  </select>
+  
+  <insert id="add">
+    INSERT INTO employ (
+        id,
+        name,
+        create_date,
+        modify_date,
+        create_id,
+        modify_id
+      ) VALUES (
+        #{vo.id},
+        #{vo.name},
+        now(),
+        now(),
+        #{vo.createId},
+        #{vo.modifyId}
+      )
+  </insert>
+  
+  <update id="modifyNameById">
+    UPDATE employ
+       SET name = #{vo.name},
+           modify_date = now(),
+           modify_id = #{vo.modifyId}
+     WHERE id = #{vo.id}
+  </update>
+  
+  <delete id="removeById">
+    DELETE
+      FROM employ
+     WHERE id = #{vo.id}
+  </delete>
+  
+</mapper>
