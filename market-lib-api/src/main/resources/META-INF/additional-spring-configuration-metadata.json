@@ -1,6 +1,12 @@
 {
   "properties": [
     {
+      "name": "spring.datasource.init",
+      "type": "java.lang.Boolean"
+    },
+    
+    
+    {
       "name": "spring.datasource.hikari.enabled",
       "type": "java.lang.Boolean"
     },
