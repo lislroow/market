@@ -2,14 +2,19 @@ package market.common.filter;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import market.common.constant.Constant;
 import market.common.dto.ResponseDto;
@@ -20,22 +25,27 @@ import market.common.feign.AuthControllerFeign;
 import market.common.redis.RedisSupport;
 import reactor.core.publisher.Mono;
 
+@Component
 @Slf4j
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
   
-  private RedisSupport authGuestRedisSupport;
-  private AuthControllerFeign authControllerFeign;
-  
-  public AuthFilter(
-      RedisSupport authGuestRedisSupport,
-      AuthControllerFeign authControllerFeign) {
-    super(Config.class);
-    this.authGuestRedisSupport = authGuestRedisSupport;
-    this.authControllerFeign = authControllerFeign;
+  public AuthFilter() {
+    super(AuthFilter.Config.class);
   }
   
+  @Autowired(required = false)
+  @Qualifier(Constant.REDIS.AUTH_USER + "RedisSupport")
+  private RedisSupport authUserRedisSupport;
+  
+  @Autowired(required = false)
+  @Qualifier(Constant.REDIS.AUTH_GUEST + "RedisSupport")
+  private RedisSupport authGuestRedisSupport;
+  
+  @Lazy
+  private AuthControllerFeign authControllerFeign;
+  
   @Override
-  public GatewayFilter apply(Config config) {
+  public GatewayFilter apply(AuthFilter.Config config) {
     return (exchange, chain) -> {
       // pre process
       ServerHttpRequest request = exchange.getRequest();
@@ -72,7 +82,8 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     };
   }
   
+  @Data
   public static class Config {
-    long id = -1;
+    private Long id = -1L;
   }
 }

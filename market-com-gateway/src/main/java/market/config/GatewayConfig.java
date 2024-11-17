@@ -3,12 +3,10 @@ package market.config;
 import java.nio.charset.StandardCharsets;
 
 import org.slf4j.MDC;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;
 import org.springframework.cloud.gateway.filter.GlobalFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.core.io.buffer.DataBuffer;
@@ -19,12 +17,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
-import market.common.constant.Constant;
 import market.common.dto.ResponseDto;
 import market.common.enumcode.RESPONSE_CODE;
-import market.common.feign.AuthControllerFeign;
-import market.common.filter.AuthFilter;
-import market.common.redis.RedisSupport;
 import reactor.core.publisher.Mono;
 
 
@@ -75,12 +69,4 @@ public class GatewayConfig {
         log.info("[{}] {}.", RESPONSE_CODE.S000.code(), RESPONSE_CODE.S000.message());
       }));
   }
-  
-  @Bean
-  AuthFilter authFilter(
-      @Qualifier(Constant.REDIS.AUTH_GUEST + "RedisSupport") RedisSupport authGuestRedisSupport,
-      @Lazy AuthControllerFeign authControllerFeign) {
-    return new AuthFilter(authGuestRedisSupport, authControllerFeign);
-  }
-  
 }
