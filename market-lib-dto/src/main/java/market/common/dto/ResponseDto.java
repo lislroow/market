@@ -49,27 +49,27 @@ public class ResponseDto<T> implements Serializable {
     private String message;
   }
   
-  public static<T extends Serializable> ResponseDto<T> body(String code, String message, T data) {
+  public static<T> ResponseDto<T> body(String code, String message, T data) {
     return new ResponseDto<>(code, message, data);
   }
   
-  public static<T extends Serializable> ResponseDto<T> body(String code, String message) {
+  public static<T> ResponseDto<T> body(String code, String message) {
     return new ResponseDto<>(code, message);
   }
   
-//  public static<T extends Serializable> ResponseDto<T> body(RESPONSE_CODE responseCode, T data) {
+//  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode, T data) {
 //    return new ResponseDto<>(responseCode.code(), responseCode.message(), data);
 //  }
 //  
-//  public static<T extends Serializable> ResponseDto<T> body(RESPONSE_CODE responseCode) {
+//  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode) {
 //    return new ResponseDto<>(responseCode.code(), responseCode.message());
 //  }
   
-  public static<T extends Serializable> ResponseDto<T> body(T data) {
+  public static<T> ResponseDto<T> body(T data) {
     return new ResponseDto<>(data);
   }
 
-  public static<T extends Serializable> ResponseDto<T> body() {
+  public static<T> ResponseDto<T> body() {
     return new ResponseDto<>();
   }
 

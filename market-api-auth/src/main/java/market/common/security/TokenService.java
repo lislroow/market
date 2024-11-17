@@ -36,7 +36,7 @@ import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.common.constant.Constant;
-import market.common.dto.auth.TokenResDto;
+import market.common.dto.TokenResDto;
 import market.common.enumcode.RESPONSE_CODE;
 import market.common.exception.MarketException;
 import market.common.redis.RedisSupport;

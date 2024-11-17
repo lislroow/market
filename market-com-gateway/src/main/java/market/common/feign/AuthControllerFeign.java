@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import market.common.dto.ResponseDto;
-import market.common.dto.auth.TokenResDto;
+import market.common.dto.TokenResDto;
 import market.config.FeignConfig;
 
 @FeignClient(name = "market-api-auth", url = "http://localhost:20000", configuration = { FeignConfig.class })

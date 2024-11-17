@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.common.dto.ResponseDto;
-import market.common.dto.auth.TokenResDto;
+import market.common.dto.TokenResDto;
 import market.common.enumcode.RESPONSE_CODE;
 import market.common.exception.MarketException;
 import market.common.security.TokenService;

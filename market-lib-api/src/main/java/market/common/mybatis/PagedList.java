@@ -5,66 +5,65 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonFormat.Shape;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.Data;
 
-
-@Data
 @JsonFormat(shape = Shape.OBJECT)
 public class PagedList<T> implements List<T> {
 
   private List<T> list;
   private Paged paged = new Paged();
   
-  @Data
-  class Paged {
-    // param
-    Integer page;
-    Integer pageSize;
-    
-    // result
-    Integer start;
-    Integer end;
-    Integer total = -1;
+  public List<T> getList() {
+    return list;
+  }
+  public void setList(List<T> list) {
+    this.list = list;
+  }
+  public Paged getPaged() {
+    return paged;
+  }
+  public void setPaged(Paged paged) {
+    this.paged = paged;
   }
   
   public void setPage(Integer page) {
-    paged.page = page;
+    paged.setPage(page);
   }
   public void setPageSize(Integer pageSize) {
-    paged.pageSize = pageSize;
+    paged.setPageSize(pageSize);
   }
   public void setStart(Integer start) {
-    paged.start = start;
+    paged.setStart(start);
   }
   public void setEnd(Integer end) {
-    paged.end = end;
+    paged.setEnd(end);
   }
   public void setTotal(Integer total) {
-    paged.total = total;
+    paged.setTotal(total);
   }
   
   @JsonIgnore
   public Integer getPage() {
-    return paged.page;
+    return paged.getPage();
   }
   @JsonIgnore
   public Integer getPageSize() {
-    return paged.pageSize;
+    return paged.getPageSize();
   }
   @JsonIgnore
   public Integer getStart() {
-    return paged.start;
+    return paged.getStart();
   }
   @JsonIgnore
   public Integer getEnd() {
-    return paged.end;
+    return paged.getEnd();
   }
   @JsonIgnore
   public Integer getTotal() {
-    return paged.total;
+    return paged.getTotal();
   }
   
   
@@ -98,7 +97,6 @@ public class PagedList<T> implements List<T> {
     return list.toArray();
   }
 
-  @SuppressWarnings("hiding")
   @Override
   public <T> T[] toArray(T[] a) {
     return list.toArray(a);

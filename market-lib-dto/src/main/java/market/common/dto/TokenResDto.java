@@ -1,4 +1,4 @@
-package market.common.dto.auth;
+package market.common.dto;
 
 import java.io.Serializable;
 

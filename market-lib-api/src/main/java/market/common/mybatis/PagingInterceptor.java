@@ -13,17 +13,18 @@ import org.apache.ibatis.plugin.Signature;
 import org.apache.ibatis.session.ResultContext;
 import org.apache.ibatis.session.ResultHandler;
 import org.apache.ibatis.session.RowBounds;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import lombok.extern.slf4j.Slf4j;
-
-@Slf4j
 @Intercepts({
     @Signature(type = Executor.class, method = "query", 
         args = { MappedStatement.class, Object.class, RowBounds.class, ResultHandler.class }
     ),
 })
 public class PagingInterceptor implements Interceptor {
-
+  
+  Logger log = LoggerFactory.getLogger(PagingInterceptor.class);
+  
   @Override
   public Object plugin(Object target) {
     return Plugin.wrap(target, this);
@@ -38,15 +39,19 @@ public class PagingInterceptor implements Interceptor {
     Executor executor = (Executor) invocation.getTarget();
     
     log.info("sqlid: {}", ms.getId());
-    if (parameter instanceof Pageable pagableParameter &&
+    if (parameter instanceof Pageable &&
         SqlCommandType.SELECT == ms.getSqlCommandType()) {
       PagedList<Object> pagedList = new PagedList<>();
-        executor.query(ms, parameter,
-            new RowBounds(0, RowBounds.NO_ROW_LIMIT),
-            resultContext -> pagedList.setTotal(resultContext.getResultCount())
-          );
-      int page = pagableParameter.getPage();
-      int pageSize = pagableParameter.getPageSize();
+      executor.query(ms, parameter,
+          new RowBounds(0, RowBounds.NO_ROW_LIMIT),
+          new ResultHandler() {
+            @Override
+            public void handleResult(ResultContext resultContext) {
+              pagedList.setTotal(resultContext.getResultCount());
+            }
+          });
+      int page = ((Pageable) parameter).getPage();
+      int pageSize = ((Pageable) parameter).getPageSize();
       int offset = (page - 1) * pageSize;
       int limit = pageSize;
       int start = offset + 1;
