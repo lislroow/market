@@ -17,6 +17,11 @@ public class Constant {
     public static final String POSTGRES = "postgres";
   }
   
+  public static class REDIS {
+    public static final String AUTH_GUEST = "authGuest";
+    public static final String AUTH_USER = "authUser";
+  }
+  
   public static final String SQL_SESSION_FACTORY_BEAN = "SqlSessionFactoryBean";
   public static final String DAO = "Dao";
 

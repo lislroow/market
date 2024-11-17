@@ -6,7 +6,7 @@ import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @SpringBootApplication(
-    exclude = {RedisAutoConfiguration.class})
+    exclude = { RedisAutoConfiguration.class })
 @EnableFeignClients
 public class GatewayMain {
   

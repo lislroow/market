@@ -9,6 +9,9 @@ dependencies {
   implementation "org.springframework.boot:spring-boot"
   implementation "com.fasterxml.jackson.core:jackson-annotations"
   implementation "io.swagger:swagger-annotations:${swagger_version}"
+  
+  implementation "org.springframework.boot:spring-boot-starter-data-redis"
+  implementation "org.modelmapper:modelmapper:${modelmapper_version}"
 }
 
 publishing {

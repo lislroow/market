@@ -19,6 +19,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import lombok.extern.slf4j.Slf4j;
+import market.common.constant.Constant;
 import market.common.dto.ResponseDto;
 import market.common.enumcode.RESPONSE_CODE;
 import market.common.feign.AuthControllerFeign;
@@ -77,10 +78,9 @@ public class GatewayConfig {
   
   @Bean
   AuthFilter authFilter(
-      @Qualifier("redisSupportForAuthGuest") RedisSupport redisSupport,
+      @Qualifier(Constant.REDIS.AUTH_GUEST + "RedisSupport") RedisSupport authGuestRedisSupport,
       @Lazy AuthControllerFeign authControllerFeign) {
-    log.debug("create authFilter");
-    return new AuthFilter(redisSupport, authControllerFeign);
+    return new AuthFilter(authGuestRedisSupport, authControllerFeign);
   }
   
 }

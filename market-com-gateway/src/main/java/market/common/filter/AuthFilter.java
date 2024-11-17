@@ -23,14 +23,14 @@ import reactor.core.publisher.Mono;
 @Slf4j
 public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> {
   
-  private RedisSupport redisSupport;
+  private RedisSupport authGuestRedisSupport;
   private AuthControllerFeign authControllerFeign;
   
   public AuthFilter(
-      RedisSupport redisSupport,
+      RedisSupport authGuestRedisSupport,
       AuthControllerFeign authControllerFeign) {
     super(Config.class);
-    this.redisSupport = redisSupport;
+    this.authGuestRedisSupport = authGuestRedisSupport;
     this.authControllerFeign = authControllerFeign;
   }
   
