@@ -26,12 +26,13 @@ import reactor.core.publisher.Mono;
 @Configuration
 public class GatewayConfig {
   
-  private static final ObjectMapper objectMapper = new ObjectMapper();
+  private final ObjectMapper objectMapper = new ObjectMapper();
   
   @Bean
   @Order(Ordered.HIGHEST_PRECEDENCE)
   ErrorWebExceptionHandler globalErrorHandler() {
     return (exchange, e) -> {
+      log.error(e.getMessage());
       MDC.put("requestUrl", exchange.getRequest().getURI().toString());
       MDC.put("clientIp", exchange.getRequest().getRemoteAddress().getAddress().getHostAddress());
       log.error("[{}] {}. {}", RESPONSE_CODE.G999.code(), RESPONSE_CODE.G999.message(), e.getCause() != null ? "/ cause: " + e.getCause().getClass() : e.getClass());
