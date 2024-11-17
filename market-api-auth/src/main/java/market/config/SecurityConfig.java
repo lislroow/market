@@ -54,6 +54,7 @@ public class SecurityConfig {
           .requestMatchers("/auth/v1/login/process").permitAll()
           .requestMatchers("/auth/v1/session").permitAll()
           .requestMatchers("/auth/v1/token/**").permitAll()
+          .requestMatchers("/internal/auth/v1/token/**").permitAll()
           .requestMatchers("/actuator/**").permitAll()
           .requestMatchers("/error").permitAll()
           //.requestMatchers("/auth/v1/test").permitAll()
