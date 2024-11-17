@@ -6,6 +6,7 @@ plugins {
 dependencies {
   implementation enforcedPlatform(project(":"))
   
+  implementation "org.springframework.boot:spring-boot"
   implementation "com.fasterxml.jackson.core:jackson-annotations"
   implementation "io.swagger:swagger-annotations:${swagger_version}"
 }

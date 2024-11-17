@@ -32,6 +32,9 @@ public class ApplicationReadyHandler {
     List<BootJarVo> list = ClasspathLibs.getBootJars();
     IntStream.range(0, list.size()-1)
       .forEach(i -> {
+        if (list.get(i) == null || list.get(i).getJar() == null) {
+          return;
+        }
         if (!list.get(i).getJar().equals("spring-boot") && 
             !list.get(i).getJar().equals("spring-cloud-starter")) {
           return; 
