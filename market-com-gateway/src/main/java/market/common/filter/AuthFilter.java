@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
-import org.springframework.context.annotation.Lazy;
 import org.springframework.http.HttpCookie;
 import org.springframework.http.server.reactive.ServerHttpRequest;
 import org.springframework.http.server.reactive.ServerHttpResponse;
@@ -21,7 +20,6 @@ import market.common.dto.ResponseDto;
 import market.common.dto.TokenResDto;
 import market.common.enumcode.RESPONSE_CODE;
 import market.common.exception.MarketException;
-import market.common.feign.AuthControllerFeign;
 import market.common.redis.RedisSupport;
 import reactor.core.publisher.Mono;
 
@@ -33,16 +31,14 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
     super(AuthFilter.Config.class);
   }
   
-  @Autowired(required = false)
+  @Autowired
   @Qualifier(Constant.REDIS.AUTH_USER + "RedisSupport")
   private RedisSupport authUserRedisSupport;
   
-  @Autowired(required = false)
+  @Autowired
   @Qualifier(Constant.REDIS.AUTH_GUEST + "RedisSupport")
   private RedisSupport authGuestRedisSupport;
   
-  @Lazy
-  private AuthControllerFeign authControllerFeign;
   
   @Override
   public GatewayFilter apply(AuthFilter.Config config) {
@@ -60,7 +56,8 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       }
       if (StringUtils.hasText(tokenId)) {
         log.info(Constant.X_TOKEN_ID+"={}", tokenId);
-        ResponseDto<TokenResDto.Verify> resDto = authControllerFeign.verifyToken(tokenId);
+        //ResponseDto<TokenResDto.Verify> resDto = authControllerFeign.verifyToken(tokenId);
+        ResponseDto<TokenResDto.Verify> resDto = null;
         if (resDto.getBody() == null) {
           throw new MarketException(RESPONSE_CODE.A002);
         }
