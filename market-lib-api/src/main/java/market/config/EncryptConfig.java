@@ -8,13 +8,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class JasyptConfig {
+public class EncryptConfig {
   
   @Value("${jasypt.encryptor.password}")
   private String passwordKey;
   
   @Bean("jasyptStringEncryptor")
-  StringEncryptor stringEncryptor(){
+  protected StringEncryptor stringEncryptor(){
     PooledPBEStringEncryptor encryptor = new PooledPBEStringEncryptor();
     SimpleStringPBEConfig config = new SimpleStringPBEConfig();
     config.setPassword(passwordKey == null ? System.getProperty("jasypt.encryptor.password") : passwordKey);
