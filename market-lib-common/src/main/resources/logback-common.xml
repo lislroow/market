@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+  
+  <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+  
+  <logger name="org.springframework.security" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  
+  <logger name="org.springframework.data.repository.config.RepositoryConfigurationDelegate" level="error" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.servlet.FrameworkServlet" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.security.web" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="com.zaxxer.hikari.pool.HikariPool" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="io.lettuce.core" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.data.redis" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.apache.kafka" level="error" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  
+  
+  <logger name="com.netflix.discovery" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.apache.http" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.apache.hc" level="info" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  
+  <!-- 필수 -->
+  <logger name="org.springframework.core.log.LogFormatUtils" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.servlet.handler.AbstractHandlerMapping" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.method.support.InvocableHandlerMethod" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.servlet.mvc.method.annotation.ExceptionHandlerExceptionResolver" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.servlet.mvc.method.annotation.AbstractMessageConverterMethodProcessor" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.servlet.handler.AbstractHandlerExceptionResolver" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <logger name="org.springframework.web.servlet.FrameworkServlet" level="debug" additivity="false">
+    <appender-ref ref="STDOUT"/>
+  </logger>
+  <!-- //필수 -->
+</configuration>

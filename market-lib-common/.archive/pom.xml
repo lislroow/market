@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <artifactId>market-com-eureka</artifactId>
+  <artifactId>market-lib-common</artifactId>
   <parent>
     <groupId>spring.app</groupId>
     <artifactId>market</artifactId>
@@ -17,13 +17,17 @@
   
   <dependencies>
     <dependency>
-      <groupId>org.springframework.cloud</groupId>
-      <artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
     </dependency>
-    
     <dependency>
-      <groupId>spring.app</groupId>
-      <artifactId>market-lib-common</artifactId>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-annotations</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>io.swagger</groupId>
+      <artifactId>swagger-annotations</artifactId>
+      <version>${swagger.version}</version>
     </dependency>
   </dependencies>
   
@@ -31,11 +35,6 @@
     <defaultGoal>compile</defaultGoal>
     <directory>${basedir}/target</directory>
     <finalName>${project.artifactId}-${project.version}</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.springframework.boot</groupId>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-      </plugin>
-    </plugins>
   </build>
+  
 </project>

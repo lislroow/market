@@ -98,11 +98,7 @@
     
     <dependency>
       <groupId>spring.app</groupId>
-      <artifactId>market-lib-const</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>spring.app</groupId>
-      <artifactId>market-lib-dto</artifactId>
+      <artifactId>market-lib-common</artifactId>
     </dependency>
   </dependencies>
   

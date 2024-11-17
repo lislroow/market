@@ -29,8 +29,7 @@
   </scm>
 
   <modules>
-    <module>market-lib-const</module>
-    <module>market-lib-dto</module>
+    <module>market-lib-common</module>
     <module>market-lib-api</module>
     <module>market-com-eureka</module>
     <module>market-com-gateway</module>
@@ -70,9 +69,8 @@
     <jasypt-spring-boot.version>3.0.5</jasypt-spring-boot.version>
     <log4jdbc.version>1.16</log4jdbc.version>
     
-    <market-lib-dto.version>0.1-SNAPSHOT</market-lib-dto.version>
     <market-lib-api.version>0.1-SNAPSHOT</market-lib-api.version>
-    <market-lib-const.version>0.1-SNAPSHOT</market-lib-const.version>
+    <market-lib-common.version>0.1-SNAPSHOT</market-lib-common.version>
     
     <maven-compiler-plugin.version>3.13.0</maven-compiler-plugin.version>
   </properties>
@@ -144,13 +142,8 @@
       </dependency>
       <dependency>
         <groupId>spring.app</groupId>
-        <artifactId>market-lib-dto</artifactId>
-        <version>${market-lib-dto.version}</version>
-      </dependency>
-      <dependency>
-        <groupId>spring.app</groupId>
-        <artifactId>market-lib-const</artifactId>
-        <version>${market-lib-const.version}</version>
+        <artifactId>market-lib-common</artifactId>
+        <version>${market-lib-common.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

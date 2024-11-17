@@ -6,8 +6,7 @@ plugins {
 dependencies {
   implementation enforcedPlatform(project(":"))
   
-  api project(":market-lib-const")
-  api project(":market-lib-dto")
+  api project(":market-lib-common")
   
   implementation "com.fasterxml.jackson.core:jackson-annotations"
   implementation "io.swagger:swagger-annotations:${swagger_version}"
