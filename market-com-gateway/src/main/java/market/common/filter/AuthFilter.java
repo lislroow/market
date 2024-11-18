@@ -13,6 +13,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.server.ServerWebExchange;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import market.common.constant.Constant;
@@ -47,12 +49,23 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       ServerHttpRequest request = exchange.getRequest();
       ServerHttpResponse response = exchange.getResponse();
       List<String> headerTokens = request.getHeaders().get(Constant.HTTP_HEADER.X_TOKEN_ID);
+      
+      // 1) tokenId 확보
       String tokenId = null;
-      if (headerTokens == null || headerTokens.isEmpty()) {
-        HttpCookie cookieToken = request.getCookies().getFirst(Constant.HTTP_HEADER.X_TOKEN_ID);
-        tokenId = cookieToken != null ? cookieToken.getValue() : null;
-      } else if (headerTokens != null && !headerTokens.isEmpty()) {
-        tokenId = headerTokens.stream().findFirst().get();
+      {
+        if (headerTokens == null || headerTokens.isEmpty()) {
+          HttpCookie cookieToken = request.getCookies().getFirst(Constant.HTTP_HEADER.X_TOKEN_ID);
+          tokenId = cookieToken != null ? cookieToken.getValue() : null;
+        } else if (headerTokens != null && !headerTokens.isEmpty()) {
+          tokenId = headerTokens.stream().findFirst().get();
+        }
+      }
+      
+      // 2) token 검증
+      {
+        ObjectMapper objectMapper = new ObjectMapper();
+        
+        String accessToken = null;
       }
       if (StringUtils.hasText(tokenId)) {
         log.info(Constant.HTTP_HEADER.X_TOKEN_ID+"={}", tokenId);

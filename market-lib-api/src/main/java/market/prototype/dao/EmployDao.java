@@ -5,10 +5,20 @@ import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import market.common.annotation.MapperH2;
+import market.common.annotation.MapperMaria;
+import market.common.annotation.MapperOracle;
+import market.common.annotation.MapperPostgres;
+import market.common.annotation.MapperVertica;
 import market.common.mybatis.Pageable;
 import market.common.mybatis.PagedList;
 import market.prototype.vo.EmployVo;
 
+@MapperH2
+@MapperMaria
+@MapperOracle
+@MapperVertica
+@MapperPostgres
 @Mapper
 public interface EmployDao {
   

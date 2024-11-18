@@ -57,12 +57,12 @@ public class RestControllerAspect {
     AsciiTable.body(columns, new Object[] {"RemoteAddr", String.format("%s  %s", remoteAddr, tokenId)}, fmt);
     AsciiTable.space(columns, fmt);
     log.info("Request Info \n{}", fmt);
-    
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
     Method refMethod = methodSignature.getMethod();
     Annotation[][] parameterAnnotations = refMethod.getParameterAnnotations();
     Login login = refMethod.getAnnotation(Login.class);
     Object[] args = joinPoint.getArgs();
+    /*
     if (login != null && !StringUtils.hasLength(tokenId)) {
       throw new MarketException(RESPONSE_CODE.AL01);
     }
@@ -78,7 +78,7 @@ public class RestControllerAspect {
         args[i] = userVo;
       }
     }
-    
+    */
     Object result = null;
     Throwable throwable = null;
     try {

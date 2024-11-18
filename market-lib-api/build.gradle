@@ -34,8 +34,6 @@ dependencies {
   api "org.mapstruct:mapstruct:${mapstruct_version}"
   api "org.modelmapper:modelmapper:${modelmapper_version}"
   api "com.zaxxer:HikariCP"
-  
-  api "org.mariadb.jdbc:mariadb-java-client"
   //api "com.fasterxml.jackson.datatype:jackson-datatype-jsr310"
   
   annotationProcessor "org.springframework.boot:spring-boot-configuration-processor:${spring_boot_version}"

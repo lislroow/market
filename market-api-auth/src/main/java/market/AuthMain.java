@@ -5,15 +5,14 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.data.redis.RedisAutoConfiguration;
 import org.springframework.boot.autoconfigure.security.oauth2.client.OAuth2ClientProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import market.common.constant.Constant;
 import market.config.properties.JwtProperties;
 
-@SpringBootApplication(exclude = {RedisAutoConfiguration.class})
-@ComponentScan(basePackages = {Constant.BASE_PACKAGE})
+@SpringBootApplication(exclude = { RedisAutoConfiguration.class })
 @EnableWebSecurity
+@EnableTransactionManagement
 @EnableConfigurationProperties({OAuth2ClientProperties.class, JwtProperties.class})
 public class AuthMain {
   

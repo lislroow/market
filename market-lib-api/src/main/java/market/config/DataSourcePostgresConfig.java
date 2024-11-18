@@ -19,6 +19,10 @@ import lombok.extern.slf4j.Slf4j;
 import market.common.constant.Constant;
 
 @Configuration
+@ConditionalOnProperty(
+    prefix = "market.datasource."+Constant.DBMS.POSTGRES + ".hikari", name = Constant.ENABLED,
+    havingValue = "true",
+    matchIfMissing = false)
 @Slf4j
 public class DataSourcePostgresConfig {
   

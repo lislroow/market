@@ -8,6 +8,8 @@ dependencies {
   implementation enforcedPlatform(project(":"))
   
   implementation project(":market-lib-api")
+  
+  implementation "org.mariadb.jdbc:mariadb-java-client"
 }
 
 publishing {
