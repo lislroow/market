@@ -48,8 +48,8 @@ import market.config.properties.JwtProperties;
 @RequiredArgsConstructor
 public class TokenService {
   
-  @Qualifier("redisSupportForAuthUser")
-  final RedisSupport redisSupport;
+  @Qualifier(value = Constant.REDIS.AUTH_USER + "RedisSupport")
+  final RedisSupport authUserRedisSupport;
   final JwtProperties jwtProperties;
   
   private Long refreshTokenExpTm;
@@ -113,7 +113,7 @@ public class TokenService {
       signedJWT.sign(this.signer);
       token = signedJWT.serialize();
       Duration ttl = Duration.ofSeconds(refreshTokenExpTm);
-      this.redisSupport.setHash(tokenId, Constant.Token.REFRESH_TOKEN, token, ttl); // refreshToken 의 expireTime 을 ttl 로 설정
+      this.authUserRedisSupport.setHash(tokenId, Constant.Token.REFRESH_TOKEN, token, ttl); // refreshToken 의 expireTime 을 ttl 로 설정
       
       claimsSet = new JWTClaimsSet.Builder()
           .subject(email)
@@ -127,7 +127,7 @@ public class TokenService {
       );
       signedJWT.sign(this.signer);
       token = signedJWT.serialize();
-      this.redisSupport.setHash(tokenId, Constant.Token.ACCESS_TOKEN, token);
+      this.authUserRedisSupport.setHash(tokenId, Constant.Token.ACCESS_TOKEN, token);
     } catch (Exception e) {
       log.error("message: {}", e.getMessage());
       throw new MarketException(RESPONSE_CODE.A001, e);
@@ -145,7 +145,7 @@ public class TokenService {
   
   public TokenResDto.Verify verifyToken(String tokenId) throws ParseException, JOSEException {
     TokenResDto.Verify resDto = new TokenResDto.Verify();
-    Object accessToken = this.redisSupport.getHash(tokenId, Constant.Token.ACCESS_TOKEN);
+    Object accessToken = this.authUserRedisSupport.getHash(tokenId, Constant.Token.ACCESS_TOKEN);
     Assert.isTrue(accessToken != null, "accessToken not be null");
     Assert.isTrue(accessToken instanceof String, "accessToken type is java.lang.String");
     
