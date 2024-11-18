@@ -39,7 +39,7 @@ public enum REDIS_TYPE {
   }
   
   public String sqlSessionFactoryBeanName() {
-    return this.code + Constant.SQL_SESSION_FACTORY_BEAN;
+    return this.code + Constant.BEAN.SQL_SESSION_FACTORY_BEAN;
   }
   
   public static REDIS_TYPE fromCode(String code) {

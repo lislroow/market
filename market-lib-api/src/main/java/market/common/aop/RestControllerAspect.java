@@ -48,7 +48,7 @@ public class RestControllerAspect {
     String method = request.getMethod();
     String contentType = request.getHeader("Content-Type");
     String remoteAddr = request.getRemoteAddr();
-    String tokenId = request.getHeader(Constant.X_TOKEN_ID);
+    String tokenId = request.getHeader(Constant.HTTP_HEADER.X_TOKEN_ID);
     
     List<AsciiTable.Column> columns = AsciiTable.ColumnLayout.NAME_VALUE;
     Formatter fmt = AsciiTable.header(columns);

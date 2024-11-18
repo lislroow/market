@@ -22,18 +22,25 @@ public class Constant {
     public static final String AUTH_USER = "authUser";
   }
   
-  public static final String SQL_SESSION_FACTORY_BEAN = "SqlSessionFactoryBean";
-  public static final String DAO = "Dao";
-
-  public static final String X_TOKEN_ID = "X-TOKEN-ID";
-  public static final String ACCESS_TOKEN = "ACCESS-TOKEN";
-  public static final String REFRESH_TOKEN = "REFRESH-TOKEN";
+  public static class BEAN {
+    public static final String SQL_SESSION_FACTORY_BEAN = "SqlSessionFactoryBean";
+    public static final String DAO = "Dao";
+  }
   
-  public static final String PUB_TOKEN_ID = "PUB-TOKEN-ID";
-  public static final String PUB_CAPTCHA_ENC = "PUB-CAPTCHA-ENC";
-  public static final String PUB_CAPTCHA_ANS = "PUB-CAPTCHA-ANS";
+  public static class HTTP_HEADER {
+    public static final String X_TOKEN_ID = "X-TOKEN-ID";
+    public static final String X_CAPTCHA_EC = "X-CAPTCHA-EC";
+    public static final String X_CAPTCHA_ANSWER = "X-CAPTCHA-ANSWER";
+  }
   
-  public static final String UPLOAD_BASE = "/upload";
-  public static final String UPLOAD_BASE_PRODUCT = UPLOAD_BASE+"/product";
+  public static class Token {
+    public static final String ACCESS_TOKEN = "accessToken";
+    public static final String REFRESH_TOKEN = "refreshToken";
+  }
+  
+  public static class File {
+    public static final String UPLOAD_BASE = "/upload";
+    public static final String UPLOAD_PRODUCT = UPLOAD_BASE+"/product";
+  }
   
 }

@@ -46,16 +46,16 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
       // pre process
       ServerHttpRequest request = exchange.getRequest();
       ServerHttpResponse response = exchange.getResponse();
-      List<String> headerTokens = request.getHeaders().get(Constant.X_TOKEN_ID);
+      List<String> headerTokens = request.getHeaders().get(Constant.HTTP_HEADER.X_TOKEN_ID);
       String tokenId = null;
       if (headerTokens == null || headerTokens.isEmpty()) {
-        HttpCookie cookieToken = request.getCookies().getFirst(Constant.X_TOKEN_ID);
+        HttpCookie cookieToken = request.getCookies().getFirst(Constant.HTTP_HEADER.X_TOKEN_ID);
         tokenId = cookieToken != null ? cookieToken.getValue() : null;
       } else if (headerTokens != null && !headerTokens.isEmpty()) {
         tokenId = headerTokens.stream().findFirst().get();
       }
       if (StringUtils.hasText(tokenId)) {
-        log.info(Constant.X_TOKEN_ID+"={}", tokenId);
+        log.info(Constant.HTTP_HEADER.X_TOKEN_ID+"={}", tokenId);
         //ResponseDto<TokenResDto.Verify> resDto = authControllerFeign.verifyToken(tokenId);
         ResponseDto<TokenResDto.Verify> resDto = null;
         if (resDto.getBody() == null) {
@@ -64,7 +64,7 @@ public class AuthFilter extends AbstractGatewayFilterFactory<AuthFilter.Config> 
         
         String userId = resDto.getBody().getUserId();
         ServerHttpRequest modifiedRequest = request.mutate()
-            .header(Constant.X_TOKEN_ID, userId)
+            .header(Constant.HTTP_HEADER.X_TOKEN_ID, userId)
             .build();
         ServerWebExchange modifiedExchange = exchange.mutate().request(modifiedRequest).build();
         return chain.filter(modifiedExchange).then(Mono.fromRunnable(() -> 

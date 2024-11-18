@@ -36,7 +36,7 @@ public class MybatisMariaConfig {
   @Qualifier(Constant.DBMS.MARIA + "DataSource")
   DataSource dataSource;
   
-  @Bean(name = Constant.DBMS.MARIA + Constant.SQL_SESSION_FACTORY_BEAN)
+  @Bean(name = Constant.DBMS.MARIA + Constant.BEAN.SQL_SESSION_FACTORY_BEAN)
   SqlSessionFactoryBean sqlSessionFactoryBean() {
     MybatisProperties.Configure config = mybatisProperties.getConfigure(DBMS_TYPE.MARIA);
     String typeAliasesPackage = config.getTypeAliasesPackage();

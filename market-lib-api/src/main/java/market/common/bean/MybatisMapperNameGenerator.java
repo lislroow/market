@@ -23,11 +23,11 @@ public class MybatisMapperNameGenerator extends AnnotationBeanNameGenerator {
     
     String beanClassName = definition.getBeanClassName();
     String daoName = beanClassName;
-    if (daoName.lastIndexOf(Constant.DAO) > -1) {
+    if (daoName.lastIndexOf(Constant.BEAN.DAO) > -1) {
       daoName = daoName.substring(daoName.lastIndexOf('.') + 1);
       daoName = daoName.substring(0, 1).toLowerCase() + daoName.substring(1);
-      String entityName = daoName.substring(0, daoName.lastIndexOf(Constant.DAO));
-      daoName = entityName + dbmsType.capital() + Constant.DAO;
+      String entityName = daoName.substring(0, daoName.lastIndexOf(Constant.BEAN.DAO));
+      daoName = entityName + dbmsType.capital() + Constant.BEAN.DAO;
     }
     definition.setPrimary(dbmsType.isPrimary());
     log.info("[mybatis-mapper-scanner][primary: {}][{}] {}", dbmsType.isPrimary(), dbmsType.code(), daoName);

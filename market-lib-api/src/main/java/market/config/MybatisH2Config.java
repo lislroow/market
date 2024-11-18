@@ -36,7 +36,7 @@ public class MybatisH2Config {
   @Qualifier(value = Constant.DBMS.H2 + "DataSource")
   DataSource dataSource;
   
-  @Bean(name = Constant.DBMS.H2 + Constant.SQL_SESSION_FACTORY_BEAN)
+  @Bean(name = Constant.DBMS.H2 + Constant.BEAN.SQL_SESSION_FACTORY_BEAN)
   SqlSessionFactoryBean sqlSessionFactoryBean() throws Exception {
     MybatisProperties.Configure config = mybatisProperties.getConfigure(DBMS_TYPE.H2);
     String typeAliasesPackage = config.getTypeAliasesPackage();

@@ -36,7 +36,7 @@ public class MybatisOracleConfig {
   @Qualifier(Constant.DBMS.ORACLE + "DataSource")
   DataSource dataSource;
   
-  @Bean(name = Constant.DBMS.ORACLE + Constant.SQL_SESSION_FACTORY_BEAN)
+  @Bean(name = Constant.DBMS.ORACLE + Constant.BEAN.SQL_SESSION_FACTORY_BEAN)
   SqlSessionFactoryBean sqlSessionFactoryBean() {
     MybatisProperties.Configure config = mybatisProperties.getConfigure(DBMS_TYPE.ORACLE);
     String typeAliasesPackage = config.getTypeAliasesPackage();

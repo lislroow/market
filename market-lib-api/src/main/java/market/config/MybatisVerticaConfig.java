@@ -36,7 +36,7 @@ public class MybatisVerticaConfig {
   @Qualifier(value = Constant.DBMS.VERTICA + "DataSource")
   DataSource dataSource;
   
-  @Bean(name = Constant.DBMS.VERTICA + Constant.SQL_SESSION_FACTORY_BEAN)
+  @Bean(name = Constant.DBMS.VERTICA + Constant.BEAN.SQL_SESSION_FACTORY_BEAN)
   SqlSessionFactoryBean sqlSessionFactoryBean() {
     MybatisProperties.Configure config = mybatisProperties.getConfigure(DBMS_TYPE.VERTICA);
     String typeAliasesPackage = config.getTypeAliasesPackage();

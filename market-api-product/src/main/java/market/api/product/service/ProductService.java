@@ -65,13 +65,13 @@ public class ProductService {
         throw new MarketException(RESPONSE_CODE.C001);
       }
       String originExt = originName.substring(originName.lastIndexOf(".")+1, originName.length());
-      String imgThumbPath = Constant.UPLOAD_BASE_PRODUCT + File.pathSeparator + Uuid.create() + "." + originExt;
+      String imgThumbPath = Constant.File.UPLOAD_PRODUCT + File.pathSeparator + Uuid.create() + "." + originExt;
       if (System.getProperty("os.name").startsWith("Win")) {
-        File dir = new File("C:"+Constant.UPLOAD_BASE_PRODUCT);
+        File dir = new File("C:"+Constant.File.UPLOAD_PRODUCT);
         if (!dir.exists()) dir.mkdirs();
         imgThumb.transferTo(new File("C:"+imgThumbPath));
       } else {
-        File dir = new File(Constant.UPLOAD_BASE_PRODUCT);
+        File dir = new File(Constant.File.UPLOAD_PRODUCT);
         if (!dir.exists()) dir.mkdirs();
         imgThumb.transferTo(new File(imgThumbPath));
       }

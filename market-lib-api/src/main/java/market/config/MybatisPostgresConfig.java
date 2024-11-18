@@ -36,7 +36,7 @@ public class MybatisPostgresConfig {
   @Qualifier(value = Constant.DBMS.POSTGRES + "DataSource")
   DataSource dataSource;
   
-  @Bean(name = Constant.DBMS.POSTGRES + Constant.SQL_SESSION_FACTORY_BEAN)
+  @Bean(name = Constant.DBMS.POSTGRES + Constant.BEAN.SQL_SESSION_FACTORY_BEAN)
   SqlSessionFactoryBean sqlSessionFactoryBean() {
     MybatisProperties.Configure config = mybatisProperties.getConfigure(DBMS_TYPE.POSTGRES);
     String typeAliasesPackage = config.getTypeAliasesPackage();
