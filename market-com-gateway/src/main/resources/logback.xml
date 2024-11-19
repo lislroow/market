@@ -11,6 +11,7 @@
     </encoder>
   </appender>
   
+  <!-- 
   <logger name="org.springframework.web.reactive.function.client" level="debug" additivity="false">
     <appender-ref ref="STDOUT"/>
   </logger>
@@ -26,6 +27,7 @@
   <logger name="reactor.netty" level="debug" additivity="false">
     <appender-ref ref="STDOUT"/>
   </logger>
+  -->
   
   <root level="info">
     <appender-ref ref="STDOUT"/>
