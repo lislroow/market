@@ -78,6 +78,7 @@ public class ClasspathLibs {
             }
             return null;
           })
+          .filter(item -> item != null)
           .collect(Collectors.toList());
     }
     
