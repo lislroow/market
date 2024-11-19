@@ -54,7 +54,7 @@
     <spring-cloud.version>2022.0.5</spring-cloud.version>
     <spring-cloud.version>2023.0.2</spring-cloud.version>
     -->
-    <spring-boot.version>3.3.3</spring-boot.version>
+    <spring-boot.version>3.3.5</spring-boot.version>
     <spring-cloud.version>2023.0.3</spring-cloud.version>
     <mybatis.version>3.0.3</mybatis.version>
     

@@ -23,7 +23,7 @@ ext {
   
   java_version = 17
   
-  spring_boot_version = '3.3.4'
+  spring_boot_version = '3.3.5'
   spring_cloud_version = '2023.0.3'
   mybatis_version = '3.0.3'
   
