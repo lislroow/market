@@ -26,6 +26,8 @@ public class ClasspathLibs {
   
   public static List<BootJarVo> getBootJars() {
     List<BootJarVo> result = new ArrayList<>();
+    //Map<String, String> map = new LinkedHashMap<>();
+    
     URL jarUrl = ClasspathLibs.class
         .getProtectionDomain()
         .getCodeSource()
@@ -52,6 +54,7 @@ public class ClasspathLibs {
               String library = matcher.group(1);
               String version = matcher.group(2);
               result.add(new BootJarVo(library, version));
+              //map.put(library, version);
             } else {
               System.err.println("jar(BOOT-INF/lib) format not matched. " + line);
             }

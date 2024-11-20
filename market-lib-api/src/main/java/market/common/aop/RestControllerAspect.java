@@ -3,7 +3,7 @@ package market.common.aop;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.Formatter;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.apache.catalina.connector.RequestFacade;
@@ -14,7 +14,6 @@ import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import org.springframework.util.StringUtils;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,15 +21,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import market.common.aop.annotation.Login;
-import market.common.aop.annotation.UserInfo;
 import market.common.constant.Constant;
-import market.common.enumcode.RESPONSE_CODE;
-import market.common.exception.MarketException;
 import market.common.util.AsciiTable;
-import market.common.vo.UserVo;
 
 @Aspect
 @Order(1)
@@ -38,6 +35,13 @@ import market.common.vo.UserVo;
 @Slf4j
 @RequiredArgsConstructor
 public class RestControllerAspect {
+  
+  @Data
+  @AllArgsConstructor
+  public static class PrintVo {
+    private String name;
+    private String value;
+  }
   
   @SuppressWarnings("unused")
   @Around("execution(* market..controller.*Controller.*(..))")
@@ -49,14 +53,20 @@ public class RestControllerAspect {
     String contentType = request.getHeader("Content-Type");
     String remoteAddr = request.getRemoteAddr();
     String tokenId = request.getHeader(Constant.HTTP_HEADER.X_TOKEN_ID);
+    List<RestControllerAspect.PrintVo> list = Arrays.asList(
+        new RestControllerAspect.PrintVo("RequestURI", String.format("%s <%s>", reqUri, method)),
+        new RestControllerAspect.PrintVo("Class", joinPoint.getSignature().toShortString()),
+        new RestControllerAspect.PrintVo("RemoteAddr", remoteAddr),
+        new RestControllerAspect.PrintVo(Constant.HTTP_HEADER.X_TOKEN_ID, tokenId)
+        );
     
-    List<AsciiTable.Column> columns = AsciiTable.ColumnLayout.NAME_VALUE;
-    Formatter fmt = AsciiTable.header(columns);
-    AsciiTable.body(columns, new Object[] {"RequestURI", String.format("%s %s", method, reqUri)}, fmt);
-    AsciiTable.body(columns, new Object[] {"Class", joinPoint.getSignature().toShortString()}, fmt);
-    AsciiTable.body(columns, new Object[] {"RemoteAddr", String.format("%s  %s", remoteAddr, tokenId)}, fmt);
-    AsciiTable.space(columns, fmt);
-    log.info("Request Info \n{}", fmt);
+    log.info("Request Info\n{}", AsciiTable.getTable(new LinkedHashMap<>() {{
+        put("RequestURI", String.format("%s <%s>", reqUri, method));
+        put("Class", joinPoint.getSignature().toShortString());
+        put("RemoteAddr", remoteAddr);
+        put(Constant.HTTP_HEADER.X_TOKEN_ID, tokenId);
+    }}));
+    
     MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
     Method refMethod = methodSignature.getMethod();
     Annotation[][] parameterAnnotations = refMethod.getParameterAnnotations();
