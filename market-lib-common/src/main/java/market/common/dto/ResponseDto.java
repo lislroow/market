@@ -57,13 +57,13 @@ public class ResponseDto<T> implements Serializable {
     return new ResponseDto<>(code, message);
   }
   
-//  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode, T data) {
-//    return new ResponseDto<>(responseCode.code(), responseCode.message(), data);
-//  }
-//  
-//  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode) {
-//    return new ResponseDto<>(responseCode.code(), responseCode.message());
-//  }
+  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode, T data) {
+    return new ResponseDto<>(responseCode.code(), responseCode.message(), data);
+  }
+  
+  public static<T> ResponseDto<T> body(RESPONSE_CODE responseCode) {
+    return new ResponseDto<>(responseCode.code(), responseCode.message());
+  }
   
   public static<T> ResponseDto<T> body(T data) {
     return new ResponseDto<>(data);
