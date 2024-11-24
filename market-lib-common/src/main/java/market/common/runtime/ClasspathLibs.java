@@ -19,21 +19,18 @@ import market.common.vo.BootJarVo;
 public class ClasspathLibs {
   
   public static final String REGEX_BOOT_JAR = "(?:nested:)(.*)(?:/!BOOT-INF/.*)";
-  public static final String REGEX_CLASSPATH_IDX = "(?<=BOOT-INF/lib/)(.*)(?:-)(\\d+(\\.[a-zA-Z0-9]+)*(?:-[a-zA-Z]*)*)\\.jar";
-  public static final String REGEX_JAVA_CLASSPATH = "(.*)(?:-)(\\d+(\\.[a-zA-Z0-9]+)*(?:-[a-zA-Z]*)*)\\.jar";
+  public static final String REGEX_JAVA_CLASSPATH = "(.*?)(?:-)*(\\d+(?:\\.[a-zA-Z0-9]+)*(?:-[a-zA-Z0-9_-]*)*)*(?=\\.jar)";
+  public static final String REGEX_CLASSPATH_IDX = "(?<=BOOT-INF/lib/)"+REGEX_JAVA_CLASSPATH;
   
   public static final String FILE_CLASSPATH_IDX = "BOOT-INF/classpath.idx";
   
   public static List<BootJarVo> getBootJars() {
     List<BootJarVo> result = new ArrayList<>();
-    //Map<String, String> map = new LinkedHashMap<>();
-    
     URL jarUrl = ClasspathLibs.class
         .getProtectionDomain()
         .getCodeSource()
         .getLocation();
     String path = jarUrl.getPath();
-    
     boolean isBootJar = Pattern.compile(REGEX_BOOT_JAR).matcher(path).matches();
     if (isBootJar) {
       Matcher matcher = Pattern.compile(REGEX_BOOT_JAR).matcher(path);
@@ -52,11 +49,13 @@ public class ClasspathLibs {
             matcher = pattern.matcher(line);
             if (matcher.find()) {
               String library = matcher.group(1);
-              String version = matcher.group(2);
+              String version = null;
+              if (matcher.groupCount() > 1) {
+                version = matcher.group(2);
+              }
               result.add(new BootJarVo(library, version));
-              //map.put(library, version);
             } else {
-              System.err.println("jar(BOOT-INF/lib) format not matched. " + line);
+              System.err.println("jar (BOOT-INF/lib) format not matched. " + line);
             }
           }
         }
@@ -74,10 +73,13 @@ public class ClasspathLibs {
             Matcher matcher = pattern.matcher(fileName);
             if (matcher.find()) {
               String library = matcher.group(1);
-              String version = matcher.group(2);
+              String version = null;
+              if (matcher.groupCount() > 1) {
+                version = matcher.group(2);
+              }
               return new BootJarVo(library, version);
             } else {
-              System.err.println("jar(JAVA_CLASSPATH) format not matched. " + fileName);
+              System.err.println("jar (JAVA_CLASSPATH) format not matched. " + fileName);
             }
             return null;
           })
