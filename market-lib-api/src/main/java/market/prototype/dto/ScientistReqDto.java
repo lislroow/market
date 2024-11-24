@@ -6,7 +6,7 @@ import lombok.EqualsAndHashCode;
 import market.common.audit.AuditVo;
 
 @Data
-public class EmployReqDto {
+public class ScientistReqDto {
 
   @Data
   @EqualsAndHashCode(callSuper=false)

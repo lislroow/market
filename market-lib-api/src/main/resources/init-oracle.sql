@@ -1,25 +1,30 @@
 /*
 */
-drop table employ;
 
-create table employ 
+DROP SEQUENCE SCIENTIST_SEQ;
+CREATE SEQUENCE SCIENTIST_SEQ START WITH 1 INCREMENT BY 1 NOCACHE;
+
+
+DROP TABLE SCIENTIST;
+CREATE TABLE SCIENTIST 
 (
- id varchar(14),
- name varchar(255),
- create_date timestamp,
- modify_date timestamp,
- create_id varchar(14),
- modify_id varchar(14),
- primary key (id)
+  ID INT PRIMARY KEY,
+  NAME VARCHAR2(255),
+  CREATE_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  MODIFY_DATE TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CREATE_ID INT DEFAULT 1,
+  MODIFY_ID INT DEFAULT 1
 );
 
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O1hrggys4b3hh4', 'scott', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0qdyu0v35h5k6', 'tiger', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0s0xbssk4qvz9', 'ecycle', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0urv6uvvmd084', 'yslee', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0t8cf2ynjdw6q', 'sckim', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0rhofdnmqjs52', 'dhkim', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0qhkkc07160c2', 'jkpark', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0qeeyfij2z885', 'yhlee', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0qxyvj1lwgldj', 'jckim', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
-insert into employ (id, name, create_date, modify_date, create_id, modify_id) values('O0sl3e2kacak4i', 'mgkim', SYSTIMESTAMP, SYSTIMESTAMP, 1, 1);
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Galileo Galilei');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Johannes Kepler');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Isaac Newton');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Dmitri Mendeleev');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Albert Einstein');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Stephen Hawking');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Nikola Tesla');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Niels Bohr');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Michael Faraday');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'James Clerk Maxwell');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Alan Turing');
+INSERT INTO SCIENTIST (ID, NAME) VALUES(SCIENTIST_SEQ.NEXTVAL, 'Richard Feynman');

@@ -12,9 +12,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import lombok.RequiredArgsConstructor;
 import market.common.dto.ResponseDto;
-import market.prototype.dao.EmployDao;
-import market.prototype.dto.EmployResDto;
-import market.prototype.vo.EmployVo;
+import market.prototype.dao.ScientistDao;
+import market.prototype.dto.ScientistResDto;
+import market.prototype.vo.ScientistVo;
 
 @RestController
 @RequiredArgsConstructor
@@ -23,110 +23,110 @@ public class MybatisController {
   final ModelMapper modelMapper;
   
   @Autowired(required = false)
-  @Qualifier(value = "employDao")
-  private EmployDao employDao;
+  @Qualifier(value = "scientistDao")
+  private ScientistDao scientistDao;
   
   @Autowired(required = false)
-  private EmployDao employPrimaryDao;
+  private ScientistDao scientistPrimaryDao;
 
   @Autowired(required = false)
-  @Qualifier(value = "employH2Dao")
-  private EmployDao employH2Dao;
+  @Qualifier(value = "scientistH2Dao")
+  private ScientistDao scientistH2Dao;
   
   @Autowired(required = false)
-  @Qualifier(value = "employMariaDao")
-  private EmployDao employMariaDao;
+  @Qualifier(value = "scientistMariaDao")
+  private ScientistDao scientistMariaDao;
   
   @Autowired(required = false)
-  @Qualifier(value = "employOracleDao")
-  private EmployDao employOracleDao;
+  @Qualifier(value = "scientistOracleDao")
+  private ScientistDao scientistOracleDao;
   
   @Autowired(required = false)
-  @Qualifier(value = "employPostgresDao")
-  private EmployDao employPostgresDao;
+  @Qualifier(value = "scientistPostgresDao")
+  private ScientistDao scientistPostgresDao;
   
-  @GetMapping("/prototype/v1/all")
-  public ResponseDto<EmployResDto.EmployList> all() {
-    EmployResDto.EmployList resDto = new EmployResDto.EmployList();
-    List<EmployResDto.Employ> listAll = new ArrayList<EmployResDto.Employ>();
-    listAll.addAll(employH2Dao.findAll().stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+  @GetMapping("/mybatis/v1/all")
+  public ResponseDto<ScientistResDto.ScientistList> all() {
+    ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
+    List<ScientistResDto.Scientist> listAll = new ArrayList<ScientistResDto.Scientist>();
+    listAll.addAll(scientistH2Dao.findAll().stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList()));
-    listAll.addAll(employMariaDao.findAll().stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+    listAll.addAll(scientistMariaDao.findAll().stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList()));
-    listAll.addAll(employOracleDao.findAll().stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+    listAll.addAll(scientistOracleDao.findAll().stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList()));
-    listAll.addAll(employPostgresDao.findAll().stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+    listAll.addAll(scientistPostgresDao.findAll().stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList()));
     resDto.setList(listAll);
     return ResponseDto.body(resDto);
   }
   
-  @GetMapping("/prototype/v1/standard")
-  public ResponseDto<EmployResDto.EmployList> standard() {
-    List<EmployVo> result = employDao.findAll();
-    List<EmployResDto.Employ> list = result.stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+  @GetMapping("/mybatis/v1/standard")
+  public ResponseDto<ScientistResDto.ScientistList> standard() {
+    List<ScientistVo> result = scientistDao.findAll();
+    List<ScientistResDto.Scientist> list = result.stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList());
-    EmployResDto.EmployList resDto = new EmployResDto.EmployList();
+    ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
     resDto.setList(list);
     return ResponseDto.body(resDto);
   }
   
-  @GetMapping("/prototype/v1/primary")
-  public ResponseDto<EmployResDto.EmployList> primary() {
-    List<EmployVo> result = employPrimaryDao.findAll();
-    List<EmployResDto.Employ> list = result.stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+  @GetMapping("/mybatis/v1/primary")
+  public ResponseDto<ScientistResDto.ScientistList> primary() {
+    List<ScientistVo> result = scientistPrimaryDao.findAll();
+    List<ScientistResDto.Scientist> list = result.stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList());
-    EmployResDto.EmployList resDto = new EmployResDto.EmployList();
+    ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
     resDto.setList(list);
     return ResponseDto.body(resDto);
   }
   
-  @GetMapping("/prototype/v1/h2")
-  public ResponseDto<EmployResDto.EmployList> h2() {
-    List<EmployVo> result = employH2Dao.findAll();
-    List<EmployResDto.Employ> list = result.stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+  @GetMapping("/mybatis/v1/h2")
+  public ResponseDto<ScientistResDto.ScientistList> h2() {
+    List<ScientistVo> result = scientistH2Dao.findAll();
+    List<ScientistResDto.Scientist> list = result.stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList());
-    EmployResDto.EmployList resDto = new EmployResDto.EmployList();
+    ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
     resDto.setList(list);
     return ResponseDto.body(resDto);
   }
   
-  @GetMapping("/prototype/v1/maria")
-  public ResponseDto<EmployResDto.EmployList> maria() {
-    List<EmployVo> result = employMariaDao.findAll();
-    List<EmployResDto.Employ> list = result.stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+  @GetMapping("/mybatis/v1/maria")
+  public ResponseDto<ScientistResDto.ScientistList> maria() {
+    List<ScientistVo> result = scientistMariaDao.findAll();
+    List<ScientistResDto.Scientist> list = result.stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList());
-    EmployResDto.EmployList resDto = new EmployResDto.EmployList();
+    ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
     resDto.setList(list);
     return ResponseDto.body(resDto);
   }
   
-  @GetMapping("/prototype/v1/oracle")
-  public ResponseDto<EmployResDto.EmployList> oracle() {
-    List<EmployVo> result = employOracleDao.findAll();
-    List<EmployResDto.Employ> list = result.stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+  @GetMapping("/mybatis/v1/oracle")
+  public ResponseDto<ScientistResDto.ScientistList> oracle() {
+    List<ScientistVo> result = scientistOracleDao.findAll();
+    List<ScientistResDto.Scientist> list = result.stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList());
-    EmployResDto.EmployList resDto = new EmployResDto.EmployList();
+    ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
     resDto.setList(list);
     return ResponseDto.body(resDto);
   }
   
-  @GetMapping("/prototype/v1/postgres")
-  public ResponseDto<EmployResDto.EmployList> postgres() {
-    List<EmployVo> result = employPostgresDao.findAll();
-    List<EmployResDto.Employ> list = result.stream()
-        .map(item -> modelMapper.map(item, EmployResDto.Employ.class))
+  @GetMapping("/mybatis/v1/postgres")
+  public ResponseDto<ScientistResDto.ScientistList> postgres() {
+    List<ScientistVo> result = scientistPostgresDao.findAll();
+    List<ScientistResDto.Scientist> list = result.stream()
+        .map(item -> modelMapper.map(item, ScientistResDto.Scientist.class))
         .collect(Collectors.toList());
-    EmployResDto.EmployList resDto = new EmployResDto.EmployList();
+    ScientistResDto.ScientistList resDto = new ScientistResDto.ScientistList();
     resDto.setList(list);
     return ResponseDto.body(resDto);
   }
