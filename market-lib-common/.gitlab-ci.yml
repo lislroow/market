@@ -1,0 +1,17 @@
+.variables_market-lib-common:
+  variables:
+    APP_NAME: "market-lib-common"
+
+.build_market-lib-common:
+  extends:
+    - .variables_market-lib-common
+  stage: build
+  tags:
+    - gradle
+  script:
+    - gradlew :$APP_NAME:build
+  cache:
+    key: "${CI_PROJECT_NAME}-gradle-cache"
+    paths:
+      - .gradle/wrapper/
+      - .gradle/caches/

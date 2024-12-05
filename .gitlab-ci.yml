@@ -1,0 +1,9 @@
+stages:
+  - build
+
+include:
+  - local: "./market-lib-common/.gitlab-ci.yml"
+
+build_market-lib-common:
+  extends:
+    - .build_market-lib-common
